@@ -14,10 +14,12 @@ def index2(request):
 def post_create(request):
     form = PostForm(request.POST or None)
     print form
+    '''
     if form.is_valid():
         instance = form.save(commit=False)
         print form.cleaned_data.get("title")
         instance.save()
+    '''
     # if request.method == "POST":
     # 	print "title" + request.POST.get("content")
     # 	print request.POST.get("title")
