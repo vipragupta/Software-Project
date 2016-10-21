@@ -260,7 +260,9 @@ color:#FFF;
 /*----------------------------------Clear Save Submit Buttons-------------------------*/
 .pressbutton {
 	margin: 0 auto;
-	width: 40%;
+	float:right;
+	width:300px;
+	height:100px;
 }
 
 .pressbutton button {
@@ -297,7 +299,7 @@ color:#FFF;
   transform: translateY(5px);
 }
 
-#savebutton {
+#submitbutton {
   color: #fff;
   background-color: #52BE80;
   border: none;
@@ -306,17 +308,17 @@ color:#FFF;
   cursor: pointer;
 }
 
-#savebutton:hover{
+#submitbutton:hover{
   background-color: #229954;
 }
 
-#savebutton:active {
+#submitbutton:active {
   background-color: #229954;
   box-shadow: 0 5px #145A32;
   transform: translateY(5px);
 }
 
-#submitbutton {
+#savebutton {
   color: #fff;
   background-color: #5DADE2;
   border: none;
@@ -325,11 +327,11 @@ color:#FFF;
   cursor: pointer;
 }
 
-#submitbutton:hover{
+#savebutton:hover{
   background-color: #2E86C1;
 }
 
-#submitbutton:active {
+#savebutton:active {
   background-color: #2E86C1;
   box-shadow: 0 5px #1B4F72;
   transform: translateY(5px);
