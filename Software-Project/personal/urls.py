@@ -6,7 +6,6 @@ from django.contrib.auth import login, logout
 from django.contrib import admin
 
 urlpatterns = [
-<<<<<<< HEAD
     url(r'^$', views.index, name='index'),
     url(r'^admin/', include(admin.site.urls)),
 
