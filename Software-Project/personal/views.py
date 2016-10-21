@@ -12,6 +12,7 @@ from django.template.context_processors import csrf
 from .forms import PrimaryFacultyForm
 from .forms import SecondFacultyForm
 from .forms import ApprenticeshipForm
+from .models import Apprenticeship
 
 # Create your views here
 def home(request):
@@ -22,7 +23,8 @@ def studenthome(request):
 
 def facultyhome(request):
     #need name of faculty
-    
+    Projects = Apprenticeship.objects.all()
+    print Projects
     return render(request, 'personal/facultyhome.html')
 
 def projects(request):
@@ -39,20 +41,24 @@ def addprojects(request):
 	}
 	
 	if request.method == "POST":
-		if primaryfacultyform.is_valid():
+		if primaryfacultyform.is_valid() and apprenticeshipform.is_valid():
 			print primaryfacultyform.cleaned_data
 			instance = primaryfacultyform.save(commit=False)
+			instanceAppr = apprenticeshipform.save(commit=False)
+			instanceAppr.SetPrimaryFaculty(primaryfacultyform.cleaned_data["Email"])			
 			instance.save()
-
-		if secondfacultyform.is_valid():
-			print secondfacultyform.cleaned_data
-			instance = secondfacultyform.save(commit=False)
-			instance.save()
-
-		if apprenticeshipform.is_valid():#TODO: check this #apprenticeshipform.is_valid() and 
+			#apprenticeshipform.SecondaryFaculty = ""
+			instanceAppr.SetSecondaryFaculty("")
+   
+			if secondfacultyform.is_valid():
+				print secondfacultyform.cleaned_data
+				#apprenticeshipform.SecondaryFaculty = secondfacultyform.cleaned_data["Email"]
+				instanceAppr.SetSecondaryFaculty(secondfacultyform.cleaned_data["Email"])
+				instance = secondfacultyform.save(commit=False)
+				instance.save()
+	
 			print apprenticeshipform.cleaned_data
-			instance = apprenticeshipform.save(commit=False)
-			instance.save()
+			instanceAppr.save()
 
 	return render(request, 'personal/addprojects.html',context)	
 	
