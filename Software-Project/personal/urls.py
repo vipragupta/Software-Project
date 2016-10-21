@@ -1,12 +1,12 @@
 from django.conf.urls import url, include
 from . import views
-from views import index
+#from views import index
 from django.contrib.auth import login, logout
 #from personal.forms import LoginForm
 from django.contrib import admin
 
 urlpatterns = [
-    url(r'^$', views.index, name='index'),
+    #url(r'^$', views.index, name='index'),
     url(r'^admin/', include(admin.site.urls)),
 
 	url(r'^home$', views.home, name='home'),

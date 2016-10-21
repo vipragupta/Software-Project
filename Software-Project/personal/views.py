@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
-#from django.shortcuts import render
+from django.shortcuts import render
 from django.shortcuts import render_to_response
 from django.shortcuts import get_object_or_404
 #from django.contrib.auth.decorators import login_required
