@@ -1,11 +1,11 @@
 from __future__ import unicode_literals
-
 from django.db import models
 from django.core.urlresolvers import reverse
 
-# Create your models here.
-# MVC MODEL VIEW CONTROLLER
+# Create your models here
 
+#Sample Model
+'''
 class Post(models.Model):
 	username = models.CharField(max_length=120)
 	password = models.CharField(max_length=10)
@@ -21,3 +21,4 @@ class Post(models.Model):
 
 	def get_absolute_url(self):
 		return reverse("posts:detail", kwargs={"id": self.id})
+'''

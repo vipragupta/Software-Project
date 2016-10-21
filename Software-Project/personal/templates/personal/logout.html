@@ -1,5 +1,25 @@
-{% block content %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Logout</title>
+    
+    {% load staticfiles %}
+    <link rel="stylesheet" href="/static/personal/css/style.css" type="text/css"/>
+    <link rel="stylesheet" href="/static/personal/css/reset.css" type="text/css"/>
+    <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css'>
+	<link href="https://fonts.googleapis.com/css?family=Lato:300" rel="stylesheet">
+	<link rel="icon" type="image/png" href="/static/personal/images/favicon_cuboulder.png">
+</head>
 
-	<h2>You have been successfully logged out! </h2>
-	<p>Click <a href="home">here</a>to login again!.</p>
-{% endblock %}
+<body>
+	<div class="container">
+	{% block content %}
+	<div class="log_message">
+	<h2>You have been successfully logged out!</h2>
+	<p>Click <a href="home">here</a> to login again!</p>
+	<p>(Username=test , Password=test)</p>
+	</div>
+	{% endblock %}
+</body>
+</html>

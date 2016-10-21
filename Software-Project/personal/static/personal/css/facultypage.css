@@ -181,6 +181,18 @@ font-weight: bold;
 color:#FFF;
 }
 
+.facultyhomewelcome {
+	margin: 0 auto;
+	text-align: center;
+}
+
+
+.facultyhomewelcome img{
+	width: 100%;
+	height: auto;
+	margin: 0 auto;
+}
+
 /*----------------------Body of Add Projects Form Page---------------------------*/
 .form form{
 	margin: 0 auto;

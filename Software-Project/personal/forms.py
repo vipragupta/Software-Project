@@ -2,9 +2,8 @@ from __future__ import unicode_literals
 from django.db import models
 from django.contrib.auth.forms import AuthenticationForm 
 from django import forms
-from .models import Post
 
-#list of applicable departments
+#list of applicable departments - global variable
 DEPARTMENT = [ 
 	('Aerospace', 'Aerospace Engineering'),
 	('Applied Mathematics', 'Applied Mathematics'),
@@ -21,16 +20,12 @@ DEPARTMENT = [
     ('Technology Arts and Media', 'Technology Arts and Media'),
 	]
 
-class LoginForm(forms.Form):
-	Username = forms.CharField(required=True)
-	Password = forms.CharField(required=True)
-	
+#Django forms are created below	
 class PrimaryFacultyForm(forms.Form):
 	First_Name = forms.CharField(label="*First Name",required=True)
 	Last_Name = forms.CharField(label="*Last Name",required=True)
 	Contact_Number = forms.IntegerField(label="*Contact Number",required=True)
 	Email = forms.EmailField(label="*Email",required=True)
-	
 	Department = forms.ChoiceField(choices=DEPARTMENT, required=True, label="*Department")
 	
 	DEVELOPING_COMMUNITIES=[('select1','Yes'),('select2','No')]
