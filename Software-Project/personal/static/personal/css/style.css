@@ -70,7 +70,7 @@
   text-decoration: none;
 }
 .form .register-form {
-  display: none;
+  display: block;
 }
 
 .container {

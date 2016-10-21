@@ -6,6 +6,7 @@ from django.shortcuts import get_object_or_404
 #from django.contrib.auth.decorators import login_required
 from django.contrib import auth
 from django.core.context_processors import csrf
+#from django.views.decorators import csrf
 
 from .forms import LoginForm
 from .forms import PrimaryFacultyForm
@@ -23,15 +24,14 @@ def index(request):
 def home(request):
 	return render(request, "personal/home.html")
 
+'''
 def login(request):
 	loginform = LoginForm(request.POST or None)
 	context = {
 		"loginform": loginform
 	}
-	print form
-
-	return render(request, 'personal/login.html',context)
-
+	return render(request, 'login.html',context)
+'''
 def studenthome(request):
     return render(request, 'personal/studenthome.html')	
 
@@ -56,30 +56,49 @@ def addprojects(request):
 	return render(request, 'personal/addprojects.html',context)
 
 #login authentication
-def login(request):
+
+def login_faculty(request):
     c = {}
     c.update(csrf(request))
-    return render_to_response('login.html', c)
+    return render_to_response('personal/login_faculty.html', c)
 
-def auth_view(request):
+def login_student(request):
+    c = {}
+    c.update(csrf(request))
+    return render_to_response('personal/login_student.html', c)
+ 
+
+def auth_view_faculty(request):
     username = request.POST.get('username', '')
     password = request.POST.get('password', '')
     user = auth.authenticate(username=username, password=password)
 
     if user is not None:
         auth.login(request, user)
-        return HttpResponseRedirect('/accounts/loggedin/')
+        return render(request, 'personal/facultyhome.html')	
     else:
-        return HttpResponseRedirect('/accounts/invalid/')
+        return HttpResponseRedirect('invalid')
+
+def auth_view_student(request):
+    username = request.POST.get('username', '')
+    password = request.POST.get('password', '')
+    user = auth.authenticate(username=username, password=password)
+
+    if user is not None:
+        auth.login(request, user)
+        return render(request, 'personal/studenthome.html')	
+    else:
+        return HttpResponseRedirect('invalid')
+
 
 def loggedin(request):
-    return render_to_response('loggedin.html', {'full_name': request.user.username})
+    return render_to_response('personal/loggedin.html', {'full_name': request.user.username})
 
 
 def invalid_login(request):
-    return render_to_response('invalid_login.html')
+    return render_to_response('personal/invalid_login.html')
 
 def logout(request):
     auth.logout(request)
-    return render_to_response('logout.html')
+    return render_to_response('personal/logout.html')
     

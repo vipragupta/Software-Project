@@ -22,8 +22,8 @@ DEPARTMENT = [
 	]
 
 class LoginForm(forms.Form):
-	Email = forms.EmailField(required=False)
-	Password = forms.CharField()
+	Username = forms.CharField(required=True)
+	Password = forms.CharField(required=True)
 	
 class PrimaryFacultyForm(forms.Form):
 	First_Name = forms.CharField(label="*First Name",required=True)
