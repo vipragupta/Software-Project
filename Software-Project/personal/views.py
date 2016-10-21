@@ -7,21 +7,55 @@ from django.shortcuts import get_object_or_404
 from django.contrib import auth
 from django.core.context_processors import csrf
 
-from .forms import PostForm
-from .models import Post
+from .forms import LoginForm
+from .forms import PrimaryFacultyForm
+from .forms import SecondFacultyForm
+from .forms import ApprenticeshipForm
+
+
 # Create your views here.
 
-
+'''
 def index(request):
-	form = PostForm(request.POST or None)
+    form = PostForm(request.POST or None)
+'''
+
+def home(request):
+	return render(request, "personal/home.html")
+
+def login(request):
+	loginform = LoginForm(request.POST or None)
 	context = {
-		"form": form,
+		"loginform": loginform
 	}
 	print form
-	print "hi\n"
-	return render(request, "personal/index.html", context)
 
-#login
+	return render(request, 'personal/login.html',context)
+
+def studenthome(request):
+    return render(request, 'personal/studenthome.html')	
+
+def facultyhome(request):
+    return render(request, 'personal/facultyhome.html')
+
+def projects(request):
+    return render(request, 'personal/projects.html')
+
+def addprojects(request):
+	primaryfacultyform = PrimaryFacultyForm(request.POST or None)
+	secondfacultyform = SecondFacultyForm(request.POST or None)
+	apprenticeshipform = ApprenticeshipForm(request.POST or None)
+	context = {
+		"primaryfacultyform": primaryfacultyform,
+		"secondfacultyform": secondfacultyform,
+		"apprenticeshipform": apprenticeshipform
+	}
+	
+	if request.method == "POST" and primaryfaculty.is_valid():
+		print primaryfaculty.cleaned_data
+	return render(request, 'personal/addprojects.html',context)
+
+#login authentication
 def login(request):
     c = {}
     c.update(csrf(request))

@@ -1,4 +1,4 @@
-/* Form */
+/*-------------------------Login Form --------------------------- */
 .form {
   position: relative;
   z-index: 1;
@@ -10,7 +10,9 @@
   border-top-right-radius: 3px;
   border-bottom-left-radius: 3px;
   border-bottom-right-radius: 3px;
-  text-align: center;
+  text-align: left;
+  font-family: 'Lato';
+  font-size: 14px;
 }
 .form .thumbnail {
   background: #EF3B3A;
@@ -92,11 +94,13 @@
   font-size: 36px;
   font-weight: 500;
   color: white;
+  font-family: 'Lato';
 }
 .container .info span {
   color: white;
   font-size: 18px;
   font-weight: 500;
+  font-family: 'Lato';
 }
 .container .info span a {
   color: #000000;
@@ -120,21 +124,90 @@
   background: transparent;
 }
 
-/*.logo{
-	background: url(http://www.colorado.edu/engineering/sites/all/themes/reach/logo.png);
-	margin: auto;
-	left: 0;
-	background-repeat: no-repeat;
-	position: fixed;
-	z-index: 1;
-}*/
+/*------------------------- Body of Home Page ------------------------*/ 
+.wrapper {
+	width: 1010px;
+	height:auto;
+	margin: 40px auto;
+}
 
-/* END Form */
-/* Demo Purposes */
+.bodycontent1 {
+	width: auto;
+	height: auto;
+	margin: 10px auto;
+	padding: 10px;
+	background-color: #1C1C1C;
+	opacity: 0.92;
+}
+
+.bodycontent1 div#featured p{
+	width: auto;
+	color: white;
+	font-family: 'Lato', sans-serif;
+	font-size:16px;
+	line-height:25px;
+	text-align:justify;
+	margin:10px;
+}
+
+.bodycontent1 div#featured h3{
+	width: auto;
+	color: white;
+	font-family: 'Lato', sans-serif;
+	font-size:20px;
+	line-height:25px;
+	text-align:center;
+	margin:10px;
+}
+
+.bodycontent1 ul.blog li:first-child{
+	margin:30px auto;
+}
+
+.bodycontent1 ul.blog li{
+	float: left;
+	margin:30px 0 0 50px;
+	width: 190px;
+	height:auto;
+	padding:10px;
+	background-color: white;
+}
+
+.bodycontent1 ul.blog li div{
+	width:100%;
+	height:100%;
+	text-align:center;
+	float:left;
+	margin:0 auto;
+}
+
+.bodycontent1 ul li div a img{
+	max-width: 100%;
+	max-height: 100%;
+	margin:0 auto;
+}
+.bodycontent1 ul li div a img:hover{
+	filter:alpha(opacity=80);
+	opacity:0.8;
+}
+.bodycontent1 ul li div p{
+	width:auto;
+	text-align:center;
+	color: black;
+	font-family: 'Lato', sans-serif;
+	margin:10px 0 0 10px;
+	font-size:15px;
+	padding:0;
+}
+
+.bodycontent1 ul li div p:hover{
+	cursor: default;
+}
+	
+/*------------Body background of all pages-----------------*/	
+
 body {
-  /*background: #ccc;*/
-  /*background: url(http://assets.westindenverboulder.com/lps/assets/u/cu-boulder.jpg);*/
-  font-family: "Roboto", sans-serif;
+  font-family: 'Lato', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-repeat: no-repeat;
@@ -142,6 +215,7 @@ body {
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+  z-index: -1;
 }
 body:before {
   content: "";
@@ -149,7 +223,6 @@ body:before {
   top: 0;
   left: 0;
   display: block;
-  /*background: rgba(255, 255, 255, 0.8);*/
   background: url(http://www.colorado.edu/engineering/sites/default/files/arial_straight.jpg);
   width: 100%;
   height: 100%;
@@ -160,4 +233,8 @@ body:before {
   -o-background-size: cover;
   background-size: cover;
   z-index: -1;
+}
+
+body #facultyhome {
+	background:none;
 }
