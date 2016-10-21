@@ -4,7 +4,8 @@ from django.shortcuts import render
 from django.shortcuts import render_to_response
 from django.shortcuts import get_object_or_404
 from django.contrib import auth
-from django.core.context_processors import csrf
+from django.template.context_processors import csrf
+#from django.core.context_processors import csrf
 #from django.views.decorators import csrf
 
 #Import all the forms from form.py
@@ -20,6 +21,8 @@ def studenthome(request):
     return render(request, 'personal/studenthome.html')	
 
 def facultyhome(request):
+    #need name of faculty
+    
     return render(request, 'personal/facultyhome.html')
 
 def projects(request):
@@ -35,18 +38,23 @@ def addprojects(request):
 		"apprenticeshipform": apprenticeshipform
 	}
 	
-	if request.method == "POST" and primaryfaculty.is_valid():
-		print primaryfaculty.cleaned_data
-	return render(request, 'personal/addprojects.html',context)
+	if request.method == "POST":
+		if primaryfacultyform.is_valid():
+			print primaryfacultyform.cleaned_data
+			instance = primaryfacultyform.save(commit=False)
+			instance.save()
 
+		if secondfacultyform.is_valid():
+			print secondfacultyform.cleaned_data
+			instance = secondfacultyform.save(commit=False)
+			instance.save()
 
-	
-	
-	
-	
-	
-	
-	
+		if apprenticeshipform.is_valid():#TODO: check this #apprenticeshipform.is_valid() and 
+			print apprenticeshipform.cleaned_data
+			instance = apprenticeshipform.save(commit=False)
+			instance.save()
+
+	return render(request, 'personal/addprojects.html',context)	
 	
 #-------------------------Create additional views above this line---------------------------------------------
 

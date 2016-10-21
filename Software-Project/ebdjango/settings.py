@@ -134,7 +134,7 @@ Temp_Path = os.path.realpath('.')
 STATIC_ROOT = ''    
 # URL prefix for static files.
 # Example: "http://example.com/static/", "http://static.example.com/"
-'''TEMPLATE_DIRS = (
-    os.path.join(BASE_DIR, 'templates'),
-)
-'''
+
+
+MEDIA_ROOT = './media'  
+MEDIA_URL = '/media/'

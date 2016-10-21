@@ -3,6 +3,10 @@ from django.db import models
 from django.contrib.auth.forms import AuthenticationForm 
 from django import forms
 
+from .models import PrimaryFaculty
+from .models import SecondFaculty
+from .models import Apprenticeship
+
 #list of applicable departments - global variable
 DEPARTMENT = [ 
 	('Aerospace', 'Aerospace Engineering'),
@@ -21,6 +25,7 @@ DEPARTMENT = [
 	]
 
 #Django forms are created below	
+'''
 class PrimaryFacultyForm(forms.Form):
 	First_Name = forms.CharField(label="*First Name",required=True)
 	Last_Name = forms.CharField(label="*Last Name",required=True)
@@ -31,14 +36,40 @@ class PrimaryFacultyForm(forms.Form):
 	DEVELOPING_COMMUNITIES=[('select1','Yes'),('select2','No')]
 
 	Communities = forms.ChoiceField(choices=DEVELOPING_COMMUNITIES, label="Does the project have focus on Engineering for developing communities?")
+'''
 
+class PrimaryFacultyForm(forms.ModelForm):
+    class Meta:
+        model = PrimaryFaculty
+        fields = [
+            "First_Name",
+            "Last_Name",
+            "Contact_Number",
+            "Email",
+            "Department",
+            "Communities",
+        ]
+        
+'''
 class SecondFacultyForm(forms.Form):
 	First_Name = forms.CharField(label="First Name",required=False)
 	Last_Name = forms.CharField(label="Last Name",required=False)
 	Contact_Number = forms.IntegerField(label="Contact Number",required=False)
 	Email = forms.EmailField(label="Email",required=False)
 	Department = forms.ChoiceField(choices=DEPARTMENT, required=False, label="*Department" )
-	
+'''
+class SecondFacultyForm(forms.ModelForm):
+    class Meta:
+        model = SecondFaculty
+        fields = [
+            "First_Name",
+            "Last_Name",
+            "Contact_Number",
+            "Email",
+            "Department"
+        ]
+
+'''
 class ApprenticeshipForm(forms.Form):
 	Title = forms.CharField(label="*Apprenticeship Title",required=True)
 	Details = forms.CharField(label="*Project Details (in brief)",required=True)
@@ -46,3 +77,16 @@ class ApprenticeshipForm(forms.Form):
 	Project_Link2 = forms.FileField(label="File Upload (A file containing project details)",required=False)
 	Special_Requirements = forms.CharField(label="Special skillset required",required=True)
 	Departments = forms.MultipleChoiceField(choices=DEPARTMENT, widget=forms.CheckboxSelectMultiple, label="Students should be enrolled in thw following departments only")
+'''
+
+class ApprenticeshipForm(forms.ModelForm):
+    class Meta:
+        model = Apprenticeship
+        fields = [
+            "Title",
+            "Details",
+            "Project_Link1",
+            "Project_Link2",
+            "Special_Requirements",
+            "Departments"
+        ]
