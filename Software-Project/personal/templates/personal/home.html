@@ -7,16 +7,53 @@
     {% load staticfiles %}
     <link rel="stylesheet" href="/static/personal/css/style.css" type="text/css"/>
     <link rel="stylesheet" href="/static/personal/css/reset.css" type="text/css"/>
-    
+	<link href="https://fonts.googleapis.com/css?family=Lato:300" rel="stylesheet">
+	<link rel="icon" type="image/png" href="/static/personal/images/favicon_cuboulder.png">
 </head>
+
 <body>
-	<div class="logo">
+	{% csrf_token %}
+	<div class="wrapper">
+	<div class="bodycontent1">
+		<div id="featured">
+			<h3>Welcome to Discovery Learning Apprenticeship Program</h3>
+			<p>The Discovery Learning Apprenticeship (DLA) program pairs undergraduate students with CU faculty for a paid, year-long research experience. Learn the ins and outs of research on original projects related to water treatment, wireless power, genome mapping, biomaterials, shape memory polymers, robotics, satellite collision avoidance, and others.
+			<br/><br/>
+			As a Discovery Learning apprentice, students will learn hands-on techniques and gain insight into a field of study that interests them. This program helps in acquiring essential skills such as time management, flexibility, and teamwork that are key to success in business and life.
+			<br/><br/>
+			Whether a student aspires to to begin a career in industry, aspire to do research, or plan to go on to graduate school, a DLA will prepare you to be a technological, academic, and creative leader in today’s ever-changing global society.
+			<br/><br/>
+			Click here for more information: <a href="https://www.colorado.edu/engineering/sites/default/files/DLABrochure.pdf">DLA Brochure</a>
+			</p>
+		</div>	
+	
+		<ul class="blog">
+			<li>
+				<div>
+					<a href="facultyhome"><img src="/static/personal/images/facultylogin.jpg" alt=""/></a>
+					<p>Click here to login as Faculty</p>
+				</div>
+			</li>
+			<li>
+				<div>
+					<a href="login"><img src="/static/personal/images/studentlogin.jpg" alt=""/></a>
+					<p>Click here to login as Student</p>
+				</div>
+			</li>
+			<li>
+				<div>
+					<a href="login"><img src="/static/personal/images/ceasstafflogin.png" alt=""/></a>
+					<p>Click here to login as CEAS Staff</p>
+				</div>
+			</li>
+			<li>
+				<div>
+					<a href="login"><img src="/static/personal/images/adminlogin.jpg" alt=""/></a>
+					<p>Click here to login as Admin</p>
+				</div>
+			</li>
+		</ul>
 	</div>
-    <div class="cognito">
-	<script src="https://services.cognitoforms.com/s/WCBvCjJhXESrWE1s0pO-ng"></script>
-	<script>Cognito.load("forms", { id: "1" });</script>
 	</div>
 </body>
 </html>
-
-

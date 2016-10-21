@@ -1,0 +1,339 @@
+/*---------------Header Navigation of Faculty Page---------------------------*/
+
+/* Remove margins and padding from the list, and add a black background color */
+ul.topnav {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #1C1C1C;
+}
+
+/* Float the list items side by side */
+ul.topnav li {
+	float: left;
+	line-height: 40px;
+	margin-top:15px;
+}
+
+/* Style the links inside the list items */
+ul.topnav li a {
+    display: inline-block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 10px 16px;
+    text-decoration: none;
+    transition: 0.3s;
+    font-size: 17px;
+	font-family: 'Lato';
+}
+
+#cubheader {
+	width: auto;
+	height: 70px;
+}
+
+/* Change background color of links on hover */
+ul.topnav li:hover {background-color: none;}
+
+/* Hide the list item that contains the link that should open and close the topnav on small screens */
+ul.topnav li.icon {display: none;}
+
+/* When the screen is less than 680 pixels wide, hide all list items, except for the first one ("Home"). Show the list item that contains the link to open and close the topnav (li.icon) */
+@media screen and (max-width:680px) {
+  ul.topnav li:not(:first-child) {display: none;}
+  ul.topnav li.icon {
+    float: right;
+    display: inline-block;
+  }
+}
+
+/* The "responsive" class is added to the topnav with JavaScript when the user clicks on the icon. This class makes the topnav look save on small screens */
+@media screen and (max-width:680px) {
+  ul.topnav.responsive {position: relative;}
+  ul.topnav.responsive li.icon {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  ul.topnav.responsive li {
+    float: none;
+    display: inline;
+  }
+  ul.topnav.responsive li a {
+    display: block;
+    text-align: left;
+  }
+}
+
+#viewproject {
+	display: none;
+	margin: 50px;
+}
+
+#logout {
+	align:right;
+}
+
+
+/*-------------------Body of Faculty Page---------------------------*/
+
+.wrapper {
+	margin: 0 auto;
+    padding: 10px;
+}
+
+.button {
+	width:80%;
+	margin: 0 auto;
+	position: relative;
+}
+
+a.addprojectsbutton {
+    color: #696969;
+    font: bold 12px Lato, sans-serif;
+    text-decoration: none;
+    display: block;
+    -webkit-transition: border-color .218s;
+    -moz-transition: border .218s;
+    -o-transition: border-color .218s;
+    transition: border-color .218s;
+    background: #AFEEEE;
+    background: -webkit-gradient(linear,0% 40%,0% 70%,from(#F5F5F5),to(#F1F1F1));
+    background: -moz-linear-gradient(linear,0% 40%,0% 70%,from(#F5F5F5),to(#F1F1F1));
+    border: solid 1px #dcdcdc;
+}
+a.addprojectsbutton:hover {
+    color: #333;
+    border-color: #999;
+    -moz-box-shadow: 0 2px 0 rgba(0, 0, 0, 0.2); 
+	-webkit-box-shadow:0 2px 5px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+}
+a.addprojectsbutton:active {
+    color: #f3f3f3;
+    border-color: #444;
+}
+
+a.addprojectsbutton {
+    background: url(/static/personal/images/plus.png) 14px no-repeat #f3f3f3;
+	background-size: 25px;
+    font-size: 18px;
+    padding: 10px 15px 10px 50px;
+}
+
+.projectlist{
+	width:80%;
+	margin: 0 auto;
+}
+
+.projectlist h3 {
+	cursor: default;
+	font-family: "Lato" sans-serif;
+}
+
+.projectlist ol{
+counter-reset: li;
+list-style: none;
+*list-style: decimal;
+font-size: 15px;
+font-family: 'Lato', sans-serif;
+padding: 0;
+margin-bottom: 4em;
+}
+
+.projectlist ol ol{
+margin: 0 0 0 2em;
+}
+
+.projectlist a{
+position: relative;
+display: block;
+padding: .4em .4em .4em 2em;
+*padding: .4em;
+margin: .5em 0;
+background:	#AFEEEE;
+color: #444;
+text-decoration: none;
+transition: all .2s ease-in-out;
+}
+
+.projectlist a:hover{
+background: #d6d4d4;
+text-decoration:none;
+transform: scale(1.1);
+}
+
+.projectlist a:before{
+content: counter(li);
+counter-increment: li;
+position: absolute;
+left: -1.3em;
+top: 50%;
+margin-top: -1.3em;
+background: #48D1CC;
+height: 2em;
+width: 2em;
+line-height: 2em;
+border: .3em solid #fff;
+text-align: center;
+font-weight: bold;
+color:#FFF;
+}
+
+/*----------------------Body of Add Projects Form Page---------------------------*/
+.form form{
+	margin: 0 auto;
+	width: 70%;
+	height: 100%;
+	background-color: #f7f7f7;
+	padding: 15px;
+	font-family: Lato, sans-serif;
+    color: #454545;
+    text-shadow: 1px 1px 1px #FFF;
+    border:1px solid #E4E4E4;
+}
+
+#form-heading {
+	margin: 0 auto;
+	width: 70%;
+	background-color: #454545;
+	padding: 15px;
+	font-family: Lato, sans-serif;
+    color: #f7f7f7;
+    border:1px solid #E4E4E4;
+}
+
+.formitems p label {
+	font-size: 14px;
+	font-weight: bold;
+}
+
+.formitems input {
+  outline: 0;
+  background: white;
+  width: 100%;
+  border: 0;
+  margin-top: 10px;
+  padding: 10px;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+
+
+.formitems select {
+  outline: 0;
+  background: white;
+  width: 100%;
+  border: 0;
+  margin-top: 10px;
+  padding: 10px;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+
+.formitems ul {
+	list-style: none;
+} 
+
+
+/*----------------------------------Clear Save Submit Buttons-------------------------*/
+.pressbutton {
+	margin: 0 auto;
+	width: 40%;
+}
+
+.pressbutton button {
+  display: inline-block;
+  margin-top: 30px;
+  padding: 3px 40px;
+  font-size: 16px;
+  font-family: Lato,serif;
+  line-height: 1.8;
+  appearance: none;
+  box-shadow: none;
+}
+
+.pressbutton button:focus {
+  outline: none
+}
+
+#clearbutton {
+  color: #fff;
+  background-color: #F1948A;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 5px #78281F;
+  cursor: pointer;
+}
+
+#clearbutton:hover{
+  background-color: #E74C3C;
+}
+
+#clearbutton:active {
+  background-color: #E74C3C;
+  box-shadow: 0 5px #78281F;
+  transform: translateY(5px);
+}
+
+#savebutton {
+  color: #fff;
+  background-color: #52BE80;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 5px #145A32;
+  cursor: pointer;
+}
+
+#savebutton:hover{
+  background-color: #229954;
+}
+
+#savebutton:active {
+  background-color: #229954;
+  box-shadow: 0 5px #145A32;
+  transform: translateY(5px);
+}
+
+#submitbutton {
+  color: #fff;
+  background-color: #5DADE2;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 5px #1B4F72;
+  cursor: pointer;
+}
+
+#submitbutton:hover{
+  background-color: #2E86C1;
+}
+
+#submitbutton:active {
+  background-color: #2E86C1;
+  box-shadow: 0 5px #1B4F72;
+  transform: translateY(5px);
+}
+
+	
+/*------------Body background of all pages-----------------*/	
+
+body {
+  font-family: 'Lato', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-repeat: no-repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  z-index: -1;
+}
