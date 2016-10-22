@@ -69,7 +69,7 @@ def addprojects(request):
 			'''	
 			print apprenticeshipform.cleaned_data
 			instanceAppr.save()
-			return render(request, 'personal/projects.html',context)
+			return render(request, 'personal/facultyhome.html',context)
 
 	return render(request, 'personal/addprojects.html',context)	
 	
