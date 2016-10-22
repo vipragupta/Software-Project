@@ -32,7 +32,7 @@ def projects(request):
         Projects = Apprenticeship.objects.filter(PrimaryFaculty = username)
         ret = []
         for i in Projects:
-            ret.append(i.GetList())
+            ret.append(i.GetList()[0])
         print ret
         print "\n"
         context["ret"] = ret
