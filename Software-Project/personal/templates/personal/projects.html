@@ -34,6 +34,7 @@
 	
 	<div class="projectlist">
 		<h3>Existing Projects List</h3>
+        <!--
 		<ol type="1">
 			<li><a href="#">Project 1</a></li>
 			<li><a href="#">Project 2</a></li>
@@ -45,6 +46,12 @@
 			<li><a href="#">Project 8</a></li>
 			<li><a href="#">Project 9</a></li>
 		</ol>
+        -->
+        <ol>
+            {% for n in ret %}
+            <li><a href="#">{{n}}</a></li>
+            {% endfor %}
+        </ol>
 	</div>
 	</div>
 	

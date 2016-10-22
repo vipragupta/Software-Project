@@ -22,14 +22,21 @@ def studenthome(request):
     return render(request, 'personal/studenthome.html')	
 
 def facultyhome(request):
-    if request.user.is_authenticated():
-        username = request.user.username
-        Projects = Apprenticeship.objects.filter(PrimaryFaculty = username)
-        print Projects
     return render(request, 'personal/facultyhome.html')
 
 def projects(request):
-    return render(request, 'personal/projects.html')
+    context = {"ret":[]}
+    if request.user.is_authenticated():
+        username = request.user.username
+        print username
+        Projects = Apprenticeship.objects.filter(PrimaryFaculty = username)
+        ret = []
+        for i in Projects:
+            ret.append(i.GetList())
+        print ret
+        print "\n"
+        context["ret"] = ret
+    return render(request, 'personal/projects.html', context)
 
 def addprojects(request):
 	primaryfacultyform = PrimaryFacultyForm(request.POST or None)
