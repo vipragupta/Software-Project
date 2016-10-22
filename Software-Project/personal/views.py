@@ -48,7 +48,9 @@ def addprojects(request):
 		"apprenticeshipform": apprenticeshipform
 	}
 	
+	print "In addprojects"
 	if request.method == "POST":
+		print "in post"
 		if primaryfacultyform.is_valid() and apprenticeshipform.is_valid():
 			print primaryfacultyform.cleaned_data
 			instance = primaryfacultyform.save(commit=False)
@@ -67,6 +69,7 @@ def addprojects(request):
 			'''	
 			print apprenticeshipform.cleaned_data
 			instanceAppr.save()
+			return render(request, 'personal/projects.html',context)
 
 	return render(request, 'personal/addprojects.html',context)	
 	
