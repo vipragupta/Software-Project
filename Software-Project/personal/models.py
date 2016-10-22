@@ -87,3 +87,6 @@ class Apprenticeship(models.Model):
   
 	def SetSecondaryFaculty(self, id):
 		self.SecondaryFaculty = id
+
+	def GetList(self):
+		return [self.Title.encode('ascii','ignore'), self.Details.encode('ascii','ignore'), self.Departments.encode('ascii','ignore'), self.Special_Requirements.encode('ascii','ignore'), self.PrimaryFaculty.encode('ascii','ignore')]
