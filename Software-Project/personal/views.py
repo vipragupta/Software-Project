@@ -22,9 +22,10 @@ def studenthome(request):
     return render(request, 'personal/studenthome.html')	
 
 def facultyhome(request):
-    #need name of faculty
-    Projects = Apprenticeship.objects.all()
-    print Projects
+    if request.user.is_authenticated():
+        username = request.user.username
+        Projects = Apprenticeship.objects.filter(PrimaryFaculty = username)
+        print Projects
     return render(request, 'personal/facultyhome.html')
 
 def projects(request):
@@ -32,11 +33,11 @@ def projects(request):
 
 def addprojects(request):
 	primaryfacultyform = PrimaryFacultyForm(request.POST or None)
-	secondfacultyform = SecondFacultyForm(request.POST or None)
+	#secondfacultyform = SecondFacultyForm(request.POST or None)
 	apprenticeshipform = ApprenticeshipForm(request.POST or None)
 	context = {
 		"primaryfacultyform": primaryfacultyform,
-		"secondfacultyform": secondfacultyform,
+	#	"secondfacultyform": secondfacultyform,
 		"apprenticeshipform": apprenticeshipform
 	}
 	
@@ -49,14 +50,14 @@ def addprojects(request):
 			instance.save()
 			#apprenticeshipform.SecondaryFaculty = ""
 			instanceAppr.SetSecondaryFaculty("")
-   
+			'''   
 			if secondfacultyform.is_valid():
 				print secondfacultyform.cleaned_data
 				#apprenticeshipform.SecondaryFaculty = secondfacultyform.cleaned_data["Email"]
 				instanceAppr.SetSecondaryFaculty(secondfacultyform.cleaned_data["Email"])
-				instance = secondfacultyform.save(commit=False)
-				instance.save()
-	
+				instance2 = secondfacultyform.save(commit=False)
+				instance2.save()
+			'''	
 			print apprenticeshipform.cleaned_data
 			instanceAppr.save()
 
