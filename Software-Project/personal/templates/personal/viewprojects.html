@@ -2,7 +2,7 @@
 <html >
   <head>
     <meta charset="UTF-8">
-    <title>Home | Faculty</title>
+    <title>Projects | Faculty</title>
     
     {% load staticfiles %}
     <link rel="stylesheet" href="/static/personal/css/facultypage.css" type="text/css"/>
@@ -26,10 +26,55 @@
 	</ul>
 	</div>
 	
-	<div class="facultyhomewelcome">
-	<h3>Welcome to Discovery Learning Apprenticeship Program!</h3>
-	<p>Please navigate to the projects tab to view and apply for projects</p>
-	<img src="/static/personal/images/studenthomepage.jpg" alt="Welcome!"></img>
+	<div class="wrapper">
+	
+	<div class="button">
+    <a href="applyprojects" class="addprojectsbutton">Click here to apply for projects</a>
+	</div>
+	
+	<div class="projectlist">
+		<h3>Existing Projects List</h3>
+		<table class="projectdisplay" style="display: inline-block; float: left;">
+			<thead>
+				<tr>
+					<th>Project Name</th>
+					<th>Project Details</th>
+					<th>Department</th>
+					<th>Special Requirements</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for n in details1 %}
+					<tr>
+					<td>{{n.0}}</td>
+					<td>{{n.1}}</td>
+					<td>{{n.2}}</td>
+					<td>{{n.3}}</td>
+					</tr>
+				{% endfor %}
+				</tr>
+			</tbody>
+		</table>
+
+		<table class="projectdisplay">
+			<thead>
+				<tr>
+					<th>Faculty Name</th>
+					<th>Contact number</th>
+					<th>Email</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for n in details2 %}
+					<tr>
+					<td>{{n.0}}</td>
+					<td>{{n.2}}</td>
+					<td>{{n.3}}</td>
+					</tr>
+				{% endfor %}
+				</tr>
+			</tbody>
+		</table>
 	</div>
 	
 	<script>

@@ -17,6 +17,8 @@ urlpatterns = [
 	
 	#Student Page URLs
 	url(r'^studenthome$', views.studenthome , name='studenthome'),
+	url(r'^viewprojects$', views.viewprojects , name='viewprojects'),
+	url(r'^applyprojects$', views.applyprojects , name='applyprojects'),
 	
 	#Login Page and Authentication URLs
 	url(r'^login_faculty$', views.login_faculty, name='login_faculty'),

@@ -23,6 +23,12 @@ def home(request):
 def studenthome(request):
     return render(request, 'personal/studenthome.html')	
 
+def viewprojects(request):
+    return render(request, 'personal/viewprojects.html')
+	
+def applyprojects(request):
+    return render(request, 'personal/applyprojects.html')	
+
 def facultyhome(request):
     return render(request, 'personal/facultyhome.html')
 
