@@ -93,3 +93,19 @@ class Apprenticeship(models.Model):
 
 	def GetList(self):
 		return [self.Title.encode('ascii','ignore'), self.Details.encode('ascii','ignore'), self.Departments.encode('ascii','ignore'), self.Special_Requirements.encode('ascii','ignore'), self.PrimaryFaculty.encode('ascii','ignore')]
+
+class Student(models.Model):
+	First_Name = models.CharField(max_length=80)
+	Last_Name = models.CharField(max_length=80)
+	CHOICES = (('1','Male'),('2','Female'))
+	Gender = models.CharField("*Gender", max_length=25, choices=CHOICES, error_messages={'required':"Please select a Gender type"})
+ 
+	def __unicode__(self):
+		return self.First_Name
+
+	def __str__(self):
+		return self.First_Name
+    
+	def get_absolute_url(self):
+		return reverse("posts:detail", kwargs={"id": self.First_Name})    
+  

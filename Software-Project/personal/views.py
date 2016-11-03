@@ -12,16 +12,15 @@ from django.template.context_processors import csrf
 from .forms import PrimaryFacultyForm
 from .forms import SecondFacultyForm
 from .forms import ApprenticeshipForm
+from .forms import StudentForm
 from .models import PrimaryFaculty
 from .models import SecondFaculty
 from .models import Apprenticeship
+from .models import Student
 
 # Create your views here
 def home(request):
 	return render(request, "personal/home.html")
-
-def studenthome(request):
-    return render(request, 'personal/studenthome.html')	
 
 def facultyhome(request):
     return render(request, 'personal/facultyhome.html')
@@ -78,6 +77,15 @@ def addprojects(request):
 			return render(request, 'personal/facultyhome.html',context)
 
 	return render(request, 'personal/addprojects.html',context)	
+
+def studenthome(request):
+	studentform = StudentForm(request.POST or None)
+	context = {
+		"studentform": studentform,
+	}
+
+	return render(request, 'personal/studenthome.html',context)	
+
 	
 #-------------------------Create additional views above this line---------------------------------------------
 

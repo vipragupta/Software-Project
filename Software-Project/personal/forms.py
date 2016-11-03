@@ -6,6 +6,7 @@ from django import forms
 from .models import PrimaryFaculty
 from .models import SecondFaculty
 from .models import Apprenticeship
+from .models import Student
 
 #list of applicable departments - global variable
 DEPARTMENT = [ 
@@ -89,4 +90,14 @@ class ApprenticeshipForm(forms.ModelForm):
             "Project_Link2",
             "Special_Requirements",
             "Departments"
+        ]
+
+class StudentForm(forms.ModelForm):
+	#Gender = forms.CharField(choices=Student.CHOICES, widget=forms.RadioSelect)
+    class Meta:
+        model = Student
+        fields = [
+            "First_Name",
+            "Last_Name",
+            "Gender",
         ]
