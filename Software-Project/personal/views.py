@@ -12,6 +12,8 @@ from django.template.context_processors import csrf
 from .forms import PrimaryFacultyForm
 from .forms import SecondFacultyForm
 from .forms import ApprenticeshipForm
+from .models import PrimaryFaculty
+from .models import SecondFaculty
 from .models import Apprenticeship
 
 # Create your views here
@@ -25,18 +27,22 @@ def facultyhome(request):
     return render(request, 'personal/facultyhome.html')
 
 def projects(request):
-    context = {"ret":[]}
-    if request.user.is_authenticated():
-        username = request.user.username
-        print username
-        Projects = Apprenticeship.objects.filter(PrimaryFaculty = username)
-        ret = []
-        for i in Projects:
-            ret.append(i.GetList()[0])
-        print ret
-        print "\n"
-        context["ret"] = ret
-    return render(request, 'personal/projects.html', context)
+	context = {"details1":[],"details2":[]}
+	if request.user.is_authenticated():
+		username = request.user.username
+		print username
+		ProjectsDetails1 = Apprenticeship.objects.filter(PrimaryFaculty = username)
+		ProjectsDetails2 = PrimaryFaculty.objects.filter(Email = username)
+		details1 = []
+		details2 = []
+		for i in ProjectsDetails1:
+			details1.append(i.GetList())
+		for i in ProjectsDetails2:
+			details2.append(i.GetList())
+		print "\n"
+		context["details1"] = details1
+		context["details2"] = details2
+	return render(request, 'personal/projects.html', context)
 
 def addprojects(request):
 	primaryfacultyform = PrimaryFacultyForm(request.POST or None)

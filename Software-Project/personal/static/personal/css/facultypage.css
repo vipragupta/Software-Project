@@ -132,53 +132,29 @@ a.addprojectsbutton {
 	font-family: "Lato" sans-serif;
 }
 
-.projectlist ol{
-counter-reset: li;
-list-style: none;
-*list-style: decimal;
-font-size: 15px;
-font-family: 'Lato', sans-serif;
-padding: 0;
-margin-bottom: 4em;
+.projectdisplay { 
+	display: inline-block;
+	float: left;
 }
 
-.projectlist ol ol{
-margin: 0 0 0 2em;
+.projectdisplay {  
+  border-collapse: collapse; 
 }
 
-.projectlist a{
-position: relative;
-display: block;
-padding: .4em .4em .4em 2em;
-*padding: .4em;
-margin: .5em 0;
-background:	#AFEEEE;
-color: #444;
-text-decoration: none;
-transition: all .2s ease-in-out;
+.projectdisplay tr { 
+  background: #eee; 
 }
 
-.projectlist a:hover{
-background: #d6d4d4;
-text-decoration:none;
-transform: scale(1.1);
+.projectdisplay th { 
+  background: #333; 
+  color: white; 
+  font-weight: bold; 
 }
 
-.projectlist a:before{
-content: counter(li);
-counter-increment: li;
-position: absolute;
-left: -1.3em;
-top: 50%;
-margin-top: -1.3em;
-background: #48D1CC;
-height: 2em;
-width: 2em;
-line-height: 2em;
-border: .3em solid #fff;
-text-align: center;
-font-weight: bold;
-color:#FFF;
+.projectdisplay td, th { 
+  padding: 6px; 
+  border: 1px solid #ccc; 
+  text-align: left; 
 }
 
 .facultyhomewelcome {
@@ -336,6 +312,7 @@ color:#FFF;
   box-shadow: 0 5px #1B4F72;
   transform: translateY(5px);
 }
+
 
 	
 /*------------Body background of all pages-----------------*/	

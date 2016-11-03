@@ -46,6 +46,9 @@ class PrimaryFaculty(models.Model):
     
 	def get_absolute_url(self):
 		return reverse("posts:detail", kwargs={"id": self.Email})
+	
+	def GetList(self):
+		return [self.First_Name, self.Last_Name, self.Contact_Number, self.Email, self.Department, self.DEVELOPING_COMMUNITIES, self.Communities]
   
 class SecondFaculty(models.Model):
 	First_Name = models.CharField(max_length=120)#label="First Name",, required=False
