@@ -22,6 +22,12 @@ from .models import Student
 def home(request):
 	return render(request, "personal/home.html")
 
+def viewprojects(request):
+    return render(request, 'personal/viewprojects.html')
+	
+def applyprojects(request):
+    return render(request, 'personal/applyprojects.html')	
+
 def facultyhome(request):
     return render(request, 'personal/facultyhome.html')
 
