@@ -114,7 +114,7 @@ def getProjectList():
 	ret = [('0',None)]
 	for i in all_projs:
 		k = str(i.Id)
-		v = str(k) + ":" + str(i.Appr_Title)
+		v = str(k).decode("utf-8") + ":".decode("utf-8") + i.Appr_Title
 		ret.append( (k,v) )
 	return ret
 
