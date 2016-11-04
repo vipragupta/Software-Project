@@ -122,16 +122,6 @@ a.addprojectsbutton {
     padding: 10px 15px 10px 50px;
 }
 
-.projectlist{
-	width:80%;
-	margin: 0 auto;
-}
-
-.projectlist h3 {
-	cursor: default;
-	font-family: "Lato" sans-serif;
-}
-
 .facultyhomewelcome {
 	margin: 0 auto;
 	text-align: center;
@@ -493,4 +483,13 @@ body {
 #projectdetailscoloumn {
 	width: 100px;
 	text-align:justify;
+}
+
+#specialrequirementscoloumn {
+	width: 100px;
+	text-align:justify;
+}
+
+.errorlist{
+	color: red;
 }
