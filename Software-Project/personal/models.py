@@ -26,8 +26,57 @@ DEPARTMENT = [
      ('Technology Arts and Media', 'Technology Arts and Media'),
 ]
 
-
-# Create your models here
+US_STATES = [('AL', 'Alabama'),
+ ('AK', 'Alaska'),
+ ('AZ', 'Arizona'),
+ ('AR', 'Arkansas'),
+ ('CA', 'California'),
+ ('CO', 'Colorado'),
+ ('CT', 'Connecticut'),
+ ('DE', 'Delaware'),
+ ('DC', 'District of Columbia'),
+ ('FL', 'Florida'),
+ ('GA', 'Georgia'),
+ ('HI', 'Hawaii'),
+ ('ID', 'Idaho'),
+ ('IL', 'Illinois'),
+ ('IN', 'Indiana'),
+ ('IA', 'Iowa'),
+ ('KS', 'Kansas'),
+ ('KY', 'Kentucky'),
+ ('LA', 'Louisiana'),
+ ('ME', 'Maine'),
+ ('MD', 'Maryland'),
+ ('MA', 'Massachusetts'),
+ ('MI', 'Michigan'),
+ ('MN', 'Minnesota'),
+ ('MS', 'Mississippi'),
+ ('MO', 'Missouri'),
+ ('MT', 'Montana'),
+ ('NE', 'Nebraska'),
+ ('NV', 'Nevada'),
+ ('NH', 'New Hampshire'),
+ ('NJ', 'New Jersey'),
+ ('NM', 'New Mexico'),
+ ('NY', 'New York'),
+ ('NC', 'North Carolina'),
+ ('ND', 'North Dakota'),
+ ('OH', 'Ohio'),
+ ('OK', 'Oklahoma'),
+ ('OR', 'Oregon'),
+ ('PA', 'Pennsylvania'),
+ ('RI', 'Rhode Island'),
+ ('SC', 'South Carolina'),
+ ('SD', 'South Dakota'),
+ ('TN', 'Tennessee'),
+ ('TX', 'Texas'),
+ ('UT', 'Utah'),
+ ('VT', 'Vermont'),
+ ('VA', 'Virginia'),
+ ('WA', 'Washington'),
+ ('WV', 'West Virginia'),
+ ('WI', 'Wisconsin'),
+ ('WY', 'Wyoming')]# Create your models here
 
 class PrimaryFaculty(models.Model):
 	First_Name = models.CharField("*First Name", max_length=120)#label="*First Name",required=True
@@ -95,11 +144,19 @@ class Apprenticeship(models.Model):
 		return [self.Title.encode('ascii','ignore'), self.Details.encode('ascii','ignore'), self.Departments.encode('ascii','ignore'), self.Special_Requirements.encode('ascii','ignore'), self.PrimaryFaculty.encode('ascii','ignore')]
 
 class Student(models.Model):
+	GENDER_CHOICES = (('1','Male'),('2','Female'))
 	First_Name = models.CharField(max_length=80)
 	Last_Name = models.CharField(max_length=80)
-	CHOICES = (('1','Male'),('2','Female'))
-	Gender = models.CharField("*Gender", max_length=25, choices=CHOICES, error_messages={'required':"Please select a Gender type"})
- 
+	Gender = models.CharField("*Gender", max_length=25, choices=GENDER_CHOICES, error_messages={'required':"Please select a Gender type"})
+ 	Address_Line_1 = models.CharField("*Address1", max_length=200)
+ 	Address_Line_2 = models.CharField("*Address2", max_length=200)
+ 	City = models.CharField("City", max_length=80)
+ 	State = models.CharField("*State", max_length=25, choices=US_STATES, error_messages={'required':"Please select a State"})
+ 	Zip = models.CharField("*Zip", max_length=5)
+ 	Country = models.CharField("*Country", max_length=80)
+
+
+
 	def __unicode__(self):
 		return self.First_Name
 

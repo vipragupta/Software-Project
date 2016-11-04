@@ -100,4 +100,10 @@ class StudentForm(forms.ModelForm):
             "First_Name",
             "Last_Name",
             "Gender",
+            "Address_Line_1",
+            "Address_Line_2",
+            "City",
+            "State",
+            "Zip",
+            "Country",
         ]
