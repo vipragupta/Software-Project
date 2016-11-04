@@ -104,6 +104,15 @@ TRUE_FALSE_NS=[('1','True'),
 
 # Create your models here
 
+def getProjectList():
+     	all_projs = list( ProjectModel.objects.all() )
+	ret = []
+	for i in all_projs:
+		k = i.Id
+		v = str(k) + ":" + str(i.Appr_Title)
+		ret.append( (k,v) )
+	return ret
+
 class ProjectModel(models.Model):
     
 	Id = models.AutoField(primary_key=True)
@@ -216,13 +225,15 @@ class Student(models.Model):
 	Level = models.CharField("*Level in school as of next fall", max_length=50, choices=LEVEL_IN_SCHOOL)
 	Anticipated_Graduation = models.DateField("*Anticipated Graduation Date",default=datetime.datetime.now)
 	Previous_Research = models.CharField("Do you have previous research experience?",choices=TRUE_FALSE, max_length=20)
-
+	
+	
+	PROJECTS = getProjectList()
 	Applied_Before = models.CharField("Have you applied for Discovery Learning Apprenticeship before?", choices=TRUE_FALSE, max_length=20)
-	First_Preference = models.CharField("First Preference", max_length=200)
-	Two_Preference = models.CharField("Two Preference", max_length=200)
-	Three_Preference = models.CharField("Three Preference", max_length=200)
-	Four_Preference = models.CharField("Four Preference", max_length=200)
-	Five_Preference = models.CharField("Five Preference", max_length=200)
+	First_Preference = models.CharField("First Preference", max_length=200, choices=PROJECTS)
+	Two_Preference = models.CharField("Two Preference", max_length=200, choices=PROJECTS)
+	Three_Preference = models.CharField("Three Preference", max_length=200, choices=PROJECTS)
+	Four_Preference = models.CharField("Four Preference", max_length=200, choices=PROJECTS)
+	Five_Preference = models.CharField("Five Preference", max_length=200, choices=PROJECTS)
 	Background_check = models.CharField(max_length=50, choices=TRUE_FALSE_NS)
 	Discrimination_training = models.CharField(max_length=50, choices=TRUE_FALSE_NS)
 	SSN= models.CharField("Last four digits of your Social Security Number: (this will only be used to acess your background check information)", max_length=4)
@@ -235,4 +246,4 @@ class Student(models.Model):
     
 	def get_absolute_url(self):
 		return reverse("posts:detail", kwargs={"id": self.First_Name})    
-  
+
