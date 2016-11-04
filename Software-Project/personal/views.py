@@ -9,8 +9,8 @@ from django.template.context_processors import csrf
 #from django.views.decorators import csrf
 
 #Import all the forms from form.py
-from .forms import ProjectModelForm
-from .forms import StudentForm
+from .forms import *
+#from .forms import StudentForm
 from .models import ProjectModel
 from .models import Student
 
@@ -42,9 +42,10 @@ def viewprojects(request):
 def applyprojects(request):
 	if not request.user.is_authenticated():
 		return render_to_response('personal/logout.html')
-	studentform = StudentForm(request.POST or None)
+	StudentForm = StudentForm(request.POST or None)
+
 	context = {
-		"studentform": studentform,
+		"StudentForm": StudentForm,
 	}
 	return render(request, 'personal/applyprojects.html',context)	
 

@@ -21,8 +21,9 @@
         {% csrf_token %}
         <div class="formitems">
             <h3>Student Information</h3>
-            {{ studentform.as_p }}
+                {{ StudentForm.as_p }}
             <br><hr/>
+            
             <section class="pressbutton">
                 <button type="reset" id="clearbutton">Clear</button>
                 <button id="submitbutton">Submit</button>
