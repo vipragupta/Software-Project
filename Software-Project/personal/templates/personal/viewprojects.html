@@ -41,6 +41,9 @@
 					<th>Project Details</th>
 					<th>Department</th>
 					<th>Special Requirements</th>
+                    <th>Faculty Name</th>
+					<th>Contact number</th>
+					<th>Email</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -50,32 +53,14 @@
 					<td>{{n.1}}</td>
 					<td>{{n.2}}</td>
 					<td>{{n.3}}</td>
+					<td>{{n.4}}</td>
+					<td>{{n.5}}</td>
+					<td>{{n.6}}</td>
 					</tr>
 				{% endfor %}
 				</tr>
 			</tbody>
 		</table>
-
-		<table class="projectdisplay">
-			<thead>
-				<tr>
-					<th>Faculty Name</th>
-					<th>Contact number</th>
-					<th>Email</th>
-				</tr>
-			</thead>
-			<tbody>
-				{% for n in details2 %}
-					<tr>
-					<td>{{n.0}}</td>
-					<td>{{n.2}}</td>
-					<td>{{n.3}}</td>
-					</tr>
-				{% endfor %}
-				</tr>
-			</tbody>
-		</table>
-	</div>
 	
 	<script>
 	function myFunction() {

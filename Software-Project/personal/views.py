@@ -22,7 +22,22 @@ def home(request):
 def viewprojects(request):
 	if not request.user.is_authenticated():
 		return render_to_response('personal/logout.html')
-	return render(request, 'personal/viewprojects.html')
+	all_projs = list( ProjectModel.objects.all() )
+	context = {}
+	details1 = []
+ 
+	for i in all_projs:
+		add = []
+		add.append(i.Appr_Title)
+		add.append(i.Appr_Details)
+		add.append(i.Appr_Departments)
+		add.append(i.Appr_Special_Requirements)  
+		add.append(i.PF_First_Name + "\n" + i.PF_Last_Name)  
+		add.append(i.PF_Contact_Number)  
+		add.append(i.PF_Email)
+		details1.append(add)
+	context["details1"] = details1
+	return render(request, 'personal/viewprojects.html', context)
 	
 def applyprojects(request):
 	if not request.user.is_authenticated():
@@ -47,11 +62,23 @@ def studenthome(request):
 def projects(request):
 	if not request.user.is_authenticated():
 		return render_to_response('personal/logout.html')
-	if request.user.is_authenticated():
-		username = request.user.username
-		print username
-		
-	return render(request, 'personal/projects.html', {})
+	username = request.user.username
+	all_projs = list( ProjectModel.objects.filter(Username = username) )
+	context = {}
+	details1 = []
+ 
+	for i in all_projs:
+		add = []
+		add.append(i.Appr_Title)
+		add.append(i.Appr_Details)
+		add.append(i.Appr_Departments)
+		add.append(i.Appr_Special_Requirements)  
+		add.append(i.PF_First_Name + "\n" + i.PF_Last_Name)  
+		add.append(i.PF_Contact_Number)  
+		add.append(i.PF_Email)
+		details1.append(add)
+	context["details1"] = details1
+	return render(request, 'personal/projects.html', context)
 
 def addprojects(request):
     
