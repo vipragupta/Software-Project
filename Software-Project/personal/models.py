@@ -9,6 +9,7 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 
 #list of applicable departments
 DEPARTMENT = [
+	('None','None'),
 	('Aerospace', 'Aerospace Engineering'),
 	('Applied Mathematics', 'Applied Mathematics'),
 	('Architectural', 'Architectural Engineering'),
@@ -101,6 +102,15 @@ TRUE_FALSE_NS=[('1','True'),
 				('2','Not Sure')
 				]
 
+GENDER_CHOICES = [('M','Male'),('F','Female'),('D','Do Not Wish to Provide')]
+RACE_CHOICES = [('AI_AN', 'American Indian or Alaskan Native'),
+			 ('B_AA', 'Black or African-American'),
+			 ('NH_OPI', 'Native Hawaiian or other Pacific Islander'),
+			 ('A', 'Asian'),
+			 ('W', 'White'),
+			 ('O', 'Other'),
+			 ('DN', 'Do Not Wish to Provide'),
+			]
 
 # Create your models here
 
@@ -177,18 +187,10 @@ class ProjectModel(models.Model):
 		return reverse("posts:detail", kwargs={"id": self.Id})
 
 class Student(models.Model):
-	GENDER_CHOICES = (('M','Male'),('F','Female'),('D','Do Not Wish to Provide'))
-	RACE_CHOICES = [('AI_AN', 'American Indian or Alaskan Native'),
-			 ('B_AA', 'Black or African-American'),
-			 ('NH_OPI', 'Native Hawaiian or other Pacific Islander'),
-			 ('A', 'Asian'),
-			 ('W', 'White'),
-			 ('O', 'Other'),
-			 ('DN', 'Do Not Wish to Provide'),
-			]
+	
 	First_Name = models.CharField("*First Name",max_length=80)
 	Last_Name = models.CharField("*Last Name", max_length=80)
-	Student_Id = models.CharField("*Student ID", max_length=11, primary_key=True)
+	Student_Id = models.IntegerField("*Student ID")
 	Gender = models.CharField("*Gender", max_length=25, choices=GENDER_CHOICES, error_messages={'required':"Please select a Gender type"})
  	Race = models.CharField("*Race", max_length=25, choices=RACE_CHOICES)
  	
@@ -226,6 +228,14 @@ class Student(models.Model):
 	Background_check = models.CharField(max_length=50, choices=TRUE_FALSE_NS)
 	Discrimination_training = models.CharField(max_length=50, choices=TRUE_FALSE_NS)
 	SSN= models.CharField("Last four digits of your Social Security Number: (this will only be used to acess your background check information)", max_length=4)
+	Skills = models.CharField("Please list the three skills or qualifications that you feel make you a great candidate for the positions you selected. (Could be knowledge of a programming language, knowledge of a field, courses taken, personal characteristics, etc. If appropriate, note your match to requirements in job description. Please note responses are limited to 75 characters.)", max_length=300)
+	Skills_1 = models.CharField("1. ", max_length=100)
+	Skills_2 = models.CharField("2. ", max_length=100)
+	Skills_3 = models.CharField("3. ", max_length=100)
+
+	Upload=models.CharField(max_length=100)
+	Resume = models.FileField(storage=FileSystemStorage(location=settings.MEDIA_ROOT), upload_to='Resume', default='settings.MEDIA_ROOT/default/temp.txt')
+	Cover_Letter = models.FileField(storage=FileSystemStorage(location=settings.MEDIA_ROOT), upload_to='Cover_Letter', default='settings.MEDIA_ROOT/default/temp.txt')
 
 	def __unicode__(self):
 		return self.First_Name
