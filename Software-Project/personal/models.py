@@ -171,6 +171,7 @@ class Student(models.Model):
 	First_Name = models.CharField(max_length=80)
 	Last_Name = models.CharField(max_length=80)
 	Gender = models.CharField("*Gender", max_length=25, choices=GENDER_CHOICES, error_messages={'required':"Please select a Gender type"})
+ 	Race = models.CharField("*Race", max_length=25, choices=RACE_CHOICES)
  	Address_Line_1 = models.CharField("*Address1", max_length=200)
  	Address_Line_2 = models.CharField("*Address2", max_length=200)
  	City = models.CharField("City", max_length=80)
