@@ -75,11 +75,13 @@ class StudentForm(forms.ModelForm):
     Skills_2 = forms.CharField(label="2.",required=False)
     Skills_3 = forms.CharField(label="3.",required=False)
     Upload = forms.CharField(label="To complete the application, you must submit a resume and a cover letter. You can submit both using the form below. Please use either the pdf format or a text document. To improve your chances of being selected for an apprenticeship, please take the time to construct a well-written cover letter and resume.",widget=forms.TextInput(attrs={'readonly':'True'}), initial = "Please upload in the following fields")
+
     Two_Preference = forms.ChoiceField(label="Second Preference", required=False, choices=Student.PROJECTS)
     Three_Preference = forms.ChoiceField(label="Third Preference", required=False, choices=Student.PROJECTS)
     Four_Preference = forms.ChoiceField(label="Fourth Preference", required=False, choices=Student.PROJECTS)
     Five_Preference = forms.ChoiceField(label="Fifth Preference", required=False, choices=Student.PROJECTS)
     SSN=forms.IntegerField("*Last four digits of your Social Security Number: (this will only be used to acess your background check information)", validators=[MaxValueValidator(9999)])
+
     class Meta:
         model = Student
         fields = [
