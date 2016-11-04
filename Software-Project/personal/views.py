@@ -100,6 +100,7 @@ def projects(request):
  
 	for i in all_projs:
 		add = []
+		add.append(i.Id)
 		add.append(i.Appr_Title)
 		add.append(i.Appr_Details)
 		add.append(i.Appr_Departments)

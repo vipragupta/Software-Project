@@ -10,7 +10,23 @@
     <link rel="stylesheet" href="/static/personal/css/facultypage.css" type="text/css"/>
     
 </head>
-<body>
+
+<body id="facultyhome">
+	<div>
+	<ul class="topnav" id="myTopnav">
+		<li><a href="home">
+			<img id="cubheader" src="/static/personal/images/cubheader.png" alt=""/></a></li>
+		<li><a href="studenthome">Home</a></li>
+		<li><a href="viewprojects">View Projects</a></li>
+		<li><a id="viewfaculty" href="#viewfaculty">View Faculty Profile</a></li>
+		<li><a id="profile" href="#profile">My Profile</a></li>
+		<li><a id="logout" href="logout">Logout</a></li>
+		<li class="icon">
+			<a href="javascript:void(1);" onclick="myFunction()">&#9776;</a>
+		</li>
+	</ul>
+	</div>
+
 	<div class="wrapper">
     <div id="form-heading">
         <h3>Student Form</h3>

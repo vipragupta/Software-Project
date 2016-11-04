@@ -32,12 +32,12 @@
     <a href="addprojects" class="addprojectsbutton">Click here to add new projects</a>
 	</div>
 	
-	<div class="projectlist">
+		<div class="projectlist2">
 		<h3>Existing Projects List</h3>
-		<table class="projectdisplay" style="display: inline-block; float: left;">
+		<table id="myTable" class="tablesorter" border="0" cellpadding="0" cellspacing="1">
 			<thead>
 				<tr>
-					<th>Project Id</th>
+					<th>Project ID</th>
 					<th>Project Name</th>
 					<th>Project Details</th>
 					<th>Department</th>
@@ -52,10 +52,10 @@
 					<tr>
 					<td>{{n.0}}</td>
 					<td>{{n.1}}</td>
-					<td>{{n.2}}</td>
+					<td id="projectdetailscoloumn" style="width: 300px;">{{n.2}}</td>
 					<td>{{n.3}}</td>
 					<td>{{n.4}}</td>
-					<td>{{n.5}}</td>
+					<td id="specialrequirementscoloumn">{{n.5}}</td>
 					<td>{{n.6}}</td>
 					<td>{{n.7}}</td>
 					</tr>
