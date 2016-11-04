@@ -16,7 +16,7 @@ class ProjectModelForm(forms.ModelForm):
     SF_Contact_Number = forms.IntegerField(required=False)
     SF_Email = forms.EmailField(required=False)
     SF_Department = forms.ChoiceField(required=False,
-        choices=ProjectModel.DEPARTMENT
+        choices=DEPARTMENT
     )
     Appr_Project_Link1 = forms.CharField(required=False)
     Appr_Project_Link2 = forms.FileField(required=False)
@@ -62,8 +62,14 @@ class StudentForm(forms.ModelForm):
     Address_Line_2 = forms.CharField(required=False)
     Country = forms.CharField(widget=forms.TextInput(attrs={'readonly':'True'}), initial = "United States")
     SAddress_Line_2 = forms.CharField(label="Summer Address Line 2", required=False)
-    SCountry = forms.CharField(label="Summer Country",, widget=forms.TextInput(attrs={'readonly':'True'}), initial = "United States")
-    Secondary_Major = forms.CharField(label="Secondary Major", required=False)
+    SCountry = forms.CharField(label="Summer Country", widget=forms.TextInput(attrs={'readonly':'True'}), initial = "United States")
+    Secondary_Major = forms.MultipleChoiceField(widget=forms.CheckboxSelectMultiple,
+                                                choices=DEPARTMENT,
+                                                label="Secondary Major", 
+                                                required=False)
+    Primary_Major = forms.MultipleChoiceField(widget=forms.CheckboxSelectMultiple,
+                                                choices=DEPARTMENT,
+                                                label="Primary Major")
     Previous_Research = forms.ChoiceField(label="Do you have previous research experience?", required=False, choices=TRUE_FALSE, widget=forms.RadioSelect)
     Applied_Before = forms.ChoiceField(label="*Have you had a background check yet (at CU)? If yes when? (Take your best guess if you aren't sure.)", choices=TRUE_FALSE_NS, widget=forms.RadioSelect)
     Background_check = forms.ChoiceField(label="*Have you had Discrimination and Harassment Awareness training yet (at CU)? If yes when? (Take your best guess if you aren't sure.)", choices=TRUE_FALSE_NS, widget=forms.RadioSelect)
