@@ -34,7 +34,7 @@ class ProjectModel(models.Model):
 	PF_Email = models.EmailField("*Email")
 	PF_Department = models.CharField("*Department", max_length=120, choices=DEPARTMENT)
 	PF_DEVELOPING_COMMUNITIES=[('select1','Yes'),('select2','No')]
-	PF_Communities = models.CharField("Does the project have focus on Engineering for developing communities?", max_length=120, choices=PF_DEVELOPING_COMMUNITIES)
+	PF_Communities = models.CharField("*Does the project have focus on Engineering for developing communities?", max_length=120, choices=PF_DEVELOPING_COMMUNITIES)
 	
 	SF_First_Name = models.CharField("Secondary Faculty, Firstname", max_length=120)
 	SF_Last_Name = models.CharField("Secondary Faculty, Lastname", max_length=120)
@@ -43,10 +43,10 @@ class ProjectModel(models.Model):
 	SF_Department = models.CharField(max_length=120, choices=DEPARTMENT)
 	
 	Appr_Title = models.CharField("*Apprenticeship Title", max_length=120)
-	Appr_Details = models.CharField("*Project Details (in brief)", max_length=120)
+	Appr_Details = models.CharField("*Project Details (in brief)", max_length=2000)
 	Appr_Project_Link1 = models.CharField("Link to Project Details", max_length=120)
 	Appr_Project_Link2 = models.FileField(storage=FileSystemStorage(location=settings.MEDIA_ROOT), upload_to='Apprenticeship', default='settings.MEDIA_ROOT/default/temp.txt')
-	Appr_Special_Requirements = models.CharField("Special skillset required", max_length=120)
+	Appr_Special_Requirements = models.CharField("*Special skillset required", max_length=120)
 	#need to split these things, based on comma
 	Appr_Departments = models.CharField(max_length=120, choices=DEPARTMENT)#multiple widgets
 	
@@ -57,7 +57,7 @@ class ProjectModel(models.Model):
 		("Moderate", "Moderate amount of supervision and interaction with others"),
 		("A lot", "Good deal of supervision; student will work as an integral part of a research team")
 	]
- 	Appr_Supervision_Level = models.CharField(max_length=180, choices=APPR_SUPERVISION_LEVEL)
+ 	Appr_Supervision_Level = models.CharField("*Supervision Level", max_length=180, choices=APPR_SUPERVISION_LEVEL)
 	
 	#Supervision provided by
 	APPR_SUPERVISION_BY = [
@@ -65,7 +65,7 @@ class ProjectModel(models.Model):
 		("Graduate Student", "Supervision primarily by graduate students"),
 		("Combination", "Supervision primarily a combination of faculty and graduate students")
 	]
- 	Appr_Supervision_By = models.CharField(max_length=180, choices=APPR_SUPERVISION_BY)
+ 	Appr_Supervision_By = models.CharField("*Supervision By", max_length=180, choices=APPR_SUPERVISION_BY)
 
 	#Nature of work
  	APPR_NATURE_OF_WORK = [
@@ -75,7 +75,7 @@ class ProjectModel(models.Model):
 		("computer-related", "Nature of work is primarily computer-related, involving coding/analysis"),
 		("combination", "Nature of work is a combination of several types of work")
 	]
- 	Appr_Nature_Of_Work = models.CharField(max_length=180, choices=APPR_NATURE_OF_WORK)
+ 	Appr_Nature_Of_Work = models.CharField("*Nature of Work", max_length=180, choices=APPR_NATURE_OF_WORK)
  	
 	#Prior Work
 	APPR_PRIOR_WORK = [
@@ -83,7 +83,7 @@ class ProjectModel(models.Model):
 		("Some", "Some prior work; student will build on work of others"),
 		("Well-established", "Well-established body of work; student will refine/improved upon efforts of others")
 	]
- 	Appr_Prior_Work = models.CharField(max_length=180, choices=APPR_PRIOR_WORK)
+ 	Appr_Prior_Work = models.CharField("*Prior Work", max_length=180, choices=APPR_PRIOR_WORK)
 	
  	Username = models.CharField(max_length=180)
 	
