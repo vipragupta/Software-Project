@@ -49,8 +49,7 @@ class ProjectModelForm(forms.ModelForm):
 
 class StudentForm(forms.ModelForm):
     Gender = forms.ChoiceField(choices=GENDER_CHOICES, widget=forms.RadioSelect)
-    Race = forms.MultipleChoiceField(required=False,
-        widget=forms.CheckboxSelectMultiple,
+    Race = forms.ChoiceField(required=False,
         choices=RACE_CHOICES,
     )
     Address_Line_2 = forms.CharField(required=False)
@@ -58,7 +57,7 @@ class StudentForm(forms.ModelForm):
     SAddress_Line_1 = forms.CharField(label="Summer Address Line 1",required=False)
     SAddress_Line_2 = forms.CharField(label="Summer Address Line 2", required=False)
     SCity = forms.CharField(label="Summer City", required=False)
-    SState = forms.CharField(label="Summer State", required=False, choices=US_STATES)
+    SState = forms.ChoiceField(label="Summer State", required=False, choices=US_STATES)
     SZip = forms.CharField(label="Summer Zip",required=False)
     SPhone = forms.CharField(label="Summer Phone", required=False)
     SEmail = forms.CharField(label="Summer Email", required=False)
@@ -74,10 +73,19 @@ class StudentForm(forms.ModelForm):
     Skills_2 = forms.CharField(label="2.",required=False)
     Skills_3 = forms.CharField(label="3.",required=False)
     Upload = forms.CharField(label="To complete the application, you must submit a resume and a cover letter. You can submit both using the form below. Please use either the pdf format or a text document. To improve your chances of being selected for an apprenticeship, please take the time to construct a well-written cover letter and resume.",widget=forms.TextInput(attrs={'readonly':'True'}), initial = "Please upload in the following fields")
-    Two_Preference = forms.CharField(label="Second Preference", required=False)
-    Three_Preference = forms.CharField(label="Third Preference", required=False)
-    Four_Preference = forms.CharField(label="Fourth Preference", required=False)
-    Five_Preference = forms.CharField(label="Fifth Preference", required=False)
+    Two_Preference = forms.ChoiceField(required=False,
+        choices=Student.PROJECTS,
+    )
+    Three_Preference = forms.ChoiceField(required=False,
+        choices=Student.PROJECTS,
+    )
+    Four_Preference = forms.ChoiceField(required=False,
+        choices=Student.PROJECTS,
+    )
+    Five_Preference = forms.ChoiceField(required=False,
+        choices=Student.PROJECTS,
+    )
+    
     class Meta:
         model = Student
         fields = [
