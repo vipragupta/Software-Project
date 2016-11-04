@@ -35,10 +35,8 @@
 		<form method="POST" class="addprojects-form">
 		{% csrf_token %}
 		<div class="formitems">
-			<h3>Primary Faculty Information</h3>
-			{{ primaryfacultyform.as_p }}
-			<br/><h3>Apprenticeship Information</h3>
-			{{ apprenticeshipform.as_p }}
+			<h3>Project Information</h3>
+			{{ projectModelForm.as_p }}
 			<br><hr/>
 			<section class="pressbutton">
 				<button type="reset" id="clearbutton">Clear</button>

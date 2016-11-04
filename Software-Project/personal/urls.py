@@ -5,8 +5,8 @@ from django.contrib import admin
 
 #All the urls in the project are written below
 urlpatterns = [
-    url(r'^admin/', include(admin.site.urls)),
-
+	url(r'^admin/', include(admin.site.urls)),
+	
 	#Home Page URL
 	url(r'^home$', views.home, name='home'),
 	

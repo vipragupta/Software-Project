@@ -5,35 +5,44 @@
     <title>Home | Faculty</title>
     
     {% load staticfiles %}
-
-    <link rel="stylesheet" href="/static/personal/css/reset.css" type="text/css"/>
     <link rel="stylesheet" href="/static/personal/css/facultypage.css" type="text/css"/>
-    
+	<link href="https://fonts.googleapis.com/css?family=Lato:300" rel="stylesheet">
+	<link rel="icon" type="image/png" href="/static/personal/images/favicon_cuboulder.png">
 </head>
-<body>
-	<div class="wrapper">
-    <div id="form-heading">
-        <h3>Student Form</h3>
-        <p>Please complete all the required details and click on Submit.</p>
-    </div>
-    <div class="form">
-        <form method="POST" class="addprojects-form">
-        {% csrf_token %}
-        <div class="formitems">
-            <h3>Student Information</h3>
-            {{ studentform.as_p }}
-            <br><hr/>
-            <section class="pressbutton">
-                <button type="reset" id="clearbutton">Clear</button>
-                <button id="submitbutton">Submit</button>
-            </section>
-        </div>
-        </form>
-    </div>
-    
-    </div>
-</body>
-</html>
+
+<body id="facultyhome">
+	<div>
+	<ul class="topnav" id="myTopnav">
+		<li><a href="home">
+			<img id="cubheader" src="/static/personal/images/cubheader.png" alt=""/></a></li>
+		<li><a href="studenthome">Home</a></li>
+		<li><a href="viewprojects">View Projects</a></li>
+		<li><a id="viewfaculty" href="#viewfaculty">View Faculty Profile</a></li>
+		<li><a id="profile" href="#profile">My Profile</a></li>
+		<li><a id="logout" href="logout">Logout</a></li>
+		<li class="icon">
+			<a href="javascript:void(1);" onclick="myFunction()">&#9776;</a>
+		</li>
+	</ul>
+	</div>
+	
+	<div class="facultyhomewelcome">
+	<h3>Welcome to Discovery Learning Apprenticeship Program!</h3>
+	<p>Please navigate to the projects to view and apply for projects</p>
+	<img src="/static/personal/images/studenthomepage.jpg" alt="Welcome!"></img>
+	</div>
+	
+	<script>
+	function myFunction() {
+		var x = document.getElementById("myTopnav");
+		if (x.className === "topnav") {
+			x.className += " responsive";
+		} 
+		else {
+			x.className = "topnav";
+		}
+	}
+	</script>
 
 </body>
 </html>

@@ -4,10 +4,6 @@ from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
 # Create your models here.
-# MVC MODEL VIEW CONTROLLER
-
-#NULL String
-Empty = ""
 
 #list of applicable departments
 DEPARTMENT = [
@@ -25,6 +21,7 @@ DEPARTMENT = [
      ('Mechanical', 'Mechanical Engineering'),
      ('Technology Arts and Media', 'Technology Arts and Media'),
 ]
+
 
 US_STATES = [('AL', 'Alabama'),
  ('AK', 'Alaska'),
@@ -78,73 +75,99 @@ US_STATES = [('AL', 'Alabama'),
  ('WI', 'Wisconsin'),
  ('WY', 'Wyoming')]# Create your models here
 
-class PrimaryFaculty(models.Model):
-	First_Name = models.CharField("*First Name", max_length=120)#label="*First Name",required=True
-	Last_Name = models.CharField("*Last Name", max_length=120)#label="*Last Name",required=True
-	Contact_Number = models.IntegerField("*Contact Number")#label="*Contact Number",required=True
-	Email = models.EmailField("*Email")#label="*Email",required=True
-	Department = models.CharField("*Department", max_length=120, choices=DEPARTMENT)#, required=True, label="*Department"
-	DEVELOPING_COMMUNITIES=[('select1','Yes'),('select2','No')]
-	Communities = models.CharField("Does the project have focus on Engineering for developing communities?", max_length=120, choices=DEVELOPING_COMMUNITIES)#, label="Does the project have focus on Engineering for developing communities?"
+RACE_CHOICES = [('AI_AN', 'American Indian or Alaskan Native'),
+			 ('B_AA', 'Black or African-American'),
+			 ('NH_OPI', 'Native Hawaiian or other Pacific Islander'),
+			 ('A', 'Asian'),
+			 ('W', 'White'),
+			 ('O', 'Other'),
+			 ('DN', 'Do Not Wish to Provide'),
+			]
 
-	def __unicode__(self):
-		return self.Email
+# Create your models here
 
-	def __str__(self):
-		return self.Email
-    
-	def get_absolute_url(self):
-		return reverse("posts:detail", kwargs={"id": self.Email})
+class ProjectModel(models.Model):
+	Id = models.AutoField(primary_key=True)
 	
-	def GetList(self):
-		return [self.First_Name, self.Last_Name, self.Contact_Number, self.Email, self.Department, self.DEVELOPING_COMMUNITIES, self.Communities]
-  
-class SecondFaculty(models.Model):
-	First_Name = models.CharField(max_length=120)#label="First Name",, required=False
-	Last_Name = models.CharField(max_length=120)#label="Last Name",, required=False
-	Contact_Number = models.IntegerField()#label="Contact Number",required=False
-	Email = models.EmailField()#label="Email",required=False
-	Department = models.CharField(max_length=120, choices=DEPARTMENT )#, required=False, label="*Department"
-    
+	#not required
+	PF_First_Name = models.CharField("*First Name", max_length=120)
+	PF_Last_Name = models.CharField("*Last Name", max_length=120)
+	PF_Contact_Number = models.IntegerField("*Contact Number")
+	PF_Email = models.EmailField("*Email")
+	PF_Department = models.CharField("*Department", max_length=120, choices=DEPARTMENT)
+	PF_DEVELOPING_COMMUNITIES=[('select1','Yes'),('select2','No')]
+	PF_Communities = models.CharField("*Does the project have focus on Engineering for developing communities?", max_length=120, choices=PF_DEVELOPING_COMMUNITIES)
+	
+	SF_First_Name = models.CharField("Secondary Faculty, Firstname", max_length=120)
+	SF_Last_Name = models.CharField("Secondary Faculty, Lastname", max_length=120)
+	SF_Contact_Number = models.IntegerField(null=True, blank=True, default = 0)
+	SF_Email = models.EmailField()
+	SF_Department = models.CharField(max_length=120, choices=DEPARTMENT)
+	
+	Appr_Title = models.CharField("*Apprenticeship Title", max_length=120)
+	Appr_Details = models.CharField("*Project Details (in brief)", max_length=2000)
+	Appr_Project_Link1 = models.CharField("Link to Project Details", max_length=120)
+	Appr_Project_Link2 = models.FileField(storage=FileSystemStorage(location=settings.MEDIA_ROOT), upload_to='Apprenticeship', default='settings.MEDIA_ROOT/default/temp.txt')
+	Appr_Special_Requirements = models.CharField("*Special skillset required", max_length=120)
+	#need to split these things, based on comma
+	Appr_Departments = models.CharField(max_length=120, choices=DEPARTMENT)#multiple widgets
+	
+	
+	#make multiple
+	APPR_SUPERVISION_LEVEL =[
+		("None", "Very little supervision; student will need to work largely independently"),
+		("Moderate", "Moderate amount of supervision and interaction with others"),
+		("A lot", "Good deal of supervision; student will work as an integral part of a research team")
+	]
+ 	Appr_Supervision_Level = models.CharField("*Supervision Level", max_length=180, choices=APPR_SUPERVISION_LEVEL)
+	
+	#Supervision provided by
+	APPR_SUPERVISION_BY = [
+		("Faculty", "Supervision primarily by faculty supervisor"),
+		("Graduate Student", "Supervision primarily by graduate students"),
+		("Combination", "Supervision primarily a combination of faculty and graduate students")
+	]
+ 	Appr_Supervision_By = models.CharField("*Supervision By", max_length=180, choices=APPR_SUPERVISION_BY)
+
+	#Nature of work
+ 	APPR_NATURE_OF_WORK = [
+		("theoretical", "Nature of work is primarily theoretical, most work on paper/electronic medium"),
+		("experimental", "Nature of work is primarily experimental, requiring hands-on work in a lab"),
+		("field based", "Nature of work is primarily field based, requiring hands-on work in the field"),
+		("computer-related", "Nature of work is primarily computer-related, involving coding/analysis"),
+		("combination", "Nature of work is a combination of several types of work")
+	]
+ 	Appr_Nature_Of_Work = models.CharField("*Nature of Work", max_length=180, choices=APPR_NATURE_OF_WORK)
+ 	
+	#Prior Work
+	APPR_PRIOR_WORK = [
+		("None", "No prior work; student will be starting from basic idea"),
+		("Some", "Some prior work; student will build on work of others"),
+		("Well-established", "Well-established body of work; student will refine/improved upon efforts of others")
+	]
+ 	Appr_Prior_Work = models.CharField("*Prior Work", max_length=180, choices=APPR_PRIOR_WORK)
+	
+ 	Username = models.CharField(max_length=180)
+	
 	def __unicode__(self):
-		return self.Email
+		return self.Id
 
 	def __str__(self):
-		return self.Email
+		return self.Id
     
 	def get_absolute_url(self):
-		return reverse("posts:detail", kwargs={"id": self.Email})
-  
-class Apprenticeship(models.Model):
-	Title = models.CharField(max_length=120)#label="*Apprenticeship Title",required=True
-	Details = models.CharField("*Project Details (in brief)", max_length=120)#label="*Project Details (in brief)",required=True
-	Project_Link1 = models.CharField("Link to Project Details", max_length=120)#, default=FRESHMAN)#label="Link to Project Details",required=False
-	Project_Link2 = models.FileField(storage=FileSystemStorage(location=settings.MEDIA_ROOT), upload_to='Apprenticeship', default='settings.MEDIA_ROOT/default/temp.txt')#label="File Upload (A file containing project details)",required=False
-	Special_Requirements = models.CharField("Special skillset required", max_length=120)#label="Special skillset required",required=True
-	Departments = models.CharField(max_length=120, choices=DEPARTMENT)#choices=DEPARTMENT, widget=forms.CheckboxSelectMultiple, label="Students should be enrolled in thw following departments only"
-	PrimaryFaculty = models.CharField(max_length=120, default="")#label="FacultyEmail",required=True
-	SecondaryFaculty = models.CharField(max_length=120, default="")#label="FacultyEmail",required=False, defalt = Empty
-     
-	def __unicode__(self):
-		return self.Title
-
-	def __str__(self):
-		return self.Title
-    
-	def get_absolute_url(self):
-		return reverse("posts:detail", kwargs={"id": self.Title})    
-
-	def SetPrimaryFaculty(self, id):
-		self.PrimaryFaculty = id    
-  
-	def SetSecondaryFaculty(self, id):
-		self.SecondaryFaculty = id
-
-	def GetList(self):
-		return [self.Title.encode('ascii','ignore'), self.Details.encode('ascii','ignore'), self.Departments.encode('ascii','ignore'), self.Special_Requirements.encode('ascii','ignore'), self.PrimaryFaculty.encode('ascii','ignore')]
+		return reverse("posts:detail", kwargs={"id": self.Id})
 
 class Student(models.Model):
-	GENDER_CHOICES = (('1','Male'),('2','Female'))
+	GENDER_CHOICES = (('M','Male'),('F','Female'),('D','Do Not Wish to Provide'))
+	RACE_CHOICES = [('AI_AN', 'American Indian or Alaskan Native'),
+			 ('B_AA', 'Black or African-American'),
+			 ('NH_OPI', 'Native Hawaiian or other Pacific Islander'),
+			 ('A', 'Asian'),
+			 ('W', 'White'),
+			 ('O', 'Other'),
+			 ('DN', 'Do Not Wish to Provide'),
+			]
 	First_Name = models.CharField(max_length=80)
 	Last_Name = models.CharField(max_length=80)
 	Gender = models.CharField("*Gender", max_length=25, choices=GENDER_CHOICES, error_messages={'required':"Please select a Gender type"})
