@@ -43,7 +43,9 @@ def viewprojects(request):
 
 	dep_grp = {}
 	for dep in DEP:
+		#print dep[0]
 		all_projs = list( ProjectModel.objects.filter(PF_Department = dep[0]) )
+		#print len(all_projs)  
 		projects = []
 		for proj in all_projs:
 			
@@ -57,7 +59,8 @@ def viewprojects(request):
 			add.append(i.PF_Contact_Number)  
 			add.append(i.PF_Email)
 			projects.append(add)   
-		dep_grp[dep] = projects
+		if len(projects) > 0:
+			dep_grp[dep[0]] = projects 
 	context["dep_grp"] = dep_grp
 	return render(request, 'personal/viewprojects.html', context)
 	
