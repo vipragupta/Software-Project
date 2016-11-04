@@ -43,19 +43,20 @@ def viewprojects(request):
 
 	dep_grp = {}
 	for dep in DEP:
-		all_projs = list( ProjectModel.objects.filter(PF_Department = dep) )
+		all_projs = list( ProjectModel.objects.filter(PF_Department = dep[0]) )
 		projects = []
 		for proj in all_projs:
-		     add = []
-		     add.append(i.Id)
-		     add.append(i.Appr_Title)
-		     add.append(i.Appr_Details)
-		     add.append(i.Appr_Departments)
-		     add.append(i.Appr_Special_Requirements)  
-		     add.append(i.PF_First_Name + "\n" + i.PF_Last_Name)  
-		     add.append(i.PF_Contact_Number)  
-		     add.append(i.PF_Email)
-		     projects.append(add)   
+			
+			add = []
+			add.append(i.Id)
+			add.append(i.Appr_Title)
+			add.append(i.Appr_Details)
+			add.append(i.Appr_Departments)
+			add.append(i.Appr_Special_Requirements)  
+			add.append(i.PF_First_Name + "\n" + i.PF_Last_Name)  
+			add.append(i.PF_Contact_Number)  
+			add.append(i.PF_Email)
+			projects.append(add)   
 		dep_grp[dep] = projects
 	context["dep_grp"] = dep_grp
 	return render(request, 'personal/viewprojects.html', context)
