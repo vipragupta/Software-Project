@@ -68,7 +68,7 @@ def applyprojects(request):
 	context = {
 		"studentForm": studentForm,
 	}
-	print "inViews"
+	print studentForm
 	if request.method == "POST":
 		if studentForm.is_valid():
 			print studentForm.cleaned_data

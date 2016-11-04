@@ -2,7 +2,7 @@ from __future__ import unicode_literals
 from django.db import models
 from django.contrib.auth.forms import AuthenticationForm 
 from django import forms
-
+from django.core.validators import MaxValueValidator
 from .models import *
 
 #from .models import Student
@@ -48,9 +48,9 @@ class ProjectModelForm(forms.ModelForm):
         ]
 
 class StudentForm(forms.ModelForm):
+    Student_Id = forms.IntegerField(label="Student Id", validators=[MaxValueValidator(9999999999)])
     Gender = forms.ChoiceField(choices=GENDER_CHOICES, widget=forms.RadioSelect)
-    Race = forms.MultipleChoiceField(required=False,
-        widget=forms.CheckboxSelectMultiple,
+    Race = forms.ChoiceField(required=False,
         choices=RACE_CHOICES,
     )
     Address_Line_2 = forms.CharField(required=False)
@@ -58,9 +58,10 @@ class StudentForm(forms.ModelForm):
     SAddress_Line_1 = forms.CharField(label="Summer Address Line 1",required=False)
     SAddress_Line_2 = forms.CharField(label="Summer Address Line 2", required=False)
     SCity = forms.CharField(label="Summer City", required=False)
-    SState = forms.CharField(label="Summer State", required=False, choices=US_STATES)
+    SState = forms.ChoiceField(label="Summer State", required=False, choices=US_STATES, initial={'NN': ''})
     SZip = forms.CharField(label="Summer Zip",required=False)
-    SPhone = forms.CharField(label="Summer Phone", required=False)
+    Phone = forms.IntegerField(label="*Phone", validators=[MaxValueValidator(9999999999)])
+    SPhone = forms.IntegerField(label="Summer Phone", validators=[MaxValueValidator(9999999999)],required=False)
     SEmail = forms.CharField(label="Summer Email", required=False)
     SCountry = forms.CharField(label="Summer Country", widget=forms.TextInput(attrs={'readonly':'True'}), initial = "United States")
     Secondary_Major = forms.ChoiceField(choices=DEPARTMENT, label="Secondary Major", required=False)
@@ -74,10 +75,11 @@ class StudentForm(forms.ModelForm):
     Skills_2 = forms.CharField(label="2.",required=False)
     Skills_3 = forms.CharField(label="3.",required=False)
     Upload = forms.CharField(label="To complete the application, you must submit a resume and a cover letter. You can submit both using the form below. Please use either the pdf format or a text document. To improve your chances of being selected for an apprenticeship, please take the time to construct a well-written cover letter and resume.",widget=forms.TextInput(attrs={'readonly':'True'}), initial = "Please upload in the following fields")
-    Two_Preference = forms.CharField(label="Second Preference", required=False)
-    Three_Preference = forms.CharField(label="Third Preference", required=False)
-    Four_Preference = forms.CharField(label="Fourth Preference", required=False)
-    Five_Preference = forms.CharField(label="Fifth Preference", required=False)
+    Two_Preference = forms.ChoiceField(label="Second Preference", required=False, choices=Student.PROJECTS)
+    Three_Preference = forms.ChoiceField(label="Third Preference", required=False, choices=Student.PROJECTS)
+    Four_Preference = forms.ChoiceField(label="Fourth Preference", required=False, choices=Student.PROJECTS)
+    Five_Preference = forms.ChoiceField(label="Fifth Preference", required=False, choices=Student.PROJECTS)
+    SSN=forms.IntegerField("*Last four digits of your Social Security Number: (this will only be used to acess your background check information)", validators=[MaxValueValidator(9999)])
     class Meta:
         model = Student
         fields = [

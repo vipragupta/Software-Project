@@ -25,7 +25,8 @@ DEPARTMENT = [
     ('Technology Arts and Media', 'Technology Arts and Media'),
 ]
 
-US_STATES = [('AL', 'Alabama'),
+US_STATES = [('NN', ''),
+('AL', 'Alabama'),
  ('AK', 'Alaska'),
  ('AZ', 'Arizona'),
  ('AR', 'Arkansas'),
@@ -77,7 +78,9 @@ US_STATES = [('AL', 'Alabama'),
  ('WI', 'Wisconsin'),
  ('WY', 'Wyoming')]# Create your models here
 
-RACE_CHOICES = [('AI_AN', 'American Indian or Alaskan Native'),
+RACE_CHOICES = [
+			 ('None', 'None'),
+			 ('AI_AN', 'American Indian or Alaskan Native'),
 			 ('B_AA', 'Black or African-American'),
 			 ('NH_OPI', 'Native Hawaiian or other Pacific Islander'),
 			 ('A', 'Asian'),
@@ -103,20 +106,12 @@ TRUE_FALSE_NS=[('1','True'),
 				]
 
 GENDER_CHOICES = [('M','Male'),('F','Female'),('D','Do Not Wish to Provide')]
-RACE_CHOICES = [('AI_AN', 'American Indian or Alaskan Native'),
-			 ('B_AA', 'Black or African-American'),
-			 ('NH_OPI', 'Native Hawaiian or other Pacific Islander'),
-			 ('A', 'Asian'),
-			 ('W', 'White'),
-			 ('O', 'Other'),
-			 ('DN', 'Do Not Wish to Provide'),
-			]
 
 # Create your models here
 
 def getProjectList():
      	all_projs = list( ProjectModel.objects.all() )
-	ret = []
+	ret = [('0',None)]
 	for i in all_projs:
 		k = str(i.Id)
 		v = str(k) + ":" + str(i.Appr_Title)
@@ -209,7 +204,7 @@ class Student(models.Model):
  	State = models.CharField("*State", max_length=25, choices=US_STATES, error_messages={'required':"Please select a State"})
  	Zip = models.CharField("*Zip", max_length=5)
  	Country = models.CharField("*Country", max_length=80, default="United States")
- 	Phone = models.IntegerField("*Phone", max_length=10)
+ 	Phone = models.IntegerField("*Phone")
  	Email = models.EmailField("*Email");
 
  	SAddress_Line_1 = models.CharField("*Summer Address1", max_length=200)
@@ -218,11 +213,11 @@ class Student(models.Model):
  	SState = models.CharField("*Summer State", max_length=25, choices=US_STATES, error_messages={'required':"Please select a State"})
  	SZip = models.CharField("*Summer Zip", max_length=5)
  	SCountry = models.CharField("*Summer Country", max_length=80, default="United States")
- 	SPhone = models.IntegerField("*Summer Phone", max_length=10)
+ 	SPhone = models.IntegerField("*Summer Phone")
  	SEmail = models.EmailField("*Summer Email");
 
  	Primary_Major = models.CharField("*Primary Major", max_length=50, choices=DEPARTMENT)
- 	GPA = models.FloatField("*GPA", validators = [MinValueValidator(0.0), MaxValueValidator(4.0)])
+ 	GPA = models.FloatField("*GPA (Should be between 0 to 4)", validators = [MinValueValidator(0.0), MaxValueValidator(4.0)])
  	Secondary_Major = models.CharField("Secondary Major", max_length=50, choices=DEPARTMENT)
 	Level = models.CharField("*Level in school as of next fall", max_length=50, choices=LEVEL_IN_SCHOOL)
 	Anticipated_Graduation = models.DateField("*Anticipated Graduation Date",default=datetime.datetime.now)
@@ -237,7 +232,7 @@ class Student(models.Model):
 	Five_Preference = models.CharField("Five Preference", max_length=200, choices=PROJECTS)
 	Background_check = models.CharField(max_length=50, choices=TRUE_FALSE_NS)
 	Discrimination_training = models.CharField(max_length=50, choices=TRUE_FALSE_NS)
-	SSN= models.IntegerField("*Last four digits of your Social Security Number: (this will only be used to acess your background check information)", max_length=4)
+	SSN= models.IntegerField("*Last four digits of your Social Security Number: (this will only be used to acess your background check information)")
 	Skills = models.CharField("Please list the three skills or qualifications that you feel make you a great candidate for the positions you selected. (Could be knowledge of a programming language, knowledge of a field, courses taken, personal characteristics, etc. If appropriate, note your match to requirements in job description. Please note responses are limited to 75 characters.)", max_length=300)
 	Skills_1 = models.CharField("1. ", max_length=100)
 	Skills_2 = models.CharField("2. ", max_length=100)
