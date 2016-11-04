@@ -8,6 +8,14 @@
     <link rel="stylesheet" href="/static/personal/css/facultypage.css" type="text/css"/>
 	<link href="https://fonts.googleapis.com/css?family=Lato:300" rel="stylesheet">
 	<link rel="icon" type="image/png" href="/static/personal/images/favicon_cuboulder.png">
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> 
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.9.1/jquery.tablesorter.min.js"></script>
+     
+    <script>
+        $(function(){
+          $("#myTable").tablesorter({widgets: ['zebra']});
+        });
+    </script>
 </head>
 
 <body id="facultyhome">
@@ -34,7 +42,7 @@
 	
 	<div class="projectlist">
 		<h3>Existing Projects List</h3>
-		<table class="projectdisplay" style="display: inline-block; float: left;">
+		<table id="myTable" class="tablesorter" border="0" cellpadding="0" cellspacing="1">
 			<thead>
 				<tr>
 					<th>Project Name</th>
@@ -72,7 +80,6 @@
 			x.className = "topnav";
 		}
 	}
-	</script>
 
 </body>
 </html>
