@@ -333,7 +333,7 @@ body {
 
 /*---------------------sorting tables----------------------------*/
 .tablesorter { 
-	display: inline-block;
+	display: table;
 	float: left;
 }
 
@@ -419,42 +419,6 @@ body {
 	background-image: url('data:image/gif;base64,R0lGODlhFAAUAKEAAO7u7lpaWgAAAAAAACH/C05FVFNDQVBFMi4wAwEAAAAh+QQBCgACACwAAAAAFAAUAAACQZRvoIDtu1wLQUAlqKTVxqwhXIiBnDg6Y4eyx4lKW5XK7wrLeK3vbq8J2W4T4e1nMhpWrZCTt3xKZ8kgsggdJmUFACH5BAEKAAIALAcAAAALAAcAAAIUVB6ii7jajgCAuUmtovxtXnmdUAAAIfkEAQoAAgAsDQACAAcACwAAAhRUIpmHy/3gUVQAQO9NetuugCFWAAAh+QQBCgACACwNAAcABwALAAACE5QVcZjKbVo6ck2AF95m5/6BSwEAIfkEAQoAAgAsBwANAAsABwAAAhOUH3kr6QaAcSrGWe1VQl+mMUIBACH5BAEKAAIALAIADQALAAcAAAIUlICmh7ncTAgqijkruDiv7n2YUAAAIfkEAQoAAgAsAAAHAAcACwAAAhQUIGmHyedehIoqFXLKfPOAaZdWAAAh+QQFCgACACwAAAIABwALAAACFJQFcJiXb15zLYRl7cla8OtlGGgUADs=') !important;
 }
 
-/* Zebra Widget - row alternating colors */
-.tablesorter-default tr.odd > td {
-	background-color: #dfdfdf;
-}
-.tablesorter-default tr.even > td {
-	background-color: #efefef;
-}
-
-/* Column Widget - column sort colors */
-.tablesorter-default tr.odd td.primary {
-	background-color: #bfbfbf;
-}
-.tablesorter-default td.primary,
-.tablesorter-default tr.even td.primary {
-	background-color: #d9d9d9;
-}
-.tablesorter-default tr.odd td.secondary {
-	background-color: #d9d9d9;
-}
-.tablesorter-default td.secondary,
-.tablesorter-default tr.even td.secondary {
-	background-color: #e6e6e6;
-}
-.tablesorter-default tr.odd td.tertiary {
-	background-color: #e6e6e6;
-}
-.tablesorter-default td.tertiary,
-.tablesorter-default tr.even td.tertiary {
-	background-color: #f2f2f2;
-}
-
-/* caption */
-caption {
-	background-color: #fff;
-}
-
 /* filter widget */
 .tablesorter-default .tablesorter-filter-row {
 	background-color: #eee;
@@ -524,4 +488,9 @@ caption {
 	text-align: center;
 	cursor: pointer;
 	background-color: #e6bf99;
+}
+
+#projectdetailscoloumn {
+	width: 100px;
+	text-align:justify;
 }
