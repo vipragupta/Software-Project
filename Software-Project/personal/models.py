@@ -5,23 +5,6 @@ from django.conf import settings
 from django.core.files.storage import FileSystemStorage
 # Create your models here.
 
-#list of applicable departments
-DEPARTMENT = [
-	('Aerospace', 'Aerospace Engineering'),
-	('Applied Mathematics', 'Applied Mathematics'),
-	('Architectural', 'Architectural Engineering'),
-	('Chemical', 'Chemical Engineering'),
-	('Biological', 'Biological Engineering'),
-	('Civil', 'Civil Engineering'),
-	('Computer Science', 'Computer Science'),
-	('Electrical', 'Electrical Engineering'),
-	('Electrical and Computer', 'Electrical and Computer Engineering'),
-	('Egineering Physics', 'Engineering Physics'),
-	('Environmental', 'Environmental Engineering'),
-     ('Mechanical', 'Mechanical Engineering'),
-     ('Technology Arts and Media', 'Technology Arts and Media'),
-]
-
 
 US_STATES = [('AL', 'Alabama'),
  ('AK', 'Alaska'),
@@ -87,6 +70,24 @@ RACE_CHOICES = [('AI_AN', 'American Indian or Alaskan Native'),
 # Create your models here
 
 class ProjectModel(models.Model):
+    
+     #list of applicable departments
+	DEPARTMENT = [
+        	('Aerospace', 'Aerospace Engineering'),
+        	('Applied Mathematics', 'Applied Mathematics'),
+        	('Architectural', 'Architectural Engineering'),
+        	('Chemical', 'Chemical Engineering'),
+        	('Biological', 'Biological Engineering'),
+        	('Civil', 'Civil Engineering'),
+        	('Computer Science', 'Computer Science'),
+        	('Electrical', 'Electrical Engineering'),
+        	('Electrical and Computer', 'Electrical and Computer Engineering'),
+        	('Egineering Physics', 'Engineering Physics'),
+        	('Environmental', 'Environmental Engineering'),
+           ('Mechanical', 'Mechanical Engineering'),
+           ('Technology Arts and Media', 'Technology Arts and Media'),
+	]
+    
 	Id = models.AutoField(primary_key=True)
 	
 	#not required
@@ -108,10 +109,9 @@ class ProjectModel(models.Model):
 	Appr_Details = models.CharField("*Project Details (in brief)", max_length=2000)
 	Appr_Project_Link1 = models.CharField("Link to Project Details", max_length=120)
 	Appr_Project_Link2 = models.FileField(storage=FileSystemStorage(location=settings.MEDIA_ROOT), upload_to='Apprenticeship', default='settings.MEDIA_ROOT/default/temp.txt')
-	Appr_Special_Requirements = models.CharField("*Special skillset required", max_length=120)
+	Appr_Special_Requirements = models.CharField("*Special skillset required", max_length=1000)
 	#need to split these things, based on comma
-	Appr_Departments = models.CharField(max_length=120, choices=DEPARTMENT)#multiple widgets
-	
+	Appr_Departments = models.CharField("*Choose one or more departments", max_length=120, choices=DEPARTMENT)
 	
 	#make multiple
 	APPR_SUPERVISION_LEVEL =[
