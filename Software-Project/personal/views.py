@@ -14,10 +14,11 @@ from .forms import StudentForm
 from .models import ProjectModel
 from .models import Student
 
-# Create your views here
+#-------------Create your views here-------------------------
 def home(request):
 	return render(request, "personal/home.html")
 
+#-------------Student views-----------------------------------
 def viewprojects(request):
 	if not request.user.is_authenticated():
 		return render_to_response('personal/logout.html')
@@ -37,6 +38,12 @@ def facultyhome(request):
 		return render_to_response('personal/logout.html')
     return render(request, 'personal/facultyhome.html')
 
+def studenthome(request):
+	if not request.user.is_authenticated():
+		return render_to_response('personal/logout.html')
+	return render(request, 'personal/studenthome.html')
+
+#----------------Faculty views----------------------------------------
 def projects(request):
 	if not request.user.is_authenticated():
 		return render_to_response('personal/logout.html')
@@ -56,7 +63,6 @@ def addprojects(request):
 		"projectModelForm": projectModelForm
 	}
 	
-	#print "In addprojects"
 	if request.method == "POST":
 		
 		if projectModelForm.is_valid():
@@ -70,12 +76,7 @@ def addprojects(request):
 
 	return render(request, 'personal/addprojects.html',context)	
 
-def studenthome(request):
-	if not request.user.is_authenticated():
-		return render_to_response('personal/logout.html')
-	return render(request, 'personal/studenthome.html')	
 
-	
 
 #Login Authentication related views ---- login_faculty() to logout()
 def login_faculty(request):
