@@ -24,7 +24,6 @@ DEPARTMENT = [
     ('Technology Arts and Media', 'Technology Arts and Media'),
 ]
 
-
 US_STATES = [('AL', 'Alabama'),
  ('AK', 'Alaska'),
  ('AZ', 'Arizona'),
@@ -106,6 +105,7 @@ TRUE_FALSE_NS=[('1','True'),
 # Create your models here
 
 class ProjectModel(models.Model):
+    
 	Id = models.AutoField(primary_key=True)
 	
 	#not required
@@ -127,10 +127,9 @@ class ProjectModel(models.Model):
 	Appr_Details = models.CharField("*Project Details (in brief)", max_length=2000)
 	Appr_Project_Link1 = models.CharField("Link to Project Details", max_length=120)
 	Appr_Project_Link2 = models.FileField(storage=FileSystemStorage(location=settings.MEDIA_ROOT), upload_to='Apprenticeship', default='settings.MEDIA_ROOT/default/temp.txt')
-	Appr_Special_Requirements = models.CharField("*Special skillset required", max_length=120)
+	Appr_Special_Requirements = models.CharField("*Special skillset required", max_length=1000)
 	#need to split these things, based on comma
-	Appr_Departments = models.CharField(max_length=120, choices=DEPARTMENT)#multiple widgets
-	
+	Appr_Departments = models.CharField("*Choose one or more departments", max_length=120, choices=DEPARTMENT)
 	
 	#make multiple
 	APPR_SUPERVISION_LEVEL =[

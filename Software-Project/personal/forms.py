@@ -15,10 +15,15 @@ class ProjectModelForm(forms.ModelForm):
     SF_Last_Name = forms.CharField(required=False)
     SF_Contact_Number = forms.IntegerField(required=False)
     SF_Email = forms.EmailField(required=False)
-    SF_Department = forms.CharField(required=False)
+    SF_Department = forms.ChoiceField(required=False,
+        choices=ProjectModel.DEPARTMENT
+    )
     Appr_Project_Link1 = forms.CharField(required=False)
     Appr_Project_Link2 = forms.FileField(required=False)
-    
+    #Appr_Departments = forms.MultipleChoiceField(
+    #    widget=forms.CheckboxSelectMultiple,
+    #    choices=ProjectModel.DEPARTMENT,
+    #)
     
     class Meta:
         model = ProjectModel
