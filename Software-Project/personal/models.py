@@ -2,7 +2,9 @@ from __future__ import unicode_literals
 from django.db import models
 from django.core.urlresolvers import reverse
 from django.conf import settings
+import datetime
 from django.core.files.storage import FileSystemStorage
+from django.core.validators import MaxValueValidator, MinValueValidator
 # Create your models here.
 
 #list of applicable departments
@@ -16,12 +18,11 @@ DEPARTMENT = [
 	('Computer Science', 'Computer Science'),
 	('Electrical', 'Electrical Engineering'),
 	('Electrical and Computer', 'Electrical and Computer Engineering'),
-	('Egineering Physics', 'Engineering Physics'),
+	('Engineering Physics', 'Engineering Physics'),
 	('Environmental', 'Environmental Engineering'),
-     ('Mechanical', 'Mechanical Engineering'),
-     ('Technology Arts and Media', 'Technology Arts and Media'),
+    ('Mechanical', 'Mechanical Engineering'),
+    ('Technology Arts and Media', 'Technology Arts and Media'),
 ]
-
 
 US_STATES = [('AL', 'Alabama'),
  ('AK', 'Alaska'),
@@ -84,9 +85,27 @@ RACE_CHOICES = [('AI_AN', 'American Indian or Alaskan Native'),
 			 ('DN', 'Do Not Wish to Provide'),
 			]
 
+LEVEL_IN_SCHOOL=[('F','Freshman'),
+				('SO','Sophomore'),
+				('J','Junior'),
+				('SE','Senior'),
+				('FSE','5th Year Senior'),
+				]
+
+TRUE_FALSE=[('1','True'),
+				('0','False')
+				]
+
+TRUE_FALSE_NS=[('1','True'),
+				('0','False'),
+				('2','Not Sure')
+				]
+
+
 # Create your models here
 
 class ProjectModel(models.Model):
+    
 	Id = models.AutoField(primary_key=True)
 	
 	#not required
@@ -108,10 +127,9 @@ class ProjectModel(models.Model):
 	Appr_Details = models.CharField("*Project Details (in brief)", max_length=2000)
 	Appr_Project_Link1 = models.CharField("Link to Project Details", max_length=120)
 	Appr_Project_Link2 = models.FileField(storage=FileSystemStorage(location=settings.MEDIA_ROOT), upload_to='Apprenticeship', default='settings.MEDIA_ROOT/default/temp.txt')
-	Appr_Special_Requirements = models.CharField("*Special skillset required", max_length=120)
+	Appr_Special_Requirements = models.CharField("*Special skillset required", max_length=1000)
 	#need to split these things, based on comma
-	Appr_Departments = models.CharField(max_length=120, choices=DEPARTMENT)#multiple widgets
-	
+	Appr_Departments = models.CharField("*Choose one or more departments", max_length=120, choices=DEPARTMENT)
 	
 	#make multiple
 	APPR_SUPERVISION_LEVEL =[
@@ -168,17 +186,46 @@ class Student(models.Model):
 			 ('O', 'Other'),
 			 ('DN', 'Do Not Wish to Provide'),
 			]
-	First_Name = models.CharField(max_length=80)
-	Last_Name = models.CharField(max_length=80)
+	First_Name = models.CharField("*First Name",max_length=80)
+	Last_Name = models.CharField("*Last Name", max_length=80)
+	Student_Id = models.CharField("*Student ID", max_length=11, primary_key=True)
 	Gender = models.CharField("*Gender", max_length=25, choices=GENDER_CHOICES, error_messages={'required':"Please select a Gender type"})
+ 	Race = models.CharField("*Race", max_length=25, choices=RACE_CHOICES)
+ 	
  	Address_Line_1 = models.CharField("*Address1", max_length=200)
- 	Address_Line_2 = models.CharField("*Address2", max_length=200)
- 	City = models.CharField("City", max_length=80)
+ 	Address_Line_2 = models.CharField("Address2", max_length=200)
+ 	City = models.CharField("*City", max_length=80)
  	State = models.CharField("*State", max_length=25, choices=US_STATES, error_messages={'required':"Please select a State"})
  	Zip = models.CharField("*Zip", max_length=5)
- 	Country = models.CharField("*Country", max_length=80)
+ 	Country = models.CharField("*Country", max_length=80, default="United States")
+ 	Phone = models.CharField("*Phone", max_length=10)
+ 	Email = models.EmailField("*Email");
 
+ 	SAddress_Line_1 = models.CharField("*Summer Address1", max_length=200)
+ 	SAddress_Line_2 = models.CharField("Summer Address2", max_length=200)
+ 	SCity = models.CharField("*Summer City", max_length=80)
+ 	SState = models.CharField("*Summer State", max_length=25, choices=US_STATES, error_messages={'required':"Please select a State"})
+ 	SZip = models.CharField("*Summer Zip", max_length=5)
+ 	SCountry = models.CharField("*Summer Country", max_length=80, default="United States")
+ 	SPhone = models.CharField("*Summer Phone", max_length=10)
+ 	SEmail = models.EmailField("*Summer Email");
 
+ 	Primary_Major = models.CharField("*Primary Major", max_length=50, choices=DEPARTMENT)
+ 	GPA = models.FloatField("*GPA", validators = [MinValueValidator(0.0), MaxValueValidator(4.0)])
+ 	Secondary_Major = models.CharField("Secondary Major", max_length=50, choices=DEPARTMENT)
+	Level = models.CharField("*Level in school as of next fall", max_length=50, choices=LEVEL_IN_SCHOOL)
+	Anticipated_Graduation = models.DateField("*Anticipated Graduation Date",default=datetime.datetime.now)
+	Previous_Research = models.CharField("Do you have previous research experience?",choices=TRUE_FALSE, max_length=20)
+
+	Applied_Before = models.CharField("Have you applied for Discovery Learning Apprenticeship before?", choices=TRUE_FALSE, max_length=20)
+	First_Preference = models.CharField("First Preference", max_length=200)
+	Two_Preference = models.CharField("Two Preference", max_length=200)
+	Three_Preference = models.CharField("Three Preference", max_length=200)
+	Four_Preference = models.CharField("Four Preference", max_length=200)
+	Five_Preference = models.CharField("Five Preference", max_length=200)
+	Background_check = models.CharField(max_length=50, choices=TRUE_FALSE_NS)
+	Discrimination_training = models.CharField(max_length=50, choices=TRUE_FALSE_NS)
+	SSN= models.CharField("Last four digits of your Social Security Number: (this will only be used to acess your background check information)", max_length=4)
 
 	def __unicode__(self):
 		return self.First_Name
