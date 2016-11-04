@@ -9,10 +9,12 @@ from django.template.context_processors import csrf
 #from django.views.decorators import csrf
 
 #Import all the forms from form.py
-from .forms import *
-#from .forms import StudentForm
+from .forms import ProjectModelForm
+from .forms import StudentForm
 from .models import ProjectModel
 from .models import Student
+from .forms import *
+from .models import DEPARTMENT as DEP
 
 #-------------Create your views here-------------------------
 def home(request):
@@ -38,6 +40,24 @@ def viewprojects(request):
 		add.append(i.PF_Email)
 		details1.append(add)
 	context["details1"] = details1
+
+	dep_grp = {}
+	for dep in DEP:
+		all_projs = list( ProjectModel.objects.filter(PF_Department = dep) )
+		projects = []
+		for proj in all_projs:
+		     add = []
+		     add.append(i.Id)
+		     add.append(i.Appr_Title)
+		     add.append(i.Appr_Details)
+		     add.append(i.Appr_Departments)
+		     add.append(i.Appr_Special_Requirements)  
+		     add.append(i.PF_First_Name + "\n" + i.PF_Last_Name)  
+		     add.append(i.PF_Contact_Number)  
+		     add.append(i.PF_Email)
+		     projects.append(add)   
+		dep_grp[dep] = projects
+	context["dep_grp"] = dep_grp
 	return render(request, 'personal/viewprojects.html', context)
 	
 def applyprojects(request):
