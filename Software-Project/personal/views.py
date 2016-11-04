@@ -9,13 +9,9 @@ from django.template.context_processors import csrf
 #from django.views.decorators import csrf
 
 #Import all the forms from form.py
-from .forms import PrimaryFacultyForm
-from .forms import SecondFacultyForm
-from .forms import ApprenticeshipForm
+from .forms import ProjectModelForm
 from .forms import StudentForm
-from .models import PrimaryFaculty
-from .models import SecondFaculty
-from .models import Apprenticeship
+from .models import ProjectModel
 from .models import Student
 
 # Create your views here
@@ -36,54 +32,32 @@ def facultyhome(request):
     return render(request, 'personal/facultyhome.html')
 
 def projects(request):
-	context = {"details1":[],"details2":[]}
 	if request.user.is_authenticated():
 		username = request.user.username
 		print username
-		ProjectsDetails1 = Apprenticeship.objects.filter(PrimaryFaculty = username)
-		ProjectsDetails2 = PrimaryFaculty.objects.filter(Email = username)
-		details1 = []
-		details2 = []
-		for i in ProjectsDetails1:
-			details1.append(i.GetList())
-		for i in ProjectsDetails2:
-			details2.append(i.GetList())
-		print "\n"
-		context["details1"] = details1
-		context["details2"] = details2
-	return render(request, 'personal/projects.html', context)
+		
+	return render(request, 'personal/projects.html', {})
 
 def addprojects(request):
-	primaryfacultyform = PrimaryFacultyForm(request.POST or None)
-	#secondfacultyform = SecondFacultyForm(request.POST or None)
-	apprenticeshipform = ApprenticeshipForm(request.POST or None)
+    
+	if not request.user.is_authenticated():
+		return render_to_response('personal/logout.html')
+
+	projectModelForm = ProjectModelForm(request.POST or None)
 	context = {
-		"primaryfacultyform": primaryfacultyform,
-	#	"secondfacultyform": secondfacultyform,
-		"apprenticeshipform": apprenticeshipform
+		"projectModelForm": projectModelForm
 	}
 	
-	print "In addprojects"
+	#print "In addprojects"
 	if request.method == "POST":
-		print "in post"
-		if primaryfacultyform.is_valid() and apprenticeshipform.is_valid():
-			print primaryfacultyform.cleaned_data
-			instance = primaryfacultyform.save(commit=False)
-			instanceAppr = apprenticeshipform.save(commit=False)
-			instanceAppr.SetPrimaryFaculty(primaryfacultyform.cleaned_data["Email"])			
+		
+		if projectModelForm.is_valid():
+			print projectModelForm.cleaned_data
+			instance = projectModelForm.save(commit=False)
+			if request.user.is_authenticated():
+				username = request.user.username
+   			instance.Username = username
 			instance.save()
-			#apprenticeshipform.SecondaryFaculty = ""
-			instanceAppr.SetSecondaryFaculty("")
-			'''   
-			if secondfacultyform.is_valid():
-				print secondfacultyform.cleaned_data
-				#apprenticeshipform.SecondaryFaculty = secondfacultyform.cleaned_data["Email"]
-				instanceAppr.SetSecondaryFaculty(secondfacultyform.cleaned_data["Email"])
-				instance2 = secondfacultyform.save(commit=False)
-				instance2.save()
-			'''	
-			print apprenticeshipform.cleaned_data
-			instanceAppr.save()
 			return render(request, 'personal/facultyhome.html',context)
 
 	return render(request, 'personal/addprojects.html',context)	
