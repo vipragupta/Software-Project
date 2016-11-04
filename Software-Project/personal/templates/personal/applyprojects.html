@@ -2,21 +2,38 @@
 <html >
   <head>
     <meta charset="UTF-8">
-    <title>Discovery Learning Apprenticeship Program</title>
+    <title>Home | Faculty</title>
     
     {% load staticfiles %}
-    <link rel="stylesheet" href="/static/personal/css/style.css" type="text/css"/>
+
     <link rel="stylesheet" href="/static/personal/css/reset.css" type="text/css"/>
+    <link rel="stylesheet" href="/static/personal/css/facultypage.css" type="text/css"/>
     
 </head>
 <body>
-	<div class="logo">
-	</div>
-    <div class="cognito">
-	<script src="https://services.cognitoforms.com/s/WCBvCjJhXESrWE1s0pO-ng"></script>
-	<script>Cognito.load("forms", { id: "1" });</script>
-	</div>
+	<div class="wrapper">
+    <div id="form-heading">
+        <h3>Student Form</h3>
+        <p>Please complete all the required details and click on Submit.</p>
+    </div>
+    <div class="form">
+        <form method="POST" class="addprojects-form">
+        {% csrf_token %}
+        <div class="formitems">
+            <h3>Student Information</h3>
+            {{ studentform.as_p }}
+            <br><hr/>
+            <section class="pressbutton">
+                <button type="reset" id="clearbutton">Clear</button>
+                <button id="submitbutton">Submit</button>
+            </section>
+        </div>
+        </form>
+    </div>
+    
+    </div>
 </body>
 </html>
 
-
+</body>
+</html>

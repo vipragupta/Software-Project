@@ -23,10 +23,14 @@ def home(request):
 	return render(request, "personal/home.html")
 
 def viewprojects(request):
-    return render(request, 'personal/viewprojects.html')
+	return render(request, 'personal/viewprojects.html')
 	
 def applyprojects(request):
-    return render(request, 'personal/applyprojects.html')	
+	studentform = StudentForm(request.POST or None)
+	context = {
+		"studentform": studentform,
+	}
+	return render(request, 'personal/applyprojects.html',context)	
 
 def facultyhome(request):
     return render(request, 'personal/facultyhome.html')
@@ -85,15 +89,9 @@ def addprojects(request):
 	return render(request, 'personal/addprojects.html',context)	
 
 def studenthome(request):
-	studentform = StudentForm(request.POST or None)
-	context = {
-		"studentform": studentform,
-	}
-
-	return render(request, 'personal/studenthome.html',context)	
+	return render(request, 'personal/studenthome.html')	
 
 	
-#-------------------------Create additional views above this line---------------------------------------------
 
 #Login Authentication related views ---- login_faculty() to logout()
 def login_faculty(request):
