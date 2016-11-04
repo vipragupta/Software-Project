@@ -23,7 +23,7 @@ def home(request):
 #-------------Student views-----------------------------------
 def viewprojects(request):
 	if not request.user.is_authenticated():
-		return render_to_response('personal/login.html')
+		return render_to_response('personal/login_student.html')
 	all_projs = list( ProjectModel.objects.all() )
 	context = {}
 	details1 = []
@@ -62,36 +62,36 @@ def viewprojects(request):
 	
 def applyprojects(request):
 	if not request.user.is_authenticated():
-		return render_to_response('personal/login.html')
+		return render_to_response('personal/login_student.html')
 	studentForm = StudentForm(request.POST or None)
 
 	context = {
 		"studentForm": studentForm,
 	}
-
+	print "inViews"
 	if request.method == "POST":
 		if studentForm.is_valid():
 			print studentForm.cleaned_data
 			instance = studentForm.save(commit=False)
 			instance.save()
-			return render(request, 'personal/applyprojects.html',context)
+			return render(request, 'personal/studenthome.html',context)
 
 	return render(request, 'personal/applyprojects.html',context)	
 
 def facultyhome(request):
     if not request.user.is_authenticated():
-		return render_to_response('personal/login.html')
+		return render_to_response('personal/login_faculty.html')
     return render(request, 'personal/facultyhome.html')
 
 def studenthome(request):
 	if not request.user.is_authenticated():
-		return render_to_response('personal/login.html')
+		return render_to_response('personal/login_student.html')
 	return render(request, 'personal/studenthome.html')
 
 #----------------Faculty views----------------------------------------
 def projects(request):
 	if not request.user.is_authenticated():
-		return render_to_response('personal/login.html')
+		return render_to_response('personal/login_student.html')
 	username = request.user.username
 	all_projs = list( ProjectModel.objects.filter(Username = username) )
 	context = {}
