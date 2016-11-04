@@ -42,10 +42,10 @@ def viewprojects(request):
 def applyprojects(request):
 	if not request.user.is_authenticated():
 		return render_to_response('personal/logout.html')
-	StudentForm = StudentForm(request.POST or None)
+	studentForm = StudentForm(request.POST or None)
 
 	context = {
-		"StudentForm": StudentForm,
+		"studentForm": studentForm,
 	}
 	return render(request, 'personal/applyprojects.html',context)	
 
