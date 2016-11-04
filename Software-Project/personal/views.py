@@ -19,9 +19,13 @@ def home(request):
 	return render(request, "personal/home.html")
 
 def viewprojects(request):
+	if not request.user.is_authenticated():
+		return render_to_response('personal/logout.html')
 	return render(request, 'personal/viewprojects.html')
 	
 def applyprojects(request):
+	if not request.user.is_authenticated():
+		return render_to_response('personal/logout.html')
 	studentform = StudentForm(request.POST or None)
 	context = {
 		"studentform": studentform,
@@ -29,9 +33,13 @@ def applyprojects(request):
 	return render(request, 'personal/applyprojects.html',context)	
 
 def facultyhome(request):
+    if not request.user.is_authenticated():
+		return render_to_response('personal/logout.html')
     return render(request, 'personal/facultyhome.html')
 
 def projects(request):
+	if not request.user.is_authenticated():
+		return render_to_response('personal/logout.html')
 	if request.user.is_authenticated():
 		username = request.user.username
 		print username
@@ -63,6 +71,8 @@ def addprojects(request):
 	return render(request, 'personal/addprojects.html',context)	
 
 def studenthome(request):
+	if not request.user.is_authenticated():
+		return render_to_response('personal/logout.html')
 	return render(request, 'personal/studenthome.html')	
 
 	
