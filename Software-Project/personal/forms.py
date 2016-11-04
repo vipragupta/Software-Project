@@ -20,10 +20,6 @@ class ProjectModelForm(forms.ModelForm):
     )
     Appr_Project_Link1 = forms.CharField(required=False)
     Appr_Project_Link2 = forms.FileField(required=False)
-    #Appr_Departments = forms.MultipleChoiceField(
-    #    widget=forms.CheckboxSelectMultiple,
-    #    choices=ProjectModel.DEPARTMENT,
-    #)
     
     class Meta:
         model = ProjectModel

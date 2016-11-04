@@ -8,6 +8,14 @@
     <link rel="stylesheet" href="/static/personal/css/facultypage.css" type="text/css"/>
 	<link href="https://fonts.googleapis.com/css?family=Lato:300" rel="stylesheet">
 	<link rel="icon" type="image/png" href="/static/personal/images/favicon_cuboulder.png">
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> 
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.9.1/jquery.tablesorter.min.js"></script>
+     
+    <script>
+        $(function(){
+          $("#myTable").tablesorter({widgets: ['zebra']});
+        });
+    </script>
 </head>
 
 <body id="facultyhome">
@@ -32,11 +40,12 @@
     <a href="applyprojects" class="addprojectsbutton">Click here to apply for projects</a>
 	</div>
 	
-	<div class="projectlist">
+	<div class="projectlist2">
 		<h3>Existing Projects List</h3>
-		<table class="projectdisplay" style="display: inline-block; float: left;">
+		<table id="myTable" class="tablesorter" border="0" cellpadding="0" cellspacing="1">
 			<thead>
 				<tr>
+					<th>Project ID</th>
 					<th>Project Name</th>
 					<th>Project Details</th>
 					<th>Department</th>
@@ -51,11 +60,12 @@
 					<tr>
 					<td>{{n.0}}</td>
 					<td>{{n.1}}</td>
-					<td>{{n.2}}</td>
+					<td id="projectdetailscoloumn" style="width: 300px;">{{n.2}}</td>
 					<td>{{n.3}}</td>
 					<td>{{n.4}}</td>
 					<td>{{n.5}}</td>
 					<td>{{n.6}}</td>
+					<td>{{n.7}}</td>
 					</tr>
 				{% endfor %}
 				</tr>
@@ -72,7 +82,6 @@
 			x.className = "topnav";
 		}
 	}
-	</script>
 
 </body>
 </html>
