@@ -48,7 +48,7 @@ class ProjectModelForm(forms.ModelForm):
         ]
 
 class StudentForm(forms.ModelForm):
-    Student_Id = forms.IntegerField(label="Student Id", validators=[MaxValueValidator(9999999999)])
+    Student_Id = forms.IntegerField(label="*Student Id", validators=[MaxValueValidator(9999999999)])
     Gender = forms.ChoiceField(choices=GENDER_CHOICES, widget=forms.RadioSelect)
     Race = forms.ChoiceField(required=False,
         choices=RACE_CHOICES,
@@ -80,7 +80,7 @@ class StudentForm(forms.ModelForm):
     Three_Preference = forms.ChoiceField(label="Third Preference", required=False, choices=Student.PROJECTS)
     Four_Preference = forms.ChoiceField(label="Fourth Preference", required=False, choices=Student.PROJECTS)
     Five_Preference = forms.ChoiceField(label="Fifth Preference", required=False, choices=Student.PROJECTS)
-    SSN=forms.IntegerField("*Last four digits of your Social Security Number: (this will only be used to acess your background check information)", validators=[MaxValueValidator(9999)])
+    SSN=forms.IntegerField(label="*Last four digits of your Social Security Number: (this will only be used to acess your background check information)", validators=[MaxValueValidator(9999)])
 
     class Meta:
         model = Student
@@ -126,7 +126,7 @@ class StudentForm(forms.ModelForm):
             "Skills_2",
             "Skills_3",
             "Upload",
-           # "Resume",
+            #"Resume",
             #"Cover_Letter"
         ]
         
