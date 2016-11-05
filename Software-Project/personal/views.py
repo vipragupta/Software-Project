@@ -15,6 +15,7 @@ from .models import ProjectModel
 from .models import Student
 from .forms import *
 from .models import DEPARTMENT as DEP
+import copy
 
 #-------------Create your views here-------------------------
 def home(request):
@@ -43,24 +44,23 @@ def viewprojects(request):
 
 	dep_grp = {}
 	for dep in DEP:
-		#print dep[0]
 		all_projs = list( ProjectModel.objects.filter(PF_Department = dep[0]) )
-		#print len(all_projs)  
-		projects = []
+		project = []
 		for proj in all_projs:
-			
 			add = []
-			add.append(i.Id)
-			add.append(i.Appr_Title)
-			add.append(i.Appr_Details)
-			add.append(i.Appr_Departments)
-			add.append(i.Appr_Special_Requirements)  
-			add.append(i.PF_First_Name + "\n" + i.PF_Last_Name)  
-			add.append(i.PF_Contact_Number)  
-			add.append(i.PF_Email)
-			projects.append(add)   
-		if len(projects) > 0:
-			dep_grp[dep[0]] = projects 
+			add.append(proj.Id)
+			add.append(proj.Appr_Title)
+			add.append(proj.Appr_Details)
+			add.append(proj.Appr_Departments)
+			add.append(proj.Appr_Special_Requirements)  
+			add.append(proj.PF_First_Name + "\n" + i.PF_Last_Name)  
+			add.append(proj.PF_Contact_Number)  
+			add.append(proj.PF_Email)
+			project.append(add)
+		if len(project)> 0:   
+			dep_grp[dep[0]] = copy.deepcopy(project)
+
+	#print dep_grp.keys()
 	context["dep_grp"] = dep_grp
 	return render(request, 'personal/viewprojects.html', context)
 	
@@ -149,7 +149,24 @@ def login_faculty(request):
 def login_student(request):
     c = {}
     c.update(csrf(request))
-    return render_to_response('personal/login_student.html', c)
+    '''
+    myuserForm = MyuserForm(request.POST or None)
+    print csrf(request)
+    #print k
+    context = {
+		"myuserForm": myuserForm
+    }
+
+    if request.method == "POST":
+        
+        print k
+        #This is only for database		
+        if myuserForm.is_valid():
+            instance = myuserForm.save(commit=False)
+            #instance.User = csrf(request)
+            instance.save()
+    '''
+    return render(request, 'personal/login_student.html',c)
  
 def auth_view_faculty(request):
     username = request.POST.get('username', '')

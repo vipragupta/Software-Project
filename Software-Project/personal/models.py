@@ -5,6 +5,7 @@ from django.conf import settings
 import datetime
 from django.core.files.storage import FileSystemStorage
 from django.core.validators import MaxValueValidator, MinValueValidator
+from django.contrib.auth.models import User
 # Create your models here.
 
 #list of applicable departments
@@ -106,6 +107,13 @@ TRUE_FALSE_NS=[('1','True'),
 				]
 
 GENDER_CHOICES = [('M','Male'),('F','Female'),('D','Do Not Wish to Provide')]
+
+ROLES = (
+    (0, 'Student'),
+    (1, 'Faculty'),
+    (2, 'Admin'),
+    (3, 'CAES Staff'),
+)
 
 # Create your models here
 
@@ -251,3 +259,7 @@ class Student(models.Model):
 	def get_absolute_url(self):
 		return reverse("posts:detail", kwargs={"id": self.First_Name})    
 
+class Myuser(models.Model):
+	user = models.OneToOneField(User)
+	role = models.IntegerField("*Student/Faculties Unique Id")
+	uid = models.CharField("*Role", choices=ROLES, max_length=5)

@@ -129,3 +129,13 @@ class StudentForm(forms.ModelForm):
            # "Resume",
             #"Cover_Letter"
         ]
+        
+class MyuserForm(forms.ModelForm):
+    
+    class Meta:
+        model = Myuser
+        fields = [
+           "user",
+        	"role",
+        	"uid"
+        ]
