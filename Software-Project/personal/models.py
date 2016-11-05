@@ -222,7 +222,7 @@ class Student(models.Model):
  	SZip = models.CharField("*Summer Zip", max_length=5)
  	SCountry = models.CharField("*Summer Country", max_length=80, default="United States")
  	SPhone = models.IntegerField("*Summer Phone")
- 	SEmail = models.EmailField("*Summer Email");
+ 	SEmail = models.EmailField("*Summer Email", null=True);
 
  	Primary_Major = models.CharField("*Primary Major", max_length=50, choices=DEPARTMENT)
  	GPA = models.FloatField("*GPA (Should be between 0 to 4)", validators = [MinValueValidator(0.0), MaxValueValidator(4.0)])
