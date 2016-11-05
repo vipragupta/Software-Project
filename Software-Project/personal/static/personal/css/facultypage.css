@@ -226,6 +226,72 @@ a.addprojectsbutton {
 } 
 
 
+/*-------------------------------------Student application form----------------------------------*/
+.form2 form{
+	margin: 0 auto;
+	width: 70%;
+	height: 100%;
+	background-color: #f7f7f7;
+	padding: 15px;
+	font-family: Lato, sans-serif;
+    color: #454545;
+    text-shadow: 1px 1px 1px #FFF;
+    border:1px solid #E4E4E4;
+}
+
+#form-heading2 {
+	margin: 0 auto;
+	width: 70%;
+	background-color: #454545;
+	padding: 15px;
+	font-family: Lato, sans-serif;
+    color: #f7f7f7;
+    border:1px solid #E4E4E4;
+}
+
+.formitems2 p label {
+	font-size: 15px;
+	font-weight: bold;
+}
+
+.formitems2 input {
+  outline: 0;
+  background: white;
+  width: 100%;
+  border: 0;
+  margin-bottom: 10px;
+  margin-top:4px;
+  padding: 5px;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+
+
+.formitems2 select {
+  outline: 0;
+  background: white;
+  width: 100%;
+  border: 0;
+  margin-bottom: 10px;
+  margin-top:4px;
+  padding: 5px;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+
+.formitems2 ul {
+	list-style: none;
+} 
+
+
 /*----------------------------------Clear Save Submit Buttons-------------------------*/
 .pressbutton {
 	margin: 0 auto;

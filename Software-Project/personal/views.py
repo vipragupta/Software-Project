@@ -58,7 +58,7 @@ def viewprojects(request):
 			add.append(proj.PF_Email)
 			project.append(add)
 		if len(project)> 0:   
-			dep_grp[dep[0]] = copy.deepcopy(project)
+			dep_grp[dep[1]] = copy.deepcopy(project)
 
 	#print dep_grp.keys()
 	context["dep_grp"] = dep_grp
