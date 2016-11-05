@@ -15,7 +15,19 @@
         $(function(){
           $("#myTable").tablesorter({widgets: ['zebra']});
         });
-    </script>
+		
+    function ShowHideDiv() {
+        var selectlist = document.getElementById("selectlist");
+        var all = document.getElementById("all");
+        all.style.display = selectlist.value == "all" ? "block" : "none";
+		
+		var selectlist = document.getElementById("selectlist");
+        var dept1 = document.getElementById("Applied Mathematics");
+        dept1.style.display = selectlist.value == "Applied Mathematics" ? "block" : "none";
+		
+		
+    }
+	</script>
 </head>
 
 <body id="facultyhome">
@@ -35,13 +47,26 @@
 	</div>
 	
 	<div class="wrapper">
-	
 	<div class="button">
     <a href="applyprojects" class="addprojectsbutton">Click here to apply for projects</a>
 	</div>
 	
-	<div class="projectlist2">
-		<h3>Existing Projects List</h3>
+	<br/>
+	<div class="centered-cover">
+				<label>Choose an option to filter and view the projects</label>
+                <select id="selectlist" onchange = "ShowHideDiv();">
+						<option>Please select an option</option>
+						<option value="all">Show all projects</option>
+						{% for n,val in dep_grp.items %}
+							<option value="{{n}}">{{n}}</option>
+						{% endfor %}
+                </select>
+	</div>
+	
+	
+	
+	<div class="projectlist2" id="all" style="display:none;">
+		<h3>All Projects</h3>
 		<table id="myTable" class="tablesorter" border="0" cellpadding="0" cellspacing="1">
 			<thead>
 				<tr>
@@ -71,11 +96,12 @@
 				</tr>
 			</tbody>
 		</table>
+	</div>
 		
 		<br/>
 		{% for n,val in dep_grp.items %}
-		<div id="{{n}}">
-		<h3>{{n}}</h3>
+		<div id="{{n}}" style="display:none;">
+		<h3>Projects hosted by Department of {{n}}</h3>
 		<table id="myTable" class="tablesorter" border="0" cellpadding="0" cellspacing="1">
 			<thead>
 				<tr>
@@ -119,6 +145,7 @@
 			x.className = "topnav";
 		}
 	}
+	</script>
 
 </body>
 </html>
