@@ -40,9 +40,9 @@ def viewprojects(request):
 		add.append(i.PF_Contact_Number)  
 		add.append(i.PF_Email)
 		details1.append(add)
-	context["details1"] = details1
 
 	dep_grp = {}
+ 
 	for dep in DEP:
 		all_projs = list( ProjectModel.objects.filter(PF_Department = dep[0]) )
 		project = []
@@ -60,8 +60,33 @@ def viewprojects(request):
 		if len(project)> 0:   
 			dep_grp[dep[1]] = copy.deepcopy(project)
 
-	#print dep_grp.keys()
+	faculty_grp = {}
+	facultyNames = ProjectModel.objects.order_by().values('PF_First_Name', 'PF_Last_Name').distinct()
+
+	for faculty in facultyNames:
+		values = faculty.values()     
+		name = values[0] + " ".decode("utf-8") + values[1]
+		all_projs = list( ProjectModel.objects.filter(PF_First_Name = values[0], PF_Last_Name = values[1]) )
+		project = []
+		for proj in all_projs:
+			
+			add = []
+			add.append(proj.Id)
+			add.append(proj.Appr_Title)
+			add.append(proj.Appr_Details)
+			add.append(proj.Appr_Departments)
+			add.append(proj.Appr_Special_Requirements)  
+			add.append(proj.PF_First_Name + "\n" + i.PF_Last_Name)  
+			add.append(proj.PF_Contact_Number)  
+			add.append(proj.PF_Email)
+			project.append(add)
+			   
+		if len(project)> 0:   
+			faculty_grp[ name ] = copy.deepcopy(project)
+		
+	context["details1"] = details1
 	context["dep_grp"] = dep_grp
+	context["faculty_grp"] = faculty_grp
 	return render(request, 'personal/viewprojects.html', context)
 	
 def applyprojects(request):
