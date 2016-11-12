@@ -11,16 +11,20 @@ from .models import *
 class ProjectModelForm(forms.ModelForm):
     
     
-    SF_First_Name = forms.CharField(required=False)
-    SF_Last_Name = forms.CharField(required=False)
-    SF_Contact_Number = forms.IntegerField(required=False)
-    SF_Email = forms.EmailField(required=False)
-    SF_Department = forms.ChoiceField(required=False,
+    SF_First_Name = forms.CharField(label="Second Faculty First Name",required=False)
+    SF_Last_Name = forms.CharField(label="Second Faculty Last Name",required=False)
+    SF_Contact_Number = forms.IntegerField(label="Second Faculty Contact Number",required=False)
+    SF_Email = forms.EmailField(label="Second Faculty Email",required=False)
+    SF_Department = forms.ChoiceField(label="Second Faculty Department",required=False,
         choices=DEPARTMENT
     )
     Appr_Project_Link1 = forms.CharField(required=False)
     Appr_Project_Link2 = forms.FileField(required=False)
-    
+    #Min_GPA = forms.CharField(label="Minimum GPA Required", required=False)
+    Requirement1 = forms.CharField(label="Requirement I", required=False)
+    Requirement2 = forms.CharField(label="Requirement II", required=False)
+    Requirement3 = forms.CharField(label="Requirement III", required=False)
+
     class Meta:
         model = ProjectModel
         fields = [
@@ -44,7 +48,11 @@ class ProjectModelForm(forms.ModelForm):
         	"Appr_Supervision_Level",
         	"Appr_Supervision_By",
         	"Appr_Nature_Of_Work",
-         	"Appr_Prior_Work"
+         	"Appr_Prior_Work",
+            "Min_GPA",
+            "Requirement1",
+            "Requirement2",
+            "Requirement3",            
         ]
 
 class StudentForm(forms.ModelForm):
@@ -67,7 +75,10 @@ class StudentForm(forms.ModelForm):
     Secondary_Major = forms.ChoiceField(choices=DEPARTMENT, label="Secondary Major", required=False)
     #Primary_Major = forms.ChoiceField(choices=DEPARTMENT, label="Primary Major")
     Previous_Research = forms.ChoiceField(label="Do you have previous research experience?", required=False, choices=TRUE_FALSE, widget=forms.RadioSelect)
+    Availability = forms.ChoiceField(label="*Will you be available for full year?", choices=TRUE_FALSE, widget=forms.RadioSelect)
     Applied_Before = forms.ChoiceField(label="*Have you had a background check yet (at CU)? If yes when? (Take your best guess if you aren't sure.)", choices=TRUE_FALSE_NS, widget=forms.RadioSelect)
+    Got_DLA_Before = forms.ChoiceField(label="*Have you worked for DLA before?", choices=TRUE_FALSE, widget=forms.RadioSelect)
+    Enrollment = forms.ChoiceField(label="*Are you enrolled in College of Engineering and Applied Science?", choices=TRUE_FALSE, widget=forms.RadioSelect)
     Background_check = forms.ChoiceField(required=False,label="*Have you had Discrimination and Harassment Awareness training yet (at CU)? If yes when? (Take your best guess if you aren't sure.)", choices=TRUE_FALSE_NS, widget=forms.RadioSelect)
     Discrimination_training = forms.ChoiceField(required=False,label="*Have you applied for Discovery Learning Apprenticeship before?", choices=TRUE_FALSE, widget=forms.RadioSelect)
     Skills = forms.CharField(label="Please list the three skills or qualifications that you feel make you a great candidate for the positions you selected. (Could be knowledge of a programming language, knowledge of a field, courses taken, personal characteristics, etc. If appropriate, note your match to requirements in job description. Please note responses are limited to 75 characters.)",widget=forms.TextInput(attrs={'readonly':'True'}), initial = "Please fill in the following fields")
@@ -109,10 +120,13 @@ class StudentForm(forms.ModelForm):
             "Primary_Major",
             "GPA",
             "Secondary_Major",
+            "Degree_Level",
             "Level",
             "Anticipated_Graduation",
             "Previous_Research",
+            "Availability",
             "Applied_Before",
+            "Got_DLA_Before",
             "First_Preference",
             "Two_Preference",
             "Three_Preference",
@@ -121,6 +135,7 @@ class StudentForm(forms.ModelForm):
             "Background_check",
             "Discrimination_training",
             "SSN",
+            "Enrollment",
             "Skills",
             "Skills_1",
             "Skills_2",

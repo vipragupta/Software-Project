@@ -115,16 +115,22 @@ ROLES = (
     (3, 'CAES Staff'),
 )
 
+DEGREE = [
+	('BS', 'BS'),
+	 ('MS', 'MS'),
+	]
+
 # Create your models here
 
 def getProjectList():
-     	all_projs = list( ProjectModel.objects.all() )
+	all_projs = list(ProjectModel.objects.all())
 	ret = [('0',None)]
 	for i in all_projs:
 		k = str(i.Id)
 		v = str(k).decode("utf-8") + ":".decode("utf-8") + i.Appr_Title
 		ret.append( (k,v) )
 	return ret
+
 
 class ProjectModel(models.Model):
     
@@ -185,8 +191,13 @@ class ProjectModel(models.Model):
 		("Some", "Some prior work; student will build on work of others"),
 		("Well-established", "Well-established body of work; student will refine/improved upon efforts of others")
 	]
- 	Appr_Prior_Work = models.CharField("*Prior Work", max_length=180, choices=APPR_PRIOR_WORK)
+ 	Appr_Prior_Work = models.CharField("*Prior Work on project", max_length=180, choices=APPR_PRIOR_WORK)
 	
+	Min_GPA = models.FloatField("*GPA (Should be between 0 to 4)", validators = [MinValueValidator(0.0), MaxValueValidator(4.0)])
+	Requirement1 = models.CharField("*Requirement I", max_length=100)
+	Requirement2 = models.CharField("*Requirement II", max_length=100)
+	Requirement3 = models.CharField("*Requirement III", max_length=100) 
+
  	Username = models.CharField(max_length=180)
 	
 	def __unicode__(self):
@@ -213,7 +224,7 @@ class Student(models.Model):
  	Zip = models.CharField("*Zip", max_length=5)
  	Country = models.CharField("*Country", max_length=80, default="United States")
  	Phone = models.IntegerField("*Phone")
- 	Email = models.EmailField("*Email");
+ 	Email = models.EmailField("*Email")
 
  	SAddress_Line_1 = models.CharField("*Summer Address1", max_length=200)
  	SAddress_Line_2 = models.CharField("Summer Address2", max_length=200)
@@ -223,16 +234,18 @@ class Student(models.Model):
  	SCountry = models.CharField("*Summer Country", max_length=80, default="United States")
  	SPhone = models.IntegerField("*Summer Phone", null = True)
  	SEmail = models.EmailField("*Summer Email")
-
+ 	Enrollment = models.CharField("", choices=TRUE_FALSE, max_length=60)
  	Primary_Major = models.CharField("*Primary Major", max_length=50, choices=DEPARTMENT)
- 	GPA = models.FloatField("*GPA (Should be between 0 to 4)", validators = [MinValueValidator(0.0), MaxValueValidator(4.0)])
+ 	GPA = models.FloatField	("*GPA (Should be between 0 to 4)", validators = [MinValueValidator(0.0), MaxValueValidator(4.0)])
  	Secondary_Major = models.CharField("Secondary Major", max_length=50, choices=DEPARTMENT)
+	Degree_Level = models.CharField("What degree are you pursuing?", max_length=50, choices=DEGREE)
 	Level = models.CharField("*Level in school as of next fall", max_length=50, choices=LEVEL_IN_SCHOOL)
 	Anticipated_Graduation = models.DateField("*Anticipated Graduation Date",default=datetime.datetime.now)
 	Previous_Research = models.CharField("Do you have previous research experience?",choices=TRUE_FALSE, max_length=20)
-	
+	Availability = models.CharField("", choices=TRUE_FALSE, max_length=60)
 	PROJECTS = getProjectList()
 	Applied_Before = models.CharField("*Have you applied for Discovery Learning Apprenticeship before?", choices=TRUE_FALSE, max_length=20)
+	Got_DLA_Before = models.CharField("Have you worked for DLA before?", max_length=50, choices=TRUE_FALSE)
 	First_Preference = models.CharField("*First Preference", max_length=200, choices=PROJECTS)
 	Two_Preference = models.CharField("Two Preference", max_length=200, choices=PROJECTS)
 	Three_Preference = models.CharField("Three Preference", max_length=200, choices=PROJECTS)
