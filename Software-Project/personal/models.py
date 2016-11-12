@@ -6,6 +6,7 @@ import datetime
 from django.core.files.storage import FileSystemStorage
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.contrib.auth.models import User
+from multiselectfield import MultiSelectField
 # Create your models here.
 
 #list of applicable departments
@@ -157,7 +158,7 @@ class ProjectModel(models.Model):
 	Appr_Project_Link2 = models.FileField(storage=FileSystemStorage(location=settings.MEDIA_ROOT), upload_to='Apprenticeship', default='settings.MEDIA_ROOT/default/temp.txt')
 	Appr_Special_Requirements = models.CharField("*Special skillset required", max_length=1000)
 	#need to split these things, based on comma
-	Appr_Departments = models.CharField("*Choose one or more departments", max_length=120, choices=DEPARTMENT)
+	Appr_Departments = MultiSelectField("*Choose one or more departments", max_length=120, choices=DEPARTMENT)
 	
 	#make multiple
 	APPR_SUPERVISION_LEVEL =[
@@ -215,8 +216,7 @@ class Student(models.Model):
 	Last_Name = models.CharField("*Last Name", max_length=80)
 	Student_Id = models.IntegerField("*Student ID")
 	Gender = models.CharField("*Gender", max_length=25, choices=GENDER_CHOICES, error_messages={'required':"Please select a Gender type"})
- 	Race = models.CharField("*Race", max_length=25, choices=RACE_CHOICES)
- 	
+ 	Race = MultiSelectField("*Race", max_length=100, choices=RACE_CHOICES)
  	Address_Line_1 = models.CharField("*Address1", max_length=200)
  	Address_Line_2 = models.CharField("Address2", max_length=200)
  	City = models.CharField("*City", max_length=80)
