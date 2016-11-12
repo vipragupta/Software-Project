@@ -51,7 +51,8 @@ class StudentForm(forms.ModelForm):
     Student_Id = forms.IntegerField(label="*Student Id", validators=[MaxValueValidator(9999999999)])
     Gender = forms.ChoiceField(choices=GENDER_CHOICES, widget=forms.RadioSelect)
     Race = forms.ChoiceField(required=False,
-        choices=RACE_CHOICES,
+        widget=forms.CheckboxSelectMultiple,
+        choices=RACE_CHOICES
     )
     Address_Line_2 = forms.CharField(required=False)
     Country = forms.CharField(widget=forms.TextInput(attrs={'readonly':'True'}), initial = "United States")
