@@ -88,7 +88,7 @@ def viewprojects(request):
 	context["dep_grp"] = dep_grp
 	context["faculty_grp"] = faculty_grp
 	return render(request, 'personal/viewprojects.html', context)
-	
+
 def applyprojects(request):
 	if not request.user.is_authenticated():
 		return render_to_response('personal/login_student.html')
@@ -139,6 +139,10 @@ def projects(request):
 		details1.append(add)
 	context["details1"] = details1
 	return render(request, 'personal/projects.html', context)
+
+def project(request, pid):
+    	print pid
+    	return render(request, 'personal/projects.html', {})
 
 def addprojects(request):
     
