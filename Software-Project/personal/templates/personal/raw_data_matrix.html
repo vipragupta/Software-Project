@@ -51,9 +51,8 @@
 					</tr>
 				</thead>
 				<tbody>
-					{% for project in projectData
-							for student in project.Students
-					%}
+					{% for project in projectData %}
+					    {% for student in project.Students%}
 						<tr>
 						<td>{{project.projectId}}</td>
 						<td>{{project.projectName}}</td>
@@ -68,6 +67,7 @@
 						<td>{{student.skill2}}</td>
 						<td>{{student.skill3}}</td>
 						</tr>
+					{% endfor %}
 					{% endfor %}
 					</tr>
 				</tbody>

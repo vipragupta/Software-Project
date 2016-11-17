@@ -143,26 +143,33 @@ def projects(request):
 def rawmatrix(request):
 	if not request.user.is_authenticated():
 		return render_to_response('personal/login_faculty.html')
-	
+	print "In raw Matrix"
 	username = request.user.username
 	projectList = []
 	projects = list(ProjectModel.objects.filter(Username = username))
-	
+	print "Projects: ", len(projects)
 	for projectEntry in projects:
 		d = {}
 		projectId = projectEntry.Id
 		projectName = projectEntry.Appr_Title
-		d.update("projectId":projectId)
-		d.update("projectName":projectName)
+		temp = {"projectId":projectId}
+		d.update(temp)
+		temp = {"projectName":projectName}
+		d.update(temp)
+		print "projectId: ", projectId, "Name: ", projectName
 		studentInfo = list(Student.objects.filter(First_Preference = projectId).filter(Two_Preference = projectId).filter(Three_Preference = projectId).filter(Four_Preference = projectId).filter(Five_Preference = projectId))
+		print "studentInfo: ", studentInfo
 		studentList = []
 		
 		for student in studentInfo:
 			studentInfoDic = {}
 			name = student.First_Name + student.Last_Name
-			studentInfoDic.update("studentName":name)
-			studentInfoDic.update("studentGpa":student.GPA)
-			studentInfoDic.update("major":student.Primary_Major)
+			temp={"studentName":name}
+			studentInfoDic.update(temp)
+			temp={"studentGpa":student.GPA}
+			studentInfoDic.update(temp)
+			temp={"major":student.Primary_Major}
+			studentInfoDic.update()
 			if (student.First_Preference == projectId):
 				preferance = "First"
 			elif (student.Two_Preference == projectId):
@@ -173,16 +180,24 @@ def rawmatrix(request):
 				preferance = "Fourth"
 			elif (student.Five_Preference == projectId):
 				preferance = "Fifth"
-			studentInfoDic.update("preferance":preferance)
-			studentInfoDic.update("req1":student.req1)
-			studentInfoDic.update("req2":student.req2)
-			studentInfoDic.update("req3":student.req3)
-			studentInfoDic.update("skill1":student.skill1)
-			studentInfoDic.update("skill2":student.skill2)
-			studentInfoDic.update("skill3":student.skill3)
+			temp={"preferance":preferance}
+			studentInfoDic.update(temp)
+			temp={"req1":student.req1}
+			studentInfoDic.update(temp)
+			temp={"req2":student.req2}
+			studentInfoDic.update(temp)
+			temp={"req3":student.req3}
+			studentInfoDic.update(temp)
+			temp={"skill1":student.skill1}
+			studentInfoDic.update(temp)
+			temp={"skill2":student.skill2}
+			studentInfoDic.update(temp)
+			temp={"skill3":student.skill3}
+			studentInfoDic.update(temp)
 			studentList.append(studentInfoDic)
-
-		d.update("Students":studentList)
+			print studentInfoDic
+		temp1={"Students":studentList}
+		d.update(temp1)
 		projectList.append(d)
 	context = {}
 	details1 = []
