@@ -243,7 +243,9 @@ class Student(models.Model):
 	Anticipated_Graduation = models.DateField("*Anticipated Graduation Date",default=datetime.datetime.now)
 	Previous_Research = models.CharField("Do you have previous research experience?",choices=TRUE_FALSE, max_length=20)
 	Availability = models.CharField("", choices=TRUE_FALSE, max_length=60)
+	
 	PROJECTS = getProjectList()
+	
 	Applied_Before = models.CharField("*Have you applied for Discovery Learning Apprenticeship before?", choices=TRUE_FALSE, max_length=20)
 	Got_DLA_Before = models.CharField("Have you worked for DLA before?", max_length=50, choices=TRUE_FALSE)
 	First_Preference = models.CharField("*First Preference", max_length=200, choices=PROJECTS)
@@ -259,6 +261,7 @@ class Student(models.Model):
 	Skills_2 = models.CharField("2. ", max_length=100)
 	Skills_3 = models.CharField("3. ", max_length=100)
 
+	
 	Upload=models.CharField(max_length=100)
 	#Resume = models.FileField("*Resume", storage=FileSystemStorage(location=settings.MEDIA_ROOT), upload_to='Resume', default='settings.MEDIA_ROOT/default/temp.txt')
 	#Cover_Letter = models.FileField("*Cover Letter", storage=FileSystemStorage(location=settings.MEDIA_ROOT), upload_to='Cover_Letter', default='settings.MEDIA_ROOT/default/temp.txt')

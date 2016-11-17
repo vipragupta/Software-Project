@@ -120,7 +120,7 @@ def studenthome(request):
 #----------------Faculty views----------------------------------------
 def projects(request):
 	if not request.user.is_authenticated():
-		return render_to_response('personal/login_student.html')
+		return render_to_response('personal/login_faculty.html')
 	username = request.user.username
 	all_projs = list( ProjectModel.objects.filter(Username = username) )
 	context = {}
@@ -139,6 +139,58 @@ def projects(request):
 		details1.append(add)
 	context["details1"] = details1
 	return render(request, 'personal/projects.html', context)
+
+
+def rawmatrix(request):
+	if not request.user.is_authenticated():
+		return render_to_response('personal/login_faculty.html')
+	
+	username = request.user.username
+	projectList = []
+	projects = list(ProjectModel.objects.filter(Username = username))
+	
+	for projectEntry in projects:
+		d = {}
+		projectId = projectEntry.Id
+		projectName = projectEntry.Appr_Title
+		d.update("projectId":projectId)
+		d.update("projectName":projectName)
+		studentInfo = list(Student.objects.filter(First_Preference = projectId).filter(Two_Preference = projectId).filter(Three_Preference = projectId).filter(Four_Preference = projectId).filter(Five_Preference = projectId))
+		studentList = []
+		
+		for student in studentInfo:
+			studentInfoDic = {}
+			name = student.First_Name + student.Last_Name
+			studentInfoDic.update("studentName":name)
+			studentInfoDic.update("studentGpa":student.GPA)
+			studentInfoDic.update("major":student.Primary_Major)
+			if (student.First_Preference == projectId):
+				preferance = "First"
+			elif (student.Two_Preference == projectId):
+				preferance = "Second"
+			elif (student.Three_Preference == projectId):
+				preferance = "Third"
+			elif (student.Four_Preference == projectId):
+				preferance = "Fourth"
+			elif (student.Five_Preference == projectId):
+				preferance = "Fifth"
+			studentInfoDic.update("preferance":preferance)
+			studentInfoDic.update("req1":student.req1)
+			studentInfoDic.update("req2":student.req2)
+			studentInfoDic.update("req3":student.req3)
+			studentInfoDic.update("skill1":student.skill1)
+			studentInfoDic.update("skill2":student.skill2)
+			studentInfoDic.update("skill3":student.skill3)
+			studentList.append(studentInfoDic)
+
+		d.update("Students":studentList)
+		projectList.append(d)
+	context = {}
+	details1 = []
+ 
+	context["projectData"] = projectList
+	return render(request, 'personal/raw_data_matrix.html', context)
+
 
 def addprojects(request):
     
