@@ -131,7 +131,7 @@ def projects(request):
 		add.append(i.Id)
 		add.append(i.Appr_Title)
 		add.append(i.Appr_Details)
-		add.append(i.Appr_Departments)
+		add.append(i.PF_Department)
 		add.append(i.Appr_Special_Requirements)  
 		add.append(i.PF_First_Name + "\n" + i.PF_Last_Name)  
 		add.append(i.PF_Contact_Number)  
