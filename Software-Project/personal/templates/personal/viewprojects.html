@@ -11,6 +11,33 @@
     <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> 
     <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.9.1/jquery.tablesorter.min.js"></script>
     <script type="text/javascript" src="/static/personal/js/script.js"></script>
+	<!--<script>
+		function ShowHideDivFaculty() {
+			var i=0;
+			var dept = new Array(100);
+			{% for n,val in faculty_grp.items %}
+				dept[i]= {{n}};
+				i++;
+			alert("I am an alert box!");
+			{% endfor %}
+	
+
+	/*var selectedOption = document.getElementById("selectlist").value;
+	for (var i = 0; i < 14; i++) {
+		if (selectedOption == dept[i]) {
+			var vip = document.getElementById(dept[i]);
+			vip.style.display = "block" ;
+		} else {
+		try {
+			var vip = document.getElementById(dept[i]);
+			vip.style.display = "none" ;
+			}
+			catch (error){
+			}
+		}
+	}*/
+	}
+	</script> -->
 </head>
 
 <body id="facultyhome">
@@ -35,11 +62,22 @@
 	</div>
 	
 	<br/>
+	<!--
 	<div class="centered-cover">
-				<label>Choose an option to filter and view the projects</label>
+				<label>Choose an option to filter and view the projects based on Department</label>
                 <select id="selectlist" onchange = "ShowHideDiv();">
 						<option value="all">All Projects</option>
 						{% for n,val in dep_grp.items %}
+							<option value="{{n}}">{{n}}</option>
+						{% endfor %}
+                </select>
+	</div> -->
+	
+	<div class="centered-cover">
+				<label>Choose an option to filter and view the projects based on Faculty</label>
+                <select id="selectlist" onchange = "ShowHideDivFaculty();">
+						<option value="all">All Projects</option>
+						{% for n,val in faculty_grp.items %}
 							<option value="{{n}}">{{n}}</option>
 						{% endfor %}
                 </select>
@@ -116,6 +154,7 @@
 	
 	<script>
 	function myFunction() {
+		alert("I am an alert box!");
 		var x = document.getElementById("myTopnav");
 		if (x.className === "topnav") {
 			x.className += " responsive";

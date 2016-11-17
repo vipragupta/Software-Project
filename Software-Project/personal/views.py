@@ -34,7 +34,7 @@ def viewprojects(request):
 		add.append(i.Id)
 		add.append(i.Appr_Title)
 		add.append(i.Appr_Details)
-		add.append(i.Appr_Departments)
+		add.append(i.PF_Department)
 		add.append(i.Appr_Special_Requirements)  
 		add.append(i.PF_First_Name + "\n" + i.PF_Last_Name)  
 		add.append(i.PF_Contact_Number)  
@@ -51,7 +51,7 @@ def viewprojects(request):
 			add.append(proj.Id)
 			add.append(proj.Appr_Title)
 			add.append(proj.Appr_Details)
-			add.append(proj.Appr_Departments)
+			add.append(proj.PF_Department)
 			add.append(proj.Appr_Special_Requirements)  
 			add.append(proj.PF_First_Name + "\n" + i.PF_Last_Name)  
 			add.append(proj.PF_Contact_Number)  
@@ -74,7 +74,7 @@ def viewprojects(request):
 			add.append(proj.Id)
 			add.append(proj.Appr_Title)
 			add.append(proj.Appr_Details)
-			add.append(proj.Appr_Departments)
+			add.append(proj.PF_Department)
 			add.append(proj.Appr_Special_Requirements)  
 			add.append(proj.PF_First_Name + "\n" + i.PF_Last_Name)  
 			add.append(proj.PF_Contact_Number)  
@@ -88,7 +88,7 @@ def viewprojects(request):
 	context["dep_grp"] = dep_grp
 	context["faculty_grp"] = faculty_grp
 	return render(request, 'personal/viewprojects.html', context)
-	
+
 def applyprojects(request):
 	if not request.user.is_authenticated():
 		return render_to_response('personal/login_student.html')
@@ -97,10 +97,10 @@ def applyprojects(request):
 	context = {
 		"studentForm": studentForm,
 	}
-	print studentForm
+	#print studentForm
 	if request.method == "POST":
 		if studentForm.is_valid():
-			print studentForm.cleaned_data
+			#print studentForm.cleaned_data
 			instance = studentForm.save(commit=False)
 			instance.save()
 			return render(request, 'personal/studenthome.html',context)
@@ -131,7 +131,7 @@ def projects(request):
 		add.append(i.Id)
 		add.append(i.Appr_Title)
 		add.append(i.Appr_Details)
-		add.append(i.Appr_Departments)
+		add.append(i.PF_Department)
 		add.append(i.Appr_Special_Requirements)  
 		add.append(i.PF_First_Name + "\n" + i.PF_Last_Name)  
 		add.append(i.PF_Contact_Number)  
@@ -139,7 +139,6 @@ def projects(request):
 		details1.append(add)
 	context["details1"] = details1
 	return render(request, 'personal/projects.html', context)
-
 
 def rawmatrix(request):
 	if not request.user.is_authenticated():
@@ -192,6 +191,10 @@ def rawmatrix(request):
 	return render(request, 'personal/raw_data_matrix.html', context)
 
 
+def project(request, pid):
+    	print pid
+    	return render(request, 'personal/projects.html', {})
+
 def addprojects(request):
     
 	if not request.user.is_authenticated():
@@ -205,7 +208,7 @@ def addprojects(request):
 	if request.method == "POST":
 		
 		if projectModelForm.is_valid():
-			print projectModelForm.cleaned_data
+			#print projectModelForm.cleaned_data
 			instance = projectModelForm.save(commit=False)
 			if request.user.is_authenticated():
 				username = request.user.username
