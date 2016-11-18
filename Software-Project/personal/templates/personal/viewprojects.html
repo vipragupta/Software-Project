@@ -11,33 +11,31 @@
     <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> 
     <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.9.1/jquery.tablesorter.min.js"></script>
     <script type="text/javascript" src="/static/personal/js/script.js"></script>
-	<!--<script>
+	<script>
 		function ShowHideDivFaculty() {
 			var i=0;
-			var dept = new Array(100);
+			var faculty_list = ["all"];
 			{% for n,val in faculty_grp.items %}
-				dept[i]= {{n}};
-				i++;
-			alert("I am an alert box!");
+				faculty_list.push('{{ n }}');
 			{% endfor %}
 	
-
-	/*var selectedOption = document.getElementById("selectlist").value;
-	for (var i = 0; i < 14; i++) {
-		if (selectedOption == dept[i]) {
-			var vip = document.getElementById(dept[i]);
-			vip.style.display = "block" ;
-		} else {
-		try {
-			var vip = document.getElementById(dept[i]);
-			vip.style.display = "none" ;
-			}
-			catch (error){
+			var selectedOption = document.getElementById("selectlist2").value;
+			for (var i = 0; i < faculty_list.length; i++) {
+				if (selectedOption == faculty_list[i]) {
+					var vip = document.getElementById(faculty_list[i]);
+					vip.style.display = "block" ;
+				} 
+				else {
+					try {
+						var vip = document.getElementById(faculty_list[i]);
+						vip.style.display = "none" ;
+					}
+					catch (error){
+					}
+				}
 			}
 		}
-	}*/
-	}
-	</script> -->
+	</script>
 </head>
 
 <body id="facultyhome">
@@ -62,7 +60,7 @@
 	</div>
 	
 	<br/>
-	<!--
+	
 	<div class="centered-cover">
 				<label>Choose an option to filter and view the projects based on Department</label>
                 <select id="selectlist" onchange = "ShowHideDiv();">
@@ -71,11 +69,11 @@
 							<option value="{{n}}">{{n}}</option>
 						{% endfor %}
                 </select>
-	</div> -->
+	</div>
 	
 	<div class="centered-cover">
 				<label>Choose an option to filter and view the projects based on Faculty</label>
-                <select id="selectlist" onchange = "ShowHideDivFaculty();">
+                <select id="selectlist2" onchange = "ShowHideDivFaculty();">
 						<option value="all">All Projects</option>
 						{% for n,val in faculty_grp.items %}
 							<option value="{{n}}">{{n}}</option>
@@ -118,7 +116,44 @@
 		
 		{% for n,val in dep_grp.items %}
 		<div id="{{n}}" style="display:none;" class="projectlist2">
-		<h3>Projects hosted by Department of {{n}}</h3>
+		<</br><h3>Projects hosted by Department of {{n}}</h3>
+
+		<table id="myTable" class="tablesorter" border="0" cellpadding="0" cellspacing="1">
+			<thead>
+				<tr>
+					<th>Project ID</th>
+					<th>Project Name</th>
+					<th>Project Details</th>
+					<th>Department</th>
+					<th>Special Requirements</th>
+                    <th>Faculty Name</th>
+					<th>Contact number</th>
+					<th>Email</th>
+				</tr>
+			</thead>
+            <tbody>
+				{% for v in val %}
+					<tr>
+					<td>{{v.0}}</td>
+					<td>{{v.1}}</td>
+					<td id="projectdetailscoloumn" style="width: 300px;">{{v.2}}</td>
+					<td>{{v.3}}</td>
+					<td>{{v.4}}</td>
+					<td>{{v.5}}</td>
+					<td>{{v.6}}</td>
+					<td>{{v.7}}</td>
+					</tr>
+				{% endfor %}
+				</tr>
+			</tbody>
+		</table>
+		</div>
+		{% endfor %}
+		
+		
+		{% for n,val in faculty_grp.items %}
+		<div id="{{n}}" style="display:none;" class="projectlist2">
+		</br><h3>Projects hosted by the faculty {{n}}</h3>
 
 		<table id="myTable" class="tablesorter" border="0" cellpadding="0" cellspacing="1">
 			<thead>
