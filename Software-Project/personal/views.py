@@ -97,16 +97,50 @@ def applyprojects(request):
 
 	context = {
 		"studentForm": studentForm,
+		#"StudentId": studentForm.Student_Id
 	}
 	#print studentForm
 	if request.method == "POST":
 		if studentForm.is_valid():
+			data = studentForm.cleaned_data
+			Studenturl= "updateRequirement.html/"#+str(data['Student_Id'])
 			#print studentForm.cleaned_data
 			instance = studentForm.save(commit=False)
 			instance.save()
-			return render(request, 'personal/studenthome.html',context)
+   
+			print "\n\n", Studenturl
+			return render(request, Studenturl, {"sid":str(data['Student_Id'])}, context)
+			#return render(request, 'personal/studenthome.html',context)
 
 	return render(request, 'personal/applyprojects.html',context)	
+
+def updateRequirements(request, sid):
+	print sid
+	projectList = list(Student.objects.filter(Student_Id = sid))
+	RequirementList = []
+	
+	for projectId in projectList:
+		tempReqList = list(ProjectModel.objects.filter(Id = str(projectId)))
+		RequirementList.append(tempReqList.Requirement1)
+		RequirementList.append(tempReqList.Requirement2)
+		RequirementList.append(tempReqList.Requirement3) 
+	
+	labelName = ["P1_Req1","P1_Req2","P1_Req3","P2_Req1","P2_Req2","P2_Req3","P3_Req1","P3_Req2","P3_Req3","P4_Req1","P4_Req2","P4_Req3","P5_Req1","P5_Req2","P5_Req3"]
+	
+	instance = get_object_or_404(StudentForm, Student_Id=sid)
+	form = UpdateReqForm(request.POST or None, instance=instance)
+	
+	for i in range(len(RequirementList)):
+		form.setlabel(labelname[i], RequirementList[i])
+	
+	context = {"updateReqForm", form}
+	#proj_req = list(ProjectModel.objects.filter(Id = id) )
+	if form.is_valid():
+		form.save()
+		return render(request, 'personal/studenthome.html', context)
+
+	# return direct_to_template(request, 'my_template.html', {'form': form} 
+	return render(request, 'personal/applyprojects.html', context)
 
 def facultyhome(request):
     if not request.user.is_authenticated():
