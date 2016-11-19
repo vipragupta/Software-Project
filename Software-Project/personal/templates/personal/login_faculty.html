@@ -29,7 +29,7 @@
 			<p class="message">Already registered? <a href="#">Sign In</a></p>
 			<button>Create</button>
 		</form>-->
-		<form action="auth_faculty" method="post" class="register-form" > {% csrf_token %}
+		<form action={% url "auth_faculty" %} method="post" class="register-form" > {% csrf_token %}
 			<label for="username">User name:</label>
 			<input type="text" name="username" value="" id="username">
 			<label for="password">Password:</label>

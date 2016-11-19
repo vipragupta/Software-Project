@@ -48,7 +48,7 @@
 			<button>Create</button>
 		</form>
   -->
-		<form action="auth_student" method="post" class="register-form" > {% csrf_token %}
+		<form action={% url "auth_student" %} method="post" class="register-form" > {% csrf_token %}
 			<label for="username">User name:</label>
 			<input type="text" name="username" value="" id="username">
 			<label for="password">Password:</label>
