@@ -103,14 +103,14 @@ def applyprojects(request):
 	if request.method == "POST":
 		if studentForm.is_valid():
 			data = studentForm.cleaned_data
-			Studenturl= "updateRequirement.html/"#+str(data['Student_Id'])
+			Studenturl= "updateRequirement.html"#+str(data['Student_Id'])
 			#print studentForm.cleaned_data
 			instance = studentForm.save(commit=False)
 			instance.save()
    
 			print "\n\n", Studenturl
-			return render(request, Studenturl, {"sid":str(data['Student_Id'])}, context)
-			#return render(request, 'personal/studenthome.html',context)
+			#return render(request, Studenturl, {"sid":str(data['Student_Id'])}, context)
+			return render(request, 'personal/studenthome.html',context)
 
 	return render(request, 'personal/applyprojects.html',context)	
 
