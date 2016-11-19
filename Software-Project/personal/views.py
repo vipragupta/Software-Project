@@ -157,7 +157,8 @@ def rawmatrix(request):
 		temp = {"projectName":projectName}
 		d.update(temp)
 		print "projectId: ", projectId, "Name: ", projectName
-		studentInfo = list(Student.objects.filter(First_Preference = projectId).filter(Two_Preference = projectId).filter(Three_Preference = projectId).filter(Four_Preference = projectId).filter(Five_Preference = projectId))
+		studentInfo = list(Student.objects)
+		#.filter(First_Preference = projectId).filter(Two_Preference = projectId).filter(Three_Preference = projectId).filter(Four_Preference = projectId).filter(Five_Preference = projectId)
 		print "studentInfo: ", studentInfo
 		studentList = []
 		
