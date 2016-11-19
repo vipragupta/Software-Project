@@ -12,9 +12,9 @@ urlpatterns = [
 	
 	#Faculty Page URLs
 	url(r'^facultyhome$', views.facultyhome , name='facultyhome'),
-	url(r'^projects/$', views.projects , name='projects'),
-	url(r'^rawmatrix/$', views.rawmatrix , name='rawmatrix'),
-	url(r'^projects/(?P<pid>\d+)$', views.project, name='project' ),
+	url(r'^projects$', views.projects , name='projects'),
+	url(r'^rawmatrix$', views.rawmatrix , name='rawmatrix'),
+	#url(r'^projects/(?P<pid>\d+)$', views.project, name='project' ),
 	url(r'^addprojects$', views.addprojects , name='addprojects'),
 	
 	#Student Page URLs

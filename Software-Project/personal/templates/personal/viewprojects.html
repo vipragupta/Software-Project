@@ -28,14 +28,21 @@
 					document.getElementById("selectlist").value = 1;
 				} 
 				else {
-					try {
-						var vip1 = document.getElementById(dept[i]); 
+					try { 
 						var vip = document.getElementById(faculty_list[i]);
 						vip.style.display = "none" ;
 						vip1.style.display = "none" ;
 					}
 					catch (error){
 					}
+				}
+			}
+			for (var i = 0; i < 14; i++) {
+				try{
+				var vip1 = document.getElementById(dept[i]);
+				vip1.style.display = "none" ;
+				}
+				catch(error){
 				}
 			}
 		}
@@ -57,14 +64,22 @@
 				} else {
 				try {
 					var vip = document.getElementById(dept[i]);
-					var vip2 = document.getElementById(faculty_list[i]);
+					
 					vip.style.display = "none" ;
-					vip2.style.display = "none" ;
+					
 					}
 					catch (error){
 					}
 				}
-			}	
+			}
+			for (var i = 0; i < faculty_list.length; i++) {
+				try{
+				var vip2 = document.getElementById(faculty_list[i]);
+				vip2.style.display = "none" ;
+				}
+				catch(error){
+				}
+			}
 }
 	</script>
 </head>
