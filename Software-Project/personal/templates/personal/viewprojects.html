@@ -18,23 +18,54 @@
 			{% for n,val in faculty_grp.items %}
 				faculty_list.push('{{ n }}');
 			{% endfor %}
-	
+			
+			var dept = ["all", "Aerospace Engineering","Applied Mathematics","Architectural Engineering","Chemical Engineering","Biological Engineering","Civil Engineering","Computer Science","Electrical Engineering","Electrical and Computer Engineering","Engineering Physics","Environmental Engineering","Mechanical Engineering","Technology Arts and Media"];
 			var selectedOption = document.getElementById("selectlist2").value;
 			for (var i = 0; i < faculty_list.length; i++) {
 				if (selectedOption == faculty_list[i]) {
 					var vip = document.getElementById(faculty_list[i]);
 					vip.style.display = "block" ;
+					document.getElementById("selectlist").value = 1;
 				} 
 				else {
 					try {
+						var vip1 = document.getElementById(dept[i]); 
 						var vip = document.getElementById(faculty_list[i]);
 						vip.style.display = "none" ;
+						vip1.style.display = "none" ;
 					}
 					catch (error){
 					}
 				}
 			}
 		}
+		
+		function ShowHideDiv() {	
+			var i=0;
+			var faculty_list = ["all"];
+			{% for n,val in faculty_grp.items %}
+				faculty_list.push('{{ n }}');
+			{% endfor %}
+			
+			var dept = ["all", "Aerospace Engineering","Applied Mathematics","Architectural Engineering","Chemical Engineering","Biological Engineering","Civil Engineering","Computer Science","Electrical Engineering","Electrical and Computer Engineering","Engineering Physics","Environmental Engineering","Mechanical Engineering","Technology Arts and Media"];
+			var selectedOption = document.getElementById("selectlist").value;
+			for (var i = 0; i < 14; i++) {
+				if (selectedOption == dept[i]) {
+					var vip = document.getElementById(dept[i]);
+					document.getElementById("selectlist2").value = 1;
+					vip.style.display = "block" ;
+				} else {
+				try {
+					var vip = document.getElementById(dept[i]);
+					var vip2 = document.getElementById(faculty_list[i]);
+					vip.style.display = "none" ;
+					vip2.style.display = "none" ;
+					}
+					catch (error){
+					}
+				}
+			}	
+}
 	</script>
 </head>
 
@@ -69,7 +100,7 @@
 							<option value="{{n}}">{{n}}</option>
 						{% endfor %}
                 </select>
-	</div>
+	</div><br/>
 	
 	<div class="centered-cover">
 				<label>Choose an option to filter and view the projects based on Faculty</label>
@@ -116,7 +147,7 @@
 		
 		{% for n,val in dep_grp.items %}
 		<div id="{{n}}" style="display:none;" class="projectlist2">
-		<</br><h3>Projects hosted by Department of {{n}}</h3>
+		<h3>Projects hosted by Department of {{n}}</h3>
 
 		<table id="myTable" class="tablesorter" border="0" cellpadding="0" cellspacing="1">
 			<thead>
@@ -153,7 +184,7 @@
 		
 		{% for n,val in faculty_grp.items %}
 		<div id="{{n}}" style="display:none;" class="projectlist2">
-		</br><h3>Projects hosted by the faculty {{n}}</h3>
+		<h3>Projects hosted by the faculty {{n}}</h3>
 
 		<table id="myTable" class="tablesorter" border="0" cellpadding="0" cellspacing="1">
 			<thead>
@@ -163,7 +194,6 @@
 					<th>Project Details</th>
 					<th>Department</th>
 					<th>Special Requirements</th>
-                    <th>Faculty Name</th>
 					<th>Contact number</th>
 					<th>Email</th>
 				</tr>
@@ -176,7 +206,6 @@
 					<td id="projectdetailscoloumn" style="width: 300px;">{{v.2}}</td>
 					<td>{{v.3}}</td>
 					<td>{{v.4}}</td>
-					<td>{{v.5}}</td>
 					<td>{{v.6}}</td>
 					<td>{{v.7}}</td>
 					</tr>
