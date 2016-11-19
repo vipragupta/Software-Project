@@ -59,7 +59,7 @@ class StudentForm(forms.ModelForm):
     Student_Id = forms.IntegerField(label="*Student Id", validators=[MaxValueValidator(9999999999)])
     Gender = forms.ChoiceField(choices=GENDER_CHOICES, widget=forms.RadioSelect)
     Race = forms.ChoiceField(required=False,
-        widget=forms.CheckboxSelectMultiple,
+        widget=forms.RadioSelect,
         choices=RACE_CHOICES
     )
     Address_Line_2 = forms.CharField(required=False)

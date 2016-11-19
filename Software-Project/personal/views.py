@@ -15,6 +15,7 @@ from .models import ProjectModel
 from .models import Student
 from .forms import *
 from .models import DEPARTMENT as DEP
+from django.db.models import Q
 import copy
 
 #-------------Create your views here-------------------------
@@ -156,47 +157,51 @@ def rawmatrix(request):
 		d.update(temp)
 		temp = {"projectName":projectName}
 		d.update(temp)
-		print "projectId: ", projectId, "Name: ", projectName
-		studentInfo = list(Student.objects)
-		#.filter(First_Preference = projectId).filter(Two_Preference = projectId).filter(Three_Preference = projectId).filter(Four_Preference = projectId).filter(Five_Preference = projectId)
+		print "projectId:" + str(projectId)+":			Name: ", projectName
+		#studentInfo = list(Student.objects.filter(First_Preference = str(projectId)))#.filter(Two_Preference = str(projectId)).filter(Three_Preference = str(projectId)).filter(Four_Preference = str(projectId)).filter(Five_Preference = str(projectId)))
+		studentInfo = list(Student.objects.filter(Q(First_Preference = str(projectId)) | Q(Two_Preference = str(projectId)) | Q(Three_Preference = str(projectId)) | Q(Four_Preference = str(projectId)) | Q(Five_Preference = str(projectId))))
 		print "studentInfo: ", studentInfo
 		studentList = []
 		
 		for student in studentInfo:
 			studentInfoDic = {}
-			name = student.First_Name + student.Last_Name
+			name = student.First_Name + " " + student.Last_Name
 			temp={"studentName":name}
 			studentInfoDic.update(temp)
 			temp={"studentGpa":student.GPA}
 			studentInfoDic.update(temp)
 			temp={"major":student.Primary_Major}
-			studentInfoDic.update()
-			if (student.First_Preference == projectId):
+			studentInfoDic.update(temp)
+			preferance = ""
+
+			if (student.First_Preference == str(projectId)):
 				preferance = "First"
-			elif (student.Two_Preference == projectId):
+			elif (student.Two_Preference == str(projectId)):
 				preferance = "Second"
-			elif (student.Three_Preference == projectId):
+			elif (student.Three_Preference == str(projectId)):
 				preferance = "Third"
-			elif (student.Four_Preference == projectId):
+			elif (student.Four_Preference == str(projectId)):
 				preferance = "Fourth"
-			elif (student.Five_Preference == projectId):
+			elif (student.Five_Preference == str(projectId)):
 				preferance = "Fifth"
+			print "Converted preferance: ", preferance
+			
 			temp={"preferance":preferance}
 			studentInfoDic.update(temp)
-			temp={"req1":student.req1}
+			temp={"req1":"First req"}#student.req1}
 			studentInfoDic.update(temp)
-			temp={"req2":student.req2}
+			temp={"req2":"Second req"}#student.req2}
 			studentInfoDic.update(temp)
-			temp={"req3":student.req3}
+			temp={"req3":"Third req"}#student.req3}
 			studentInfoDic.update(temp)
-			temp={"skill1":student.skill1}
+			temp={"skill1":student.Skills_1}
 			studentInfoDic.update(temp)
-			temp={"skill2":student.skill2}
+			temp={"skill2":student.Skills_2}
 			studentInfoDic.update(temp)
-			temp={"skill3":student.skill3}
+			temp={"skill3":student.Skills_3}
 			studentInfoDic.update(temp)
 			studentList.append(studentInfoDic)
-			print studentInfoDic
+			#print studentInfoDic
 		temp1={"Students":studentList}
 		d.update(temp1)
 		projectList.append(d)
