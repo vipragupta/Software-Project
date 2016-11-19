@@ -98,20 +98,23 @@ def applyprojects(request):
 		"studentForm": studentForm,
 		#"StudentId": studentForm.Student_Id
 	}
-	Studenturl= "updateRequirement.html?"+str(studentForm.Student_Id)
 	#print studentForm
 	if request.method == "POST":
 		if studentForm.is_valid():
+			data = studentForm.cleaned_data
+			Studenturl= "updateRequirement.html/"#+str(data['Student_Id'])
 			#print studentForm.cleaned_data
 			instance = studentForm.save(commit=False)
 			instance.save()
-			return render(request, Studenturl, context)
+   
+			print "\n\n", Studenturl
+			return render(request, Studenturl, {"sid":str(data['Student_Id'])}, context)
 			#return render(request, 'personal/studenthome.html',context)
 
 	return render(request, 'personal/applyprojects.html',context)	
 
 def updateRequirements(request, sid):
-
+	print sid
 	projectList = list(Student.objects.filter(Student_Id = sid))
 	RequirementList = []
 	
@@ -129,13 +132,14 @@ def updateRequirements(request, sid):
 	for i in range(len(RequirementList)):
 		form.setlabel(labelname[i], RequirementList[i])
 	
+	context = {"updateReqForm", form}
 	#proj_req = list(ProjectModel.objects.filter(Id = id) )
 	if form.is_valid():
 		form.save()
-		return render(request, 'personal/studenthome.html')
+		return render(request, 'personal/studenthome.html', context)
 
 	# return direct_to_template(request, 'my_template.html', {'form': form} 
-	return render(request, 'personal/applyprojects.html')
+	return render(request, 'personal/applyprojects.html', context)
 
 def facultyhome(request):
     if not request.user.is_authenticated():
