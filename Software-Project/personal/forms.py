@@ -146,6 +146,30 @@ class StudentForm(forms.ModelForm):
             #"Cover_Letter"
         ]
         
+class UpdateReqForm(forms.ModelForm):
+	class Meta:
+		model = Student
+		fields = [
+			"P1_Req1",
+			"P1_Req2",
+			"P1_Req3",
+			"P2_Req1",
+			"P2_Req2",
+			"P2_Req3",
+			"P3_Req1",
+			"P3_Req2",
+			"P3_Req3",
+			"P4_Req1",
+			"P4_Req2",
+			"P4_Req3",
+			"P5_Req1",
+			"P5_Req2",
+			"P5_Req3",
+			]
+			
+	def setlabel(self, labelname, labelvalue):
+	    self.fields[labelname].label = labelvalue
+        
 class MyuserForm(forms.ModelForm):
     
     class Meta:

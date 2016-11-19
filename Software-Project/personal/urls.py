@@ -15,12 +15,13 @@ urlpatterns = [
 	url(r'^projects/$', views.projects , name='projects'),
 	url(r'^rawmatrix/$', views.rawmatrix , name='rawmatrix'),
 	url(r'^projects/(?P<pid>\d+)$', views.project, name='project' ),
-	url(r'^addprojects$', views.addprojects , name='addprojects'),
+	url(r'^addprojects/$', views.addprojects , name='addprojects'),
 	
 	#Student Page URLs
 	url(r'^studenthome$', views.studenthome , name='studenthome'),
 	url(r'^viewprojects$', views.viewprojects , name='viewprojects'),
-	url(r'^applyprojects/$', views.applyprojects , name='applyprojects'),
+	url(r'^applyprojects$', views.applyprojects , name='applyprojects'),
+	url(r'^updateRequirement.html/(?P<sid>\d+)$', views.updateRequirements, name='updateRequirements' ),
 	
 	#Login Page and Authentication URLs
 	url(r'^login_faculty$', views.login_faculty, name='login_faculty'),

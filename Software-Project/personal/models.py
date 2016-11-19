@@ -260,6 +260,26 @@ class Student(models.Model):
 	Skills_1 = models.CharField("1. ", max_length=100)
 	Skills_2 = models.CharField("2. ", max_length=100)
 	Skills_3 = models.CharField("3. ", max_length=100)
+	
+	P1_Req1 = models.CharField("Title Req1", max_length=50, choices=TRUE_FALSE, default = False)
+	P1_Req2= models.CharField("Title Req1", max_length=50, choices=TRUE_FALSE, default = False)
+	P1_Req3= models.CharField("Title Req1", max_length=50, choices=TRUE_FALSE, default = False)
+	
+	P2_Req1= models.CharField("Title Req1", max_length=50, choices=TRUE_FALSE, default = False)
+	P2_Req2= models.CharField("Title Req1", max_length=50, choices=TRUE_FALSE, default = False)
+	P2_Req3= models.CharField("Title Req1", max_length=50, choices=TRUE_FALSE, default = False)
+	
+	P3_Req1= models.CharField("Title Req1", max_length=50, choices=TRUE_FALSE, default = False)
+	P3_Req2= models.CharField("Title Req1", max_length=50, choices=TRUE_FALSE, default = False)
+	P3_Req3= models.CharField("Title Req1", max_length=50, choices=TRUE_FALSE, default = False)
+	
+	P4_Req1= models.CharField("Title Req1", max_length=50, choices=TRUE_FALSE, default = False)
+	P4_Req2= models.CharField("Title Req1", max_length=50, choices=TRUE_FALSE, default = False)
+	P4_Req3= models.CharField("Title Req1", max_length=50, choices=TRUE_FALSE, default = False)
+
+	P5_Req1= models.CharField("Title Req1", max_length=50, choices=TRUE_FALSE, default = False)
+	P5_Req2= models.CharField("Title Req1", max_length=50, choices=TRUE_FALSE, default = False)
+	P5_Req3= models.CharField("Title Req1", max_length=50, choices=TRUE_FALSE, default = False)
 
 	
 	Upload=models.CharField(max_length=100)
