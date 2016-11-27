@@ -214,7 +214,7 @@ class Student(models.Model):
 	
 	First_Name = models.CharField("*First Name",max_length=80)
 	Last_Name = models.CharField("*Last Name", max_length=80)
-	Student_Id = models.IntegerField("*Student ID")
+	Student_Id = models.IntegerField("*Student ID", primary_key=True)
 	Gender = models.CharField("*Gender", max_length=25, choices=GENDER_CHOICES, error_messages={'required':"Please select a Gender type"})
  	Race = models.CharField("*Race", max_length=100, choices=RACE_CHOICES)
  	Address_Line_1 = models.CharField("*Address1", max_length=200)
