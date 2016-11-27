@@ -82,12 +82,14 @@ class StudentForm(forms.ModelForm):
     Enrollment = forms.ChoiceField(label="*Are you enrolled in College of Engineering and Applied Science?", choices=TRUE_FALSE, widget=forms.RadioSelect)
     Background_check = forms.ChoiceField(required=False,label="*Have you had Discrimination and Harassment Awareness training yet (at CU)? If yes when? (Take your best guess if you aren't sure.)", choices=TRUE_FALSE_NS, widget=forms.RadioSelect)
     Discrimination_training = forms.ChoiceField(required=False,label="*Have you applied for Discovery Learning Apprenticeship before?", choices=TRUE_FALSE, widget=forms.RadioSelect)
+    
     Skills = forms.CharField(label="Please list the three skills or qualifications that you feel make you a great candidate for the positions you selected. (Could be knowledge of a programming language, knowledge of a field, courses taken, personal characteristics, etc. If appropriate, note your match to requirements in job description. Please note responses are limited to 75 characters.)",widget=forms.TextInput(attrs={'readonly':'True'}), initial = "Please fill in the following fields")
     Skills_1 = forms.CharField(label="1.",required=False)
     Skills_2 = forms.CharField(label="2.",required=False)
     Skills_3 = forms.CharField(label="3.",required=False)
     Upload = forms.CharField(label="To complete the application, you must submit a resume and a cover letter. You can submit both using the form below. Please use either the pdf format or a text document. To improve your chances of being selected for an apprenticeship, please take the time to construct a well-written cover letter and resume.",widget=forms.TextInput(attrs={'readonly':'True'}), initial = "Please upload in the following fields")
 
+    First_Preference = forms.ChoiceField(label="First Preference", required=False, choices=Student.PROJECTS)
     Two_Preference = forms.ChoiceField(label="Second Preference", required=False, choices=Student.PROJECTS)
     Three_Preference = forms.ChoiceField(label="Third Preference", required=False, choices=Student.PROJECTS)
     Four_Preference = forms.ChoiceField(label="Fourth Preference", required=False, choices=Student.PROJECTS)
@@ -129,10 +131,25 @@ class StudentForm(forms.ModelForm):
             "Applied_Before",
             "Got_DLA_Before",
             "First_Preference",
+            "P1_Req1 ",
+			"P1_Req2",
+			"P1_Req3",
             "Two_Preference",
+            "P2_Req1",
+			"P2_Req2",
+			"P2_Req3",
             "Three_Preference",
+            "P3_Req1",
+			"P3_Req2",
+			"P3_Req3",
             "Four_Preference",
+            "P4_Req1",
+			"P4_Req2",
+			"P4_Req3",
             "Five_Preference",
+            "P5_Req1",
+			"P5_Req2",
+			"P5_Req3",
             "Background_check",
             "Discrimination_training",
             "SSN",
@@ -141,35 +158,11 @@ class StudentForm(forms.ModelForm):
             "Skills_1",
             "Skills_2",
             "Skills_3",
-            "Upload",
+            #"Upload",
             #"Resume",
             #"Cover_Letter"
         ]
-        
-class UpdateReqForm(forms.ModelForm):
-	class Meta:
-		model = Student
-		fields = [
-			"P1_Req1",
-			"P1_Req2",
-			"P1_Req3",
-			"P2_Req1",
-			"P2_Req2",
-			"P2_Req3",
-			"P3_Req1",
-			"P3_Req2",
-			"P3_Req3",
-			"P4_Req1",
-			"P4_Req2",
-			"P4_Req3",
-			"P5_Req1",
-			"P5_Req2",
-			"P5_Req3",
-			]
-			
-	def setlabel(self, labelname, labelvalue):
-	    self.fields[labelname].label = labelvalue
-        
+
 class MyuserForm(forms.ModelForm):
     
     class Meta:

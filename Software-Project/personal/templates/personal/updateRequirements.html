@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html >
+  <head>
+    <meta charset="UTF-8">
+    <title>Projects | Faculty</title>
+    
+    {% load staticfiles %}
+    <link rel="stylesheet" href="/static/personal/css/facultypage.css" type="text/css"/>
+	<link href="https://fonts.googleapis.com/css?family=Lato:300" rel="stylesheet">
+	<link rel="icon" type="image/png" href="/static/personal/images/favicon_cuboulder.png">
+</head>
+
+<body id="facultyhome">
+	<div>
+		<ul class="topnav" id="myTopnav">
+			<li><a href="home">
+				<img id="cubheader" src="/static/personal/images/cubheader.png" alt=""/></a></li>
+			<li><a href="facultyhome">Home</a></li>
+			<li><a href="projects">Projects</a></li>
+			<li><a id="viewstudent" href="#viewstudent">View Student Profile</a></li>
+			<li><a id="profile" href="#profile">My Profile</a></li>
+			<li><a id="logout" href="logout">Logout</a></li>
+			<li class="icon">
+				<a href="javascript:void(1);" onclick="myFunction()">&#9776;</a>
+			</li>
+		</ul>
+	</div>
+	
+	<div class="wrapper">		
+		<div class="projectlist2">
+			<h3>Please fill the following Requirements</h3>
+			<div class="form">
+        <form method="POST" class="addprojects-form">
+        {% csrf_token %}
+        <div class="formitems">
+            <h3>Student Information</h3>
+                {{ updateReqForm.as_p }}
+            <br><hr/>
+            
+            <section class="pressbutton">
+                <button type="reset" id="clearbutton">Clear</button>
+                <button id="submitbutton">Submit</button>
+            </section>
+        </div>
+        </form>
+    </div>
+		</div>
+	</div>
+	
+	<script>
+	function myFunction() {
+		var x = document.getElementById("myTopnav");
+		if (x.className === "topnav") {
+			x.className += " responsive";
+		} 
+		else {
+			x.className = "topnav";
+		}
+	}
+	</script>
+
+</body>
+</html>
