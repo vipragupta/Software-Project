@@ -131,7 +131,7 @@ class StudentForm(forms.ModelForm):
             "Applied_Before",
             "Got_DLA_Before",
             "First_Preference",
-            "P1_Req1 ",
+            "P1_Req1",
 			"P1_Req2",
 			"P1_Req3",
             "Two_Preference",

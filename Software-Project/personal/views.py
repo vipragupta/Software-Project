@@ -109,7 +109,31 @@ def applyprojects(request):
 
 	return render(request, 'personal/applyprojects.html',context)	
 
-#def updateRequirements(request):
+def updateRequirements(request, sid):
+	print sid
+	projectList = list(Student.objects.filter(Student_Id = sid))
+	RequirementList = []
+	
+	for projectId in projectList:
+		tempReqList = list(ProjectModel.objects.filter(Id = str(projectId)))
+		RequirementList.append(tempReqList.Requirement1)
+		RequirementList.append(tempReqList.Requirement2)
+		RequirementList.append(tempReqList.Requirement3) 
+	
+	labelName = ["P1_Req1","P1_Req2","P1_Req3","P2_Req1","P2_Req2","P2_Req3","P3_Req1","P3_Req2","P3_Req3","P4_Req1","P4_Req2","P4_Req3","P5_Req1","P5_Req2","P5_Req3"]
+	
+	instance = get_object_or_404(StudentForm, Student_Id=sid)
+	form = UpdateReqForm(request.POST or None, instance=instance)
+	
+	for i in range(len(RequirementList)):
+		form.setlabel(labelname[i], RequirementList[i])
+	
+	context = {"updateReqForm", form}
+	#proj_req = list(ProjectModel.objects.filter(Id = id) )
+	if form.is_valid():
+		form.save()
+		return render(request, 'personal/studenthome.html', context)
+
 def getProjectRequirementList():
 	print "INSIDE getProjectRequirementList"
 	projectList = list(ProjectModel.objects.all())
