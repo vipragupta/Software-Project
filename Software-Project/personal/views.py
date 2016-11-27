@@ -101,8 +101,10 @@ def applyprojects(request):
 	}
 	if request.method == "POST":
 		if studentForm.is_valid():
+
 			instance = studentForm.save(commit=False)
 			instance.save()
+
 			return render(request, 'personal/studenthome.html',context)
 
 	return render(request, 'personal/applyprojects.html',context)	
