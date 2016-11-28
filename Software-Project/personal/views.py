@@ -247,7 +247,36 @@ def rawmatrix(request):
 	context["projectData"] = projectList
 	return render(request, 'personal/raw_data_matrix.html', context)
 
-
+#Use this function to get students that are eligible for a project.
+def GetStudentList(projectId):
+    project = list(ProjectModel.objects.filter(Id = projectId))[0]
+    studentInfo = list(Student.objects.filter(Q(First_Preference = str(projectId)) |
+        Q(Two_Preference = str(projectId)) | 
+        Q(Three_Preference = str(projectId)) | 
+        Q(Four_Preference = str(projectId)) | 
+        Q(Five_Preference = str(projectId))))
+        
+    newlist = []
+    for i in studentInfo:
+        if i.IsStudentSelected == True:
+            continue
+        
+        if i.GPA < project.Min_GPA:
+            continue
+        
+        if i.Availability == False:
+            continue
+        
+        if i.Got_DLA_Before == True:
+            continue
+        
+        if i.Enrollment == False:
+            continue
+        
+        newlist.append(i)
+    
+    return newlist
+    
 def project(request, pid):
     	print pid
     	return render(request, 'personal/projects.html', {})
