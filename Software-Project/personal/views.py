@@ -94,10 +94,10 @@ def applyprojects(request):
 	if not request.user.is_authenticated():
 		return render_to_response('personal/login_student.html')
 	studentForm = StudentForm(request.POST or None)
-	projectReq = getProjectRequirementList()
+	projectRequirementDic = getProjectRequirementList()
 	context = {
 		"studentForm": studentForm,
-		"projReq": projectReq
+		"projectRequirementDic":projectRequirementDic
 	}
 	if request.method == "POST":
 		if studentForm.is_valid():
@@ -135,14 +135,14 @@ def updateRequirements(request, sid):
 		return render(request, 'personal/studenthome.html', context)
 
 def getProjectRequirementList():
-	print "INSIDE getProjectRequirementList"
-	projectList = list(ProjectModel.objects.all())
-	projectReqDic = {}
-	for project in projectList:
-		reqList = [project.Requirement1, project.Requirement2, project.Requirement3]
-		d = {project.Id:reqList}
-		projectReqDic.update(d)
-	return projectReqDic
+	projectRequirementDic = {}
+	projects = list( ProjectModel.objects.all())
+
+	for project in projects:
+		projectRequirementList = [project.Requirement1, project.Requirement2, project.Requirement3]
+		projectRequirementDic[project.Id] = projectRequirementList
+		
+	return projectRequirementDic
 
 def facultyhome(request):
     if not request.user.is_authenticated():
@@ -288,10 +288,11 @@ def addprojects(request):
 		return render_to_response('personal/logout.html')
 
 	projectModelForm = ProjectModelForm(request.POST or None)
-	context = {
-		"projectModelForm": projectModelForm
-	}
 	
+	context = {
+		"projectModelForm": projectModelForm,
+		#"projectRequirementDic":projectRequirementDic
+	}
 	if request.method == "POST":
 		
 		if projectModelForm.is_valid():
