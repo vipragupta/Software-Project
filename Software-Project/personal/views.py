@@ -247,9 +247,8 @@ def rawmatrix(request):
 	context["projectData"] = projectList
 	return render(request, 'personal/raw_data_matrix.html', context)
 
-#if not request.user.is_authenticated():
-#    return render_to_response('personal/login_faculty.html')
-def FillMatrix(projectId):
+#Use this function to get students that are eligible for a project.
+def GetStudentList(projectId):
     project = list(ProjectModel.objects.filter(Id = projectId))[0]
     studentInfo = list(Student.objects.filter(Q(First_Preference = str(projectId)) |
         Q(Two_Preference = str(projectId)) | 
