@@ -222,8 +222,27 @@ a.addprojectsbutton {
 }
 
 .formitems ul {
-	list-style: none;
-} 
+	list-style: none;	
+}
+
+.formitems ul li label {
+  position: relative;
+  font-size: 15px;
+}
+
+input[type=radio] {
+	float:inherit;
+	cursor: pointer;	
+	position:relative;
+	width:13px;
+}
+
+input[type=checkbox] {
+	float:inherit;
+	cursor: pointer;	
+	position:relative;
+	width:13px;
+}
 
 
 /*-------------------------------------Student application form----------------------------------*/
@@ -289,7 +308,7 @@ a.addprojectsbutton {
 
 .formitems2 ul {
 	list-style: none;
-} 
+}
 
 
 /*----------------------------------Clear Save Submit Buttons-------------------------*/

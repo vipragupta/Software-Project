@@ -12,25 +12,217 @@
     <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.9.1/jquery.tablesorter.min.js"></script>
     <script type="text/javascript" src="/static/personal/js/script.js"></script>
 	<script>
-		function showRequirements(){
-			alert("in function");
-			var i=0;
-			var project_list = [];
-			{% for n,val in projectRequirementDic.items %}
-				project_list.push('{{ n }}');
-			{% endfor %}
+		function Project1(){
+			var Project1 = document.getElementById("id_First_Preference").value;			
 			
-			for (var i = 0; i < project_list.length; i++) {
-				alert(project_list[i]);
-			}
+			{% for n,val in projectRequirementDic.items %}
+				if (Project1 == {{n}}) {
+					document.querySelector('label[for="id_P1_Req1"]').style.display = "block";
+					document.querySelector('label[for="id_P1_Req1"]').textContent = "{{val.0}}";
+					document.getElementById("id_P1_Req1").style.display = "block";
+					
+					document.querySelector('label[for="id_P1_Req2"]').style.display = "block";
+					document.querySelector('label[for="id_P1_Req2"]').textContent = "{{val.1}}";
+					document.getElementById("id_P1_Req2").style.display = "block";
+					
+					document.querySelector('label[for="id_P1_Req3"]').style.display = "block";
+					document.querySelector('label[for="id_P1_Req3"]').textContent = "{{val.2}}";
+					document.getElementById("id_P1_Req3").style.display = "block";
+				}
+				
+				else if (Project1 == 0){
+					try { 
+						document.querySelector('label[for="id_P1_Req1"]').style.display = "none";
+						document.getElementById("id_P1_Req1").style.display = "none";
+						
+						document.querySelector('label[for="id_P1_Req2"]').style.display = "none";
+						document.getElementById("id_P1_Req2").style.display = "none";
+						
+						document.querySelector('label[for="id_P1_Req3"]').style.display = "none";
+						document.getElementById("id_P1_Req3").style.display = "none";
+					}
+					catch (error){
+					}
+				}
+			{% endfor %}
+		}
+			
+		function Project2(){
+			var Project2 = document.getElementById("id_Two_Preference").value;			
+			
+			{% for n,val in projectRequirementDic.items %}
+				if (Project2 == {{n}}) {
+					document.querySelector('label[for="id_P2_Req1"]').style.display = "block";
+					document.querySelector('label[for="id_P2_Req1"]').textContent = "{{val.0}}";
+					document.getElementById("id_P2_Req1").style.display = "block";
+					
+					document.querySelector('label[for="id_P2_Req2"]').style.display = "block";
+					document.querySelector('label[for="id_P2_Req2"]').textContent = "{{val.1}}";
+					document.getElementById("id_P2_Req2").style.display = "block";
+					
+					document.querySelector('label[for="id_P2_Req3"]').style.display = "block";
+					document.querySelector('label[for="id_P2_Req3"]').textContent = "{{val.2}}";
+					document.getElementById("id_P2_Req3").style.display = "block";
+				}
+				
+				else if (Project2 == 0){
+					try { 
+						document.querySelector('label[for="id_P2_Req1"]').style.display = "none";
+						document.getElementById("id_P2_Req1").style.display = "none";
+						
+						document.querySelector('label[for="id_P2_Req2"]').style.display = "none";
+						document.getElementById("id_P2_Req2").style.display = "none";
+						
+						document.querySelector('label[for="id_P2_Req3"]').style.display = "none";
+						document.getElementById("id_P2_Req3").style.display = "none";
+					}
+					catch (error){
+					}
+				}
+			{% endfor %}
+		}
+
+		function Project3(){
+			var Project3 = document.getElementById("id_Three_Preference").value;			
+			
+			{% for n,val in projectRequirementDic.items %}
+				if (Project3 == {{n}}) {
+					document.querySelector('label[for="id_P3_Req1"]').style.display = "block";
+					document.querySelector('label[for="id_P3_Req1"]').textContent = "{{val.0}}";
+					document.getElementById("id_P3_Req1").style.display = "block";
+					
+					document.querySelector('label[for="id_P3_Req2"]').style.display = "block";
+					document.querySelector('label[for="id_P3_Req2"]').textContent = "{{val.1}}";
+					document.getElementById("id_P3_Req2").style.display = "block";
+					
+					document.querySelector('label[for="id_P3_Req3"]').style.display = "block";
+					document.querySelector('label[for="id_P3_Req3"]').textContent = "{{val.2}}";
+					document.getElementById("id_P3_Req3").style.display = "block";
+				}
+				
+				else if (Project3 == 0){
+					try { 
+						document.querySelector('label[for="id_P3_Req1"]').style.display = "none";
+						document.getElementById("id_P3_Req1").style.display = "none";
+						
+						document.querySelector('label[for="id_P3_Req2"]').style.display = "none";
+						document.getElementById("id_P3_Req2").style.display = "none";
+						
+						document.querySelector('label[for="id_P3_Req3"]').style.display = "none";
+						document.getElementById("id_P3_Req3").style.display = "none";
+					}
+					catch (error){
+					}
+				}
+			{% endfor %}
+		}
+		
+		function Project4(){
+			var Project4 = document.getElementById("id_Four_Preference").value;			
+			
+			{% for n,val in projectRequirementDic.items %}
+				if (Project4 == {{n}}) {
+					document.querySelector('label[for="id_P4_Req1"]').style.display = "block";
+					document.querySelector('label[for="id_P4_Req1"]').textContent = "{{val.0}}";
+					document.getElementById("id_P4_Req1").style.display = "block";
+					
+					document.querySelector('label[for="id_P4_Req2"]').style.display = "block";
+					document.querySelector('label[for="id_P4_Req2"]').textContent = "{{val.1}}";
+					document.getElementById("id_P4_Req2").style.display = "block";
+					
+					document.querySelector('label[for="id_P4_Req3"]').style.display = "block";
+					document.querySelector('label[for="id_P4_Req3"]').textContent = "{{val.2}}";
+					document.getElementById("id_P4_Req3").style.display = "block";
+				}
+				
+				else if (Project4 == 0){
+					try { 
+						document.querySelector('label[for="id_P4_Req1"]').style.display = "none";
+						document.getElementById("id_P4_Req1").style.display = "none";
+						
+						document.querySelector('label[for="id_P4_Req2"]').style.display = "none";
+						document.getElementById("id_P4_Req2").style.display = "none";
+						
+						document.querySelector('label[for="id_P4_Req3"]').style.display = "none";
+						document.getElementById("id_P4_Req3").style.display = "none";
+					}
+					catch (error){
+					}
+				}
+			{% endfor %}
+		}
+		
+		function Project5(){
+			var Project5 = document.getElementById("id_Five_Preference").value;			
+			
+			{% for n,val in projectRequirementDic.items %}
+				if (Project5 == {{n}}) {
+					document.querySelector('label[for="id_P5_Req1"]').style.display = "block";
+					document.querySelector('label[for="id_P5_Req1"]').textContent = "{{val.0}}";
+					document.getElementById("id_P5_Req1").style.display = "block";
+					
+					document.querySelector('label[for="id_P5_Req2"]').style.display = "block";
+					document.querySelector('label[for="id_P5_Req2"]').textContent = "{{val.1}}";
+					document.getElementById("id_P5_Req2").style.display = "block";
+					
+					document.querySelector('label[for="id_P5_Req3"]').style.display = "block";
+					document.querySelector('label[for="id_P5_Req3"]').textContent = "{{val.2}}";
+					document.getElementById("id_P5_Req3").style.display = "block";
+				}
+				
+				else if (Project5 == 0){
+					try { 
+						document.querySelector('label[for="id_P5_Req1"]').style.display = "none";
+						document.getElementById("id_P5_Req1").style.display = "none";
+						
+						document.querySelector('label[for="id_P5_Req2"]').style.display = "none";
+						document.getElementById("id_P5_Req2").style.display = "none";
+						
+						document.querySelector('label[for="id_P5_Req3"]').style.display = "none";
+						document.getElementById("id_P5_Req3").style.display = "none";
+					}
+					catch (error){
+					}
+				}
+			{% endfor %}
 		}
 		
 		$(document).ready(function() {
-			$("#id_First_Preference").change(function() {
-				showRequirements();
-			});
+			$("label[for=id_P1_Req1]").hide();
+			$("#id_P1_Req1").hide();
+			$("label[for=id_P1_Req2]").hide();
+			$("#id_P1_Req2").hide();
+			$("label[for=id_P1_Req3]").hide();
+			$("#id_P1_Req3").hide();
+			
+			$("label[for=id_P2_Req1]").hide();
+			$("#id_P2_Req1").hide();
+			$("label[for=id_P2_Req2]").hide();
+			$("#id_P2_Req2").hide();
+			$("label[for=id_P2_Req3]").hide();
+			$("#id_P2_Req3").hide();
+			
+			$("label[for=id_P3_Req1]").hide();
+			$("#id_P3_Req1").hide();
+			$("label[for=id_P3_Req2]").hide();
+			$("#id_P3_Req2").hide();
+			$("label[for=id_P3_Req3]").hide();
+			$("#id_P3_Req3").hide();
+			
+			$("label[for=id_P4_Req1]").hide();
+			$("#id_P4_Req1").hide();
+			$("label[for=id_P4_Req2]").hide();
+			$("#id_P4_Req2").hide();
+			$("label[for=id_P4_Req3]").hide();
+			$("#id_P4_Req3").hide();
+			
+			$("label[for=id_P5_Req1]").hide();
+			$("#id_P5_Req1").hide();
+			$("label[for=id_P5_Req2]").hide();
+			$("#id_P5_Req2").hide();
+			$("label[for=id_P5_Req3]").hide();
+			$("#id_P5_Req3").hide();
 		});
-
 		
 	</script>
 </head>
