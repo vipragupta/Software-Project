@@ -123,6 +123,7 @@ DEGREE = [
 
 # Create your models here
 
+
 def getProjectList():
 	all_projs = list(ProjectModel.objects.all())
 	ret = [('0',None)]
@@ -200,11 +201,12 @@ class ProjectModel(models.Model):
 	Requirement3 = models.CharField("*Requirement III", max_length=100) 
 
  	Username = models.CharField(max_length=180)
-	'''
- 	Student_Selected = models.IntegerField("Student ID", default=0) #stores the students_id
- 	IS_Facutly_Selected = models.IntegerField("IS_Facutly_Selected", default=0) #boolean(0/1) value
- 	IS_admin_Selected = models.IntegerField("IS_admin_Selected", default=0) #boolean(0/1) value
-	'''
+	
+
+ 	Student_Selected = models.CharField("Student ID", max_length=20, default=0) #stores the students_id
+ 	IS_Facutly_Selected = models.CharField("IS_Facutly_Selected", max_length=8, default=0) #boolean(0/1) value
+ 	IS_admin_Selected = models.CharField("IS_admin_Selected", max_length=8, default=0) #boolean(0/1) value
+
 	def __unicode__(self):
 		return self.Id
 
@@ -213,6 +215,7 @@ class ProjectModel(models.Model):
     
 	def get_absolute_url(self):
 		return reverse("posts:detail", kwargs={"id": self.Id})
+
 
 class Student(models.Model):
 	
@@ -242,7 +245,7 @@ class Student(models.Model):
  	Primary_Major = models.CharField("*Primary Major", max_length=50, choices=DEPARTMENT)
  	GPA = models.FloatField	("*GPA (Should be between 0 to 4)", validators = [MinValueValidator(0.0), MaxValueValidator(4.0)])
  	Secondary_Major = models.CharField("Secondary Major", max_length=50, choices=DEPARTMENT)
-	Degree_Level = models.CharField("What degree are you pursuing?", max_length=50, choices=DEGREE)
+	Degree_Level = models.CharField("*What degree are you pursuing?", max_length=50, choices=DEGREE)
 	Level = models.CharField("*Level in school as of next fall", max_length=50, choices=LEVEL_IN_SCHOOL)
 	Anticipated_Graduation = models.DateField("*Anticipated Graduation Date",default=datetime.datetime.now)
 	Previous_Research = models.CharField("Do you have previous research experience?",choices=TRUE_FALSE, max_length=20)
@@ -298,6 +301,7 @@ class Student(models.Model):
     
 	def get_absolute_url(self):
 		return reverse("posts:detail", kwargs={"id": self.First_Name})    
+
 
 class Myuser(models.Model):
 	user = models.OneToOneField(User)

@@ -80,7 +80,7 @@ class StudentForm(forms.ModelForm):
     Applied_Before = forms.ChoiceField(label="*Have you had a background check yet (at CU)? If yes when? (Take your best guess if you aren't sure.)", choices=TRUE_FALSE_NS, widget=forms.RadioSelect)
     Got_DLA_Before = forms.ChoiceField(label="*Have you worked for DLA before?", choices=TRUE_FALSE, widget=forms.RadioSelect)
     Enrollment = forms.ChoiceField(label="*Are you enrolled in College of Engineering and Applied Science?", choices=TRUE_FALSE, widget=forms.RadioSelect)
-    Background_check = forms.ChoiceField(required=False,label="*Have you had Discrimination and Harassment Awareness training yet (at CU)? If yes when? (Take your best guess if you aren't sure.)", choices=TRUE_FALSE_NS, widget=forms.RadioSelect)
+    Background_check = forms.ChoiceField(required=False,label="*Have you had Discrimination and Harassment Awareness training yet (at CU)?", choices=TRUE_FALSE_NS, widget=forms.RadioSelect)
     Discrimination_training = forms.ChoiceField(required=False,label="*Have you applied for Discovery Learning Apprenticeship before?", choices=TRUE_FALSE, widget=forms.RadioSelect)
     
     Skills = forms.CharField(label="Please list the three skills or qualifications that you feel make you a great candidate for the positions you selected. (Could be knowledge of a programming language, knowledge of a field, courses taken, personal characteristics, etc. If appropriate, note your match to requirements in job description. Please note responses are limited to 75 characters.)",widget=forms.TextInput(attrs={'readonly':'True'}), initial = "Please fill in the following fields")
