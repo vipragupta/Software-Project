@@ -200,7 +200,11 @@ class ProjectModel(models.Model):
 	Requirement3 = models.CharField("*Requirement III", max_length=100) 
 
  	Username = models.CharField(max_length=180)
-	
+	'''
+ 	Student_Selected = models.IntegerField("Student ID", default=0) #stores the students_id
+ 	IS_Facutly_Selected = models.IntegerField("IS_Facutly_Selected", default=0) #boolean(0/1) value
+ 	IS_admin_Selected = models.IntegerField("IS_admin_Selected", default=0) #boolean(0/1) value
+	'''
 	def __unicode__(self):
 		return self.Id
 
@@ -281,7 +285,7 @@ class Student(models.Model):
 	P5_Req2= models.CharField("Title Req1", max_length=50, choices=TRUE_FALSE, default = False)
 	P5_Req3= models.CharField("Title Req1", max_length=50, choices=TRUE_FALSE, default = False)
 
-	
+	Project_selected_for = models.IntegerField("Project ID", default=0) #stores the project_id 
 	Upload=models.CharField(max_length=100)
 	#Resume = models.FileField("*Resume", storage=FileSystemStorage(location=settings.MEDIA_ROOT), upload_to='Resume', default='settings.MEDIA_ROOT/default/temp.txt')
 	#Cover_Letter = models.FileField("*Cover Letter", storage=FileSystemStorage(location=settings.MEDIA_ROOT), upload_to='Cover_Letter', default='settings.MEDIA_ROOT/default/temp.txt')

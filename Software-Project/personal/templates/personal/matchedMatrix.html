@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html >
+  <head>
+    <meta charset="UTF-8">
+    <title>Projects | Faculty</title>
+    
+    {% load staticfiles %}
+    <link rel="stylesheet" href="/static/personal/css/facultypage.css" type="text/css"/>
+	<link href="https://fonts.googleapis.com/css?family=Lato:300" rel="stylesheet">
+	<link rel="icon" type="image/png" href="/static/personal/images/favicon_cuboulder.png">
+</head>
+
+<body id="facultyhome">
+	<div>
+		<ul class="topnav" id="myTopnav">
+			<li><a href="home">
+				<img id="cubheader" src="/static/personal/images/cubheader.png" alt=""/></a></li>
+			<li><a href="facultyhome">Home</a></li>
+			<li><a href="projects">Projects</a></li>
+			<li><a id="viewstudent" href="#viewstudent">View Student Profile</a></li>
+			<li><a id="profile" href="#profile">My Profile</a></li>
+			<li><a id="logout" href="logout">Logout</a></li>
+			<li class="icon">
+				<a href="javascript:void(1);" onclick="myFunction()">&#9776;</a>
+			</li>
+		</ul>
+	</div>
+	
+	<div class="wrapper">		
+		<div class="projectlist2">
+			<h3>Projects and applied students List</h3>
+			<table id="myTable" class="tablesorter" border="0" cellpadding="0" cellspacing="1">
+				<thead>
+					<tr>
+						<th>Project ID</th>
+						<th>Project Name</th>
+						<th>Student Name</th>
+						<th>Student GPA</th>
+						<th>Primary Major</th>
+						<th>Choose as which preferance</th>
+	                    <th>Satisfies Requirement 1 </th>
+						<th>Satisfies Requirement 2 </th>
+						<th>Satisfies Requirement 3 </th>
+						<th>Skillset 1 </th>
+						<th>Skillset 2 </th>
+						<th>Skillset 3 </th>
+					</tr>
+				</thead>
+				<!--
+				<tbody>
+					 {% for project in projectData %}
+					    {% for student in project.Students%}
+						<tr>
+						<td>{{project.projectId}}</td>
+						<td>{{project.projectName}}</td>
+						<td>{{student.studentName}}</td>
+						<td>{{student.studentGpa}}</td>
+						<td>{{student.major}}</td>
+						<td>{{student.preferance}}</td>
+						<td>{{student.req1}}</td>
+						<td>{{student.req2}}</td>
+						<td>{{student.req3}}</td>
+						<td>{{student.skill1}}</td>
+						<td>{{student.skill2}}</td>
+						<td>{{student.skill3}}</td>
+						</tr>
+					{% endfor %}
+					{% endfor %}
+					</tr>
+				</tbody>
+				-->
+			</table>
+		</div>
+	</div>
+	
+	<script>
+	function myFunction() {
+		var x = document.getElementById("myTopnav");
+		if (x.className === "topnav") {
+			x.className += " responsive";
+		} 
+		else {
+			x.className = "topnav";
+		}
+	}
+	</script>
+
+</body>
+</html>
