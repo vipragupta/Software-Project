@@ -8,6 +8,17 @@
     <link rel="stylesheet" href="/static/personal/css/facultypage.css" type="text/css"/>
 	<link href="https://fonts.googleapis.com/css?family=Lato:300" rel="stylesheet">
 	<link rel="icon" type="image/png" href="/static/personal/images/favicon_cuboulder.png">
+	<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> 
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.9.1/jquery.tablesorter.min.js"></script>
+    <script type="text/javascript" src="/static/personal/js/script.js"></script>
+	<script>
+		$(function(){
+			$("tbody tr").click(function(){
+			var row = $(this).find('td:first').text();
+			alert('You clicked ' + row);
+			});
+		});
+	</script>
 </head>
 
 <body id="facultyhome">
@@ -45,31 +56,28 @@
 						<th>Skillset 1 </th>
 						<th>Skillset 2 </th>
 						<th>Skillset 3 </th>
+						<th></th>
 					</tr>
 				</thead>
-				<!--
+				
 				<tbody>
-					 {% for project in projectData %}
-					    {% for student in project.Students%}
 						<tr>
-						<td>{{project.projectId}}</td>
-						<td>{{project.projectName}}</td>
-						<td>{{student.studentName}}</td>
-						<td>{{student.studentGpa}}</td>
-						<td>{{student.major}}</td>
-						<td>{{student.preferance}}</td>
-						<td>{{student.req1}}</td>
-						<td>{{student.req2}}</td>
-						<td>{{student.req3}}</td>
-						<td>{{student.skill1}}</td>
-						<td>{{student.skill2}}</td>
-						<td>{{student.skill3}}</td>
+						<td>001</td>
+						<td>TSP</td>
+						<td>Chai</td>
+						<td>3.5</td>
+						<td>Computer Science</td>
+						<td>Project 1</td>
+						<td>True</td>
+						<td>True</td>
+						<td>True</td>
+						<td>Python</td>
+						<td>C</td>
+						<td>C++</td>
+						<td><a href={% url "editEligibleStudents" %}><button id="editbutton">Edit</button></a></td>
 						</tr>
-					{% endfor %}
-					{% endfor %}
-					</tr>
 				</tbody>
-				-->
+				
 			</table>
 		</div>
 	</div>

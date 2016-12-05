@@ -244,19 +244,48 @@ def rawmatrix(request):
 	context = {}
 	details1 = []	
  
-
+	'''
 	for projectEntry in projects:
 		projectId = projectEntry.Id
 		getStudentList(projectId)
+	'''
+	#Temporary()
+      
 	context["projectData"] = projectList
 	return render(request, 'personal/raw_data_matrix.html', context)
  
+#This is temporary database modification, not part of logic
+def Temporary():
+    all_projs = list( ProjectModel.objects.all( ))
+    for proj in all_projs:
+        proj.Requirement1 = "C++"
+        proj.Requirement2 = "Java"
+        proj.Requirement3 = "Python"
+        proj.save()
+    return
+ 
+#this is editing for faculties and admins
 def editEligibleStudents(request):
-    
+    context = {}
     if request.method == "POST":
-        i = 1 
+        params = request.content_params
+        print params
+        
+        if params.has_key("Id"):
+            projectId = params["Id"]
+            students = getStudentList(projectId)
+            
+            arr = []
+            for student in students:
+                name = student.First_Name + " ".decode("utf-8") + student.Last_Name
+                arr.append([student.Student_Id, name, student.GPA, student.Primary_Major] )                
+                
+            context["students"] = arr
     
-    return render(request, 'personal/renderEligibleStudents.html', context)
+    return render(request, 'personal/editEligibleStudents.html', context)
+        
+    #else:
+    #    return render(request, 'personal/facultyhome.html',context)
 
 #Use this function to get students that are eligible for a project.
 def getStudentList(projectId):
