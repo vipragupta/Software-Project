@@ -452,7 +452,6 @@ def matchedMatrix(request):
 
  	matchProjectsWithMoreThanOneStudents(studentListForEachProjectId, studentsData, projectToStudentMap)
 
-	print "Hello stupid"
  	context = {}
 	details1 = []
 	context["matched"] = ""#projectList
