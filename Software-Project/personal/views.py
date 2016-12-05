@@ -468,7 +468,7 @@ def removeStudentsWhoDontSatisfyBareMinimumReq(studentsData):
 			removeStudentList.append(studentId)
 		elif student.Availability == "0":
 			removeStudentList.append(studentId)
-		elif student.Got_DLA_Before == "0":
+		elif student.Got_DLA_Before == "1":
 			removeStudentList.append(studentId)
 		elif student.Level == "FSE":
 			removeStudentList.append(studentId)
@@ -583,7 +583,7 @@ def ifStudentSatisfyBareMinimumReqOfProject(student, project):
 		print "GPA is less"
 		return False
 
-	print "Student satisfies Project Requirements: ", flag
+	print student.Student_Id, project.Id, "Student satisfies Project Requirements: ", flag
 	return flag
 
 
