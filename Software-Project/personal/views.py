@@ -456,13 +456,16 @@ def removeStudentsWhoDontSatisfyBareMinimumReq(studentsData):
 		removeFlag = 0
 		if student.Degree_Level == "MS":
 			removeStudentList.append(studentId)
-		elif student.Availability == "False":
+		elif student.Availability == "0":
 			removeStudentList.append(studentId)
-		elif student.Got_DLA_Before == "False":
+		elif student.Got_DLA_Before == "0":
 			removeStudentList.append(studentId)
 		elif student.Level == "FSE":
 			removeStudentList.append(studentId)
-		
+		print studentId, student.Degree_Level, student.Availability, student.Got_DLA_Before, student.Level
+	
+	print "Students who don't meet requirements: ", removeStudentList
+
 	for studentId in removeStudentList:
 		del studentsData[studentId]
 
@@ -551,24 +554,26 @@ def discardProjectsWithZeroStudents(studentListForEachProjectId, projectToStuden
 def ifStudentSatisfyBareMinimumReqOfProject(student, project):
 	flag = True
 	if student.First_Preference == project.Id:
-		if student.P1_Req1 == "False" and student.P1_Req2 == "False" and student.P1_Req3 == "False":
+		if (project.Requirement1 != "None" and student.P1_Req1 == "0") and (project.Requirement2 != "None" and student.P1_Req2 == "0") and (project.Requirement1 != "None" and student.P1_Req3 == "0"):
 			return False 
 	elif student.Two_Preference == project.Id:
-		if student.P2_Req1 == "False" and student.P2_Req2 == "False" and student.P2_Req3 == "False":
+		if student.P2_Req1 == "0" and student.P2_Req2 == "0" and student.P2_Req3 == "0":
 			return False
 	elif student.Three_Preference == project.Id:
-		if student.P3_Req1 == "False" and student.P3_Req2 == "False" and student.P3_Req3 == "False":
+		if student.P3_Req1 == "0" and student.P3_Req2 == "0" and student.P3_Req3 == "0":
 			return False
 	elif student.Four_Preference == project.Id:
-		if student.P4_Req1 == "False" and student.P4_Req2 == "False" and student.P4_Req3 == "False":
+		if student.P4_Req1 == "0" and student.P4_Req2 == "0" and student.P4_Req3 == "0":
 			return False
 	elif student.Five_Preference == project.Id:
-		if student.P5_Req1 == "False" and student.P5_Req2 == "False" and student.P5_Req3 == "False":
+		if student.P5_Req1 == "0" and student.P5_Req2 == "0" and student.P5_Req3 == "0":
 			return False
 
 	if student.GPA < project.Min_GPA:
+		print "GPA is less"
 		return False
 
+	print "Student satisfies Project Requirements: ", flag
 	return flag
 
 
