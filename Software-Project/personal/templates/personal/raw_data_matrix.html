@@ -2,7 +2,7 @@
 <html >
   <head>
     <meta charset="UTF-8">
-    <title>Projects | Faculty</title>
+    <title>Raw Matrix | Faculty</title>
     
     {% load staticfiles %}
     <link rel="stylesheet" href="/static/personal/css/facultypage.css" type="text/css"/>
@@ -12,23 +12,24 @@
 
 <body id="facultyhome">
 	<div>
-		<ul class="topnav" id="myTopnav">
-			<li><a href="home">
-				<img id="cubheader" src="/static/personal/images/cubheader.png" alt=""/></a></li>
-			<li><a href="facultyhome">Home</a></li>
-			<li><a href="projects">Projects</a></li>
-			<li><a id="viewstudent" href="#viewstudent">View Student Profile</a></li>
-			<li><a id="profile" href="#profile">My Profile</a></li>
-			<li><a id="logout" href="logout">Logout</a></li>
-			<li class="icon">
-				<a href="javascript:void(1);" onclick="myFunction()">&#9776;</a>
-			</li>
-		</ul>
+	<ul class="topnav" id="myTopnav">
+		<li><a href={% url "home" %}>
+			<img id="cubheader" src="/static/personal/images/cubheader.png" alt=""/></a></li>
+		<li><a href={% url "facultyhome" %}>Home</a></li>
+		<li><a href={% url "projects" %}>View Projects</a></li>
+		<li><a href={% url "rawmatrix" %}>View All Student Profiles</a></li>
+		<li><a href={% url "matchedMatrix" %}>View Matched Student Profile</a></li>
+		<li><a id="profile" href="#profile">My Profile</a></li>
+		<li><a id="logout" href={% url "logout" %}>Logout</a></li>
+		<li class="icon">
+			<a href="javascript:void(1);" onclick="myFunction()">&#9776;</a>
+		</li>
+	</ul>
 	</div>
 	
 	<div class="wrapper">		
 		<div class="projectlist2">
-			<h3>Projects and applied students List</h3>
+			<h3>List of Projects and List of Students applied for these Projects</h3>
 			<table id="myTable" class="tablesorter" border="0" cellpadding="0" cellspacing="1">
 				<thead>
 					<tr>

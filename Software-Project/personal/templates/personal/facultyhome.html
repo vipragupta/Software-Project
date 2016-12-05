@@ -16,8 +16,9 @@
 		<li><a href={% url "home" %}>
 			<img id="cubheader" src="/static/personal/images/cubheader.png" alt=""/></a></li>
 		<li><a href={% url "facultyhome" %}>Home</a></li>
-		<li><a href={% url "projects" %}>Projects</a></li>
-		<li><a id="viewstudent" href="#viewstudent">View Student Profile</a></li>
+		<li><a href={% url "projects" %}>View Projects</a></li>
+		<li><a href={% url "rawmatrix" %}>View All Student Profiles</a></li>
+		<li><a href={% url "matchedMatrix" %}>View Matched Student Profile</a></li>
 		<li><a id="profile" href="#profile">My Profile</a></li>
 		<li><a id="logout" href={% url "logout" %}>Logout</a></li>
 		<li class="icon">
@@ -28,7 +29,7 @@
 	
 	<div class="facultyhomewelcome">
 	<h3>Welcome to Discovery Learning Apprenticeship Program!</h3>
-	<p>Please navigate to the projects tab to list your projects</p>
+	<p>Please navigate to the view projects tab to view and add projects</p>
 	<img src="/static/personal/images/facultyhomepage.jpg" alt="Welcome!"></img>
 	</div>
 	

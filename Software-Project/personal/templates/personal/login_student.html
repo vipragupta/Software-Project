@@ -1,26 +1,8 @@
-<!--
-{% block content %}
-
-	{% if form.errors %}
-		<p class="error">Sorry, that's not a valid username or password </p>
-	{% endif %}
-
-	<form action="accounts/auth/" method="post"> {% csrf_token %}
-		<label for="username">User name:</label>
-		<input type="text" name="username" value="" id="username">
-		<label for="password">Password:</label>
-		<input type="password" name="password" value="" id="password">
-
-		<input type="submit" value="login" />
-	</form>
-{% endblock %}
--->
-
 <!DOCTYPE html>
 <html >
   <head>
     <meta charset="UTF-8">
-    <title>Discovery Learning Apprenticeship Program</title>
+    <title>Login | Discovery Learning Apprenticeship Program</title>
     
     {% load staticfiles %}
     <link rel="stylesheet" href="/static/personal/css/style.css" type="text/css"/>
