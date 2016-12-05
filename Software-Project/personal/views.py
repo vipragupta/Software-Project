@@ -244,16 +244,22 @@ def rawmatrix(request):
 	context = {}
 	details1 = []	
  
-	'''	
+
 	for projectEntry in projects:
 		projectId = projectEntry.Id
-		GetStudentList(projectId)
-	'''
+		getStudentList(projectId)
 	context["projectData"] = projectList
 	return render(request, 'personal/raw_data_matrix.html', context)
+ 
+def editEligibleStudents(request):
+    
+    if request.method == "POST":
+        i = 1 
+    
+    return render(request, 'personal/renderEligibleStudents.html', context)
 
 #Use this function to get students that are eligible for a project.
-def GetStudentList(projectId):
+def getStudentList(projectId):
     project = list(ProjectModel.objects.filter(Id = projectId))[0]
     newlist = []
     studentInfo = list(Student.objects.filter(Q(First_Preference = str(projectId)) |
@@ -284,23 +290,30 @@ def GetStudentList(projectId):
         
         if i.Project_selected_for != 0:
             #print i.First_Name, i.Last_Name, "already selected"
-            print "Project_selected_for"
+            print i.Student_Id, "Project_selected_for"
             continue
         
         if float(i.GPA) < float(project.Min_GPA):
-            print "GPA"
+            print i.Student_Id, "GPA"
             continue
         
         if int(i.Availability) == 0:
-            print "Availability"
+            print i.Student_Id, "Availability"
             continue
         
         if int(i.Got_DLA_Before) == 1:
-            print "DLA_Before"
+            print i.Student_Id, "DLA_Before"
             continue
         
         if int(i.Enrollment) == 0:
-            print "Enrollment"
+            print i.Student_Id, "Enrollment"
+            continue
+        
+        if  i.Degree_Level == "MS":
+            print i.Student_Id, "MS"
+            continue
+        elif i.Level == "FSE":
+            print i.Level, "DegreeLevel"
             continue
         
         if i.First_Preference == project.Id:
@@ -320,6 +333,7 @@ def GetStudentList(projectId):
     			continue
         
         newlist.append(i)
+        print i.Student_Id, i.Degree_Level, i.Availability, i.Got_DLA_Before, i.Level
         
     print projectId, newlist
     return newlist
