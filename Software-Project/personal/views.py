@@ -274,12 +274,18 @@ def editEligibleStudents(request):
         if params.has_key("Id"):
             projectId = params["Id"]
             students = getStudentList(projectId)
-            context["students"] = students
+            
+            arr = []
+            for student in students:
+                name = student.First_Name + " ".decode("utf-8") + student.Last_Name
+                arr.append([student.Student_Id, name, student.GPA, student.Primary_Major] )                
+                
+            context["students"] = arr
     
-        return render(request, 'personal/editEligibleStudents.html', context)
+    return render(request, 'personal/editEligibleStudents.html', context)
         
-    else:
-        return render(request, 'personal/facultyhome.html',context)
+    #else:
+    #    return render(request, 'personal/facultyhome.html',context)
 
 #Use this function to get students that are eligible for a project.
 def getStudentList(projectId):
