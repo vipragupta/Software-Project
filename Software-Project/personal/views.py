@@ -220,7 +220,7 @@ def rawmatrix(request):
 				preferance = "Fourth"
 			elif (student.Five_Preference == str(projectId)):
 				preferance = "Fifth"
-			print "Converted preferance: ", preferance
+			#print "Converted preferance: ", preferance
 			
 			temp={"preferance":preferance}
 			studentInfoDic.update(temp)
@@ -242,39 +242,100 @@ def rawmatrix(request):
 		d.update(temp1)
 		projectList.append(d)
 	context = {}
-	details1 = []
+	details1 = []	
  
+
+	for projectEntry in projects:
+		projectId = projectEntry.Id
+		getStudentList(projectId)
 	context["projectData"] = projectList
 	return render(request, 'personal/raw_data_matrix.html', context)
+ 
+def editEligibleStudents(request):
+    
+    if request.method == "POST":
+        i = 1 
+    
+    return render(request, 'personal/renderEligibleStudents.html', context)
 
 #Use this function to get students that are eligible for a project.
-def GetStudentList(projectId):
+def getStudentList(projectId):
     project = list(ProjectModel.objects.filter(Id = projectId))[0]
+    newlist = []
     studentInfo = list(Student.objects.filter(Q(First_Preference = str(projectId)) |
         Q(Two_Preference = str(projectId)) | 
         Q(Three_Preference = str(projectId)) | 
         Q(Four_Preference = str(projectId)) | 
         Q(Five_Preference = str(projectId))))
         
-    newlist = []
+    preference = list()
+    
+    req = []
+    print project.Requirement1
+    print project.Requirement2
+    print project.Requirement3
+    if project.Requirement1 != "none":
+        req.append(1)
+    
+    if project.Requirement1 != "none":
+        req.append(2)
+        
+    if project.Requirement1 != "none":
+        req.append(3)
+    
+    #print projectId
     for i in studentInfo:
-        if i.IsStudentSelected == True:
+        #print i.First_Name, i.Last_Name, "\n"
+        #print i.Project_selected_for, type(i.Project_selected_for)
+        
+        if i.Project_selected_for != 0:
+            #print i.First_Name, i.Last_Name, "already selected"
+            print i.Student_Id, "Project_selected_for"
             continue
         
-        if i.GPA < project.Min_GPA:
+        if float(i.GPA) < float(project.Min_GPA):
+            print i.Student_Id, "GPA"
             continue
         
-        if i.Availability == False:
+        if int(i.Availability) == 0:
+            print i.Student_Id, "Availability"
             continue
         
-        if i.Got_DLA_Before == True:
+        if int(i.Got_DLA_Before) == 1:
+            print i.Student_Id, "DLA_Before"
             continue
         
-        if i.Enrollment == False:
+        if int(i.Enrollment) == 0:
+            print i.Student_Id, "Enrollment"
             continue
+        
+        if  i.Degree_Level == "MS":
+            print i.Student_Id, "MS"
+            continue
+        elif i.Level == "FSE":
+            print i.Level, "DegreeLevel"
+            continue
+        
+        if i.First_Preference == project.Id:
+		if (i.P1_Req1 == "0" and project.Requirement1 != "none") or (i.P1_Req2 == "0" and project.Requirement2 != "none") or (i.P1_Req3 == "0" and project.Requirement3 != "none"):
+			continue 
+        elif i.Two_Preference == project.Id:
+		if (i.P2_Req1 == "0" and project.Requirement1 != "none") or (i.P2_Req2 == "0" and project.Requirement2 != "none") or (i.P2_Req3 == "0" and project.Requirement3 != "none"):
+    			continue
+        elif i.Three_Preference == project.Id:
+		if (i.P3_Req1 == "0" and project.Requirement1 != "none") or (i.P3_Req2 == "0" and project.Requirement2 != "none") or (i.P3_Req3 == "0" and project.Requirement3 != "none"):
+    			continue
+        elif i.Four_Preference == project.Id:
+		if (i.P4_Req1 == "0" and project.Requirement1 != "none") or (i.P4_Req2 == "0" and project.Requirement2 != "none") or (i.P4_Req3 == "0" and project.Requirement3 != "none"):
+    			continue
+        elif i.Five_Preference == project.Id:
+		if (i.P5_Req1 == "0" and project.Requirement1 != "none") or (i.P5_Req2 == "0" and project.Requirement2 != "none") or (i.P5_Req3 == "0" and project.Requirement3 != "none"):
+    			continue
         
         newlist.append(i)
-    
+        print i.Student_Id, i.Degree_Level, i.Availability, i.Got_DLA_Before, i.Level
+        
+    print projectId, newlist
     return newlist
     
 def project(request, pid):
@@ -374,9 +435,10 @@ def logout(request):
 
 def matchedMatrix(request):
 
- 	projectsData = list(ProjectModel.objects.all())
+ 	projectsData = createProjectDataDictionary(list(ProjectModel.objects.all()))
  	studentsData = createStudentDataDictionary(list(Student.objects.all()))
- 	projectToStudentMap = {}					#value as -1 means that no student applied for that project
+ 	projectToStudentMap = {}					#value as -1 means that no student applied for that projectremoveStudentsWhoDontSatisfyBareMinimumReq
+ 	removeStudentsWhoDontSatisfyBareMinimumReq(studentsData)
  	removeSelectedStudents(projectsData, studentsData)
  	studentListForEachProjectId = getStudentToProjectMaps(projectsData, studentsData)
 
@@ -385,7 +447,7 @@ def matchedMatrix(request):
  		print "\n\nLooping..."
  		print "***studentListForEachProjectId: ", studentListForEachProjectId
 	 	discardProjectsWithZeroStudents(studentListForEachProjectId, projectToStudentMap)
-	 	matchProjectsWithOneStudents(studentListForEachProjectId, studentsData, projectToStudentMap)
+	 	matchProjectsWithOneStudents(studentListForEachProjectId, studentsData, projectToStudentMap, projectsData)
 	 	matchedFlag = removeAssignedStudents(studentListForEachProjectId, studentsData, projectToStudentMap)
 
  	matchProjectsWithMoreThanOneStudents(studentListForEachProjectId, studentsData, projectToStudentMap)
@@ -399,17 +461,23 @@ def matchedMatrix(request):
 
 def removeStudentsWhoDontSatisfyBareMinimumReq(studentsData):
 	removeStudentList = []
-	for student in studentsData:
+	for studentId in studentsData:
+		student = studentsData[studentId]
 		removeFlag = 0
 		if student.Degree_Level == "MS":
-			removeStudentList.append(student)
+			removeStudentList.append(studentId)
 		elif student.Availability == "0":
-			removeStudentList.append(student)
+			removeStudentList.append(studentId)
 		elif student.Got_DLA_Before == "0":
-			removeStudentList.append(student)
-		
-	for student in removeStudentList:
-		studentsData.remove(student)
+			removeStudentList.append(studentId)
+		elif student.Level == "FSE":
+			removeStudentList.append(studentId)
+		print studentId, student.Degree_Level, student.Availability, student.Got_DLA_Before, student.Level
+	
+	print "Students who don't meet requirements: ", removeStudentList
+
+	for studentId in removeStudentList:
+		del studentsData[studentId]
 
 
 
@@ -430,15 +498,21 @@ def removeAssignedStudents(studentListForEachProjectId, studentsData, projectToS
 def removeSelectedStudents(projectsData, studentsData):
 	removeProjectIds = {}
 	i = 0
-	for project in projectsData:
-		if str(project.IS_Facutly_Selected) == "1" or str(project.IS_admin_Selected) == "1":
-			removeProjectIds[i] = project.Student_Selected
+	for projectId in projectsData:
+		if str(projectsData[projectId].IS_Facutly_Selected) == "True" or str(projectsData[projectId].IS_admin_Selected) == "True":
+			removeProjectIds[projectId] = projectsData[projectId].Student_Selected
 		i += 1
 
-	for index in removeProjectIds:
-		del studentsData[index]
-		del projectsData[index]
+	for projectId in removeProjectIds:
+		del studentsData[removeProjectIds[projectId]]
+		del projectsData[projectId]
 
+
+def createProjectDataDictionary(projectData):
+	ProjectDataDic = {}
+	for project in projectData:
+		ProjectDataDic[str(project.Id)] = project
+	return ProjectDataDic
 
 def createStudentDataDictionary(studentsData):
 	studentsDataDic = {}
@@ -447,14 +521,15 @@ def createStudentDataDictionary(studentsData):
 	return studentsDataDic
 
 
+
 def getStudentToProjectMaps(projectsData, studentsData):
 	studentListForEachProjectId = {}
 
-	for project in projectsData:
-		studentListForEachProjectId[str(project.Id)] = []
+	for projectId in projectsData:
+		studentListForEachProjectId[str(projectId)] = []
 
 	for student in studentsData.values():		
-		print str(student.Student_Id), student.First_Preference, student.Two_Preference, student.Three_Preference, student.Four_Preference , student.Five_Preference 
+		print "StudentPreferance: ", str(student.Student_Id), student.First_Preference, student.Two_Preference, student.Three_Preference, student.Four_Preference , student.Five_Preference 
 		getStudentListForEachProjectId(student, studentListForEachProjectId)
 
 	return studentListForEachProjectId
@@ -486,19 +561,45 @@ def discardProjectsWithZeroStudents(studentListForEachProjectId, projectToStuden
 
 	print "In Zero Discard: ", projectToStudentMap	
 
+def ifStudentSatisfyBareMinimumReqOfProject(student, project):
+	flag = True
+	if student.First_Preference == project.Id:
+		if (project.Requirement1 != "None" and student.P1_Req1 == "0") and (project.Requirement2 != "None" and student.P1_Req2 == "0") and (project.Requirement1 != "None" and student.P1_Req3 == "0"):
+			return False 
+	elif student.Two_Preference == project.Id:
+		if student.P2_Req1 == "0" and student.P2_Req2 == "0" and student.P2_Req3 == "0":
+			return False
+	elif student.Three_Preference == project.Id:
+		if student.P3_Req1 == "0" and student.P3_Req2 == "0" and student.P3_Req3 == "0":
+			return False
+	elif student.Four_Preference == project.Id:
+		if student.P4_Req1 == "0" and student.P4_Req2 == "0" and student.P4_Req3 == "0":
+			return False
+	elif student.Five_Preference == project.Id:
+		if student.P5_Req1 == "0" and student.P5_Req2 == "0" and student.P5_Req3 == "0":
+			return False
 
-def matchProjectsWithOneStudents(studentListForEachProjectId, studentsData, projectToStudentMap):
+	if student.GPA < project.Min_GPA:
+		print "GPA is less"
+		return False
+
+	print "Student satisfies Project Requirements: ", flag
+	return flag
+
+
+def matchProjectsWithOneStudents(studentListForEachProjectId, studentsData, projectToStudentMap, projectsData):
 	projectLisWithOneStudent = {}
 	studentCount = {}
 
 	for projectId in studentListForEachProjectId:
 
 		if len(studentListForEachProjectId[projectId]) == 1:
-
-			if (studentListForEachProjectId[projectId])[0] in projectLisWithOneStudent:
-				projectLisWithOneStudent[(studentListForEachProjectId[projectId])[0]].append(projectId)
-			else:
-				projectLisWithOneStudent[(studentListForEachProjectId[projectId])[0]] = [projectId]
+			studentId = (studentListForEachProjectId[projectId])[0]
+			if ifStudentSatisfyBareMinimumReqOfProject(studentsData[studentId], projectsData[projectId]):
+				if studentId in projectLisWithOneStudent:
+					projectLisWithOneStudent[(studentListForEachProjectId[projectId])[0]].append(projectId)
+				else:
+					projectLisWithOneStudent[(studentListForEachProjectId[projectId])[0]] = [projectId]
 
 	print "projectLisWithOneStudent: ", projectLisWithOneStudent
 

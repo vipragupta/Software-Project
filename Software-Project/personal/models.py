@@ -203,7 +203,7 @@ class ProjectModel(models.Model):
  	Username = models.CharField(max_length=180)
 	
 
- 	Student_Selected = models.CharField("Student ID", max_length=20, default=0) #stores the students_id
+ 	Student_Selected = models.CharField("", choices=TRUE_FALSE, max_length=60)#models.CharField("Student ID", max_length=20, default=0) #stores the students_id
  	IS_Facutly_Selected = models.CharField("IS_Facutly_Selected", max_length=8, default=0) #boolean(0/1) value
  	IS_admin_Selected = models.CharField("IS_admin_Selected", max_length=8, default=0) #boolean(0/1) value
 
