@@ -247,12 +247,19 @@ def rawmatrix(request):
 
 	for projectEntry in projects:
 		projectId = projectEntry.Id
-		GetStudentList(projectId)
+		getStudentList(projectId)
 	context["projectData"] = projectList
 	return render(request, 'personal/raw_data_matrix.html', context)
+ 
+def editEligibleStudents(request):
+    
+    if request.method == "POST":
+        i = 1 
+    
+    return render(request, 'personal/renderEligibleStudents.html', context)
 
 #Use this function to get students that are eligible for a project.
-def GetStudentList(projectId):
+def getStudentList(projectId):
     project = list(ProjectModel.objects.filter(Id = projectId))[0]
     newlist = []
     studentInfo = list(Student.objects.filter(Q(First_Preference = str(projectId)) |
@@ -303,7 +310,10 @@ def GetStudentList(projectId):
             continue
         
         if  i.Degree_Level == "MS":
-            print i.Student_Id, "DegreeLevel"
+            print i.Student_Id, "MS"
+            continue
+        elif i.Level == "FSE":
+            print i.Level, "DegreeLevel"
             continue
         
         if i.First_Preference == project.Id:
