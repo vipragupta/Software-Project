@@ -2,7 +2,7 @@
 <html >
   <head>
     <meta charset="UTF-8">
-    <title>Update Requirements | Faculty</title>
+    <title>Raw Matrix | Faculty</title>
     
     {% load staticfiles %}
     <link rel="stylesheet" href="/static/personal/css/facultypage.css" type="text/css"/>
@@ -32,22 +32,20 @@
 	
 	<div class="wrapper">		
 		<div class="projectlist2">
-			<h3>Please fill the following Requirements</h3>
-			<div class="form">
-        <form method="POST" class="addprojects-form">
-        {% csrf_token %}
-        <div class="formitems">
-            <h3>Student Information</h3>
-                {{ updateReqForm.as_p }}
-            <br><hr/>
-            
-            <section class="pressbutton">
-                <button type="reset" id="clearbutton">Clear</button>
-                <button id="submitbutton">Submit</button>
-            </section>
-        </div>
-        </form>
-    </div>
+			<h3>Please select one student from the list below:</h3>
+			<table id="myTable" class="tablesorter" border="0" cellpadding="0" cellspacing="1">
+				<thead>
+					<tr>
+						<th>Student Name</th>
+						<th>Student ID</th>
+						<th>Student GPA</th>
+						<th>Primary Major</th>
+					</tr>
+				</thead>
+				<tbody>
+					
+				</tbody>
+			</table>
 		</div>
 	</div>
 	

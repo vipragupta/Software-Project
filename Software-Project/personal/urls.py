@@ -15,9 +15,8 @@ urlpatterns = [
 
 	url(r'^projects/$', views.projects , name='projects'),
 	url(r'^rawmatrix$', views.rawmatrix , name='rawmatrix'),
-
 	url(r'^matchedMatrix$', views.matchedMatrix , name='matchedMatrix'),
-	
+	url(r'^editEligibleStudents$', views.editEligibleStudents , name='editEligibleStudents'),
 	#url(r'^projects/(?P<pid>\d+)$', views.project, name='project' ),
 	url(r'^addprojects$', views.addprojects , name='addprojects'),
 	
