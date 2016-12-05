@@ -77,7 +77,7 @@ class StudentForm(forms.ModelForm):
     #Primary_Major = forms.ChoiceField(choices=DEPARTMENT, label="Primary Major")
     Previous_Research = forms.ChoiceField(label="Do you have previous research experience?", required=False, choices=TRUE_FALSE, widget=forms.RadioSelect)
     Availability = forms.ChoiceField(label="*Will you be available for full year?", choices=TRUE_FALSE, widget=forms.RadioSelect)
-    Applied_Before = forms.ChoiceField(label="*Have you had a background check yet (at CU)? If yes when? (Take your best guess if you aren't sure.)", choices=TRUE_FALSE_NS, widget=forms.RadioSelect)
+    Applied_Before = forms.ChoiceField(label="*Have you had a background check yet (at CU)? ", choices=TRUE_FALSE_NS, widget=forms.RadioSelect)
     Got_DLA_Before = forms.ChoiceField(label="*Have you worked for DLA before?", choices=TRUE_FALSE, widget=forms.RadioSelect)
     Enrollment = forms.ChoiceField(label="*Are you enrolled in College of Engineering and Applied Science?", choices=TRUE_FALSE, widget=forms.RadioSelect)
     Background_check = forms.ChoiceField(required=False,label="*Have you had Discrimination and Harassment Awareness training yet (at CU)?", choices=TRUE_FALSE_NS, widget=forms.RadioSelect)
