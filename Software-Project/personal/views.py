@@ -220,7 +220,7 @@ def rawmatrix(request):
 				preferance = "Fourth"
 			elif (student.Five_Preference == str(projectId)):
 				preferance = "Fifth"
-			print "Converted preferance: ", preferance
+			#print "Converted preferance: ", preferance
 			
 			temp={"preferance":preferance}
 			studentInfoDic.update(temp)
@@ -242,39 +242,86 @@ def rawmatrix(request):
 		d.update(temp1)
 		projectList.append(d)
 	context = {}
-	details1 = []
+	details1 = []	
  
+	'''	
+	for projectEntry in projects:
+		projectId = projectEntry.Id
+		GetStudentList(projectId)
+	'''
 	context["projectData"] = projectList
 	return render(request, 'personal/raw_data_matrix.html', context)
 
 #Use this function to get students that are eligible for a project.
 def GetStudentList(projectId):
     project = list(ProjectModel.objects.filter(Id = projectId))[0]
+    newlist = []
     studentInfo = list(Student.objects.filter(Q(First_Preference = str(projectId)) |
         Q(Two_Preference = str(projectId)) | 
         Q(Three_Preference = str(projectId)) | 
         Q(Four_Preference = str(projectId)) | 
         Q(Five_Preference = str(projectId))))
         
-    newlist = []
+    preference = list()
+    
+    req = []
+    print project.Requirement1
+    print project.Requirement2
+    print project.Requirement3
+    if project.Requirement1 != "none":
+        req.append(1)
+    
+    if project.Requirement1 != "none":
+        req.append(2)
+        
+    if project.Requirement1 != "none":
+        req.append(3)
+    
+    #print projectId
     for i in studentInfo:
-        if i.IsStudentSelected == True:
+        #print i.First_Name, i.Last_Name, "\n"
+        #print i.Project_selected_for, type(i.Project_selected_for)
+        
+        if i.Project_selected_for != 0:
+            #print i.First_Name, i.Last_Name, "already selected"
+            print "Project_selected_for"
             continue
         
-        if i.GPA < project.Min_GPA:
+        if float(i.GPA) < float(project.Min_GPA):
+            print "GPA"
             continue
         
-        if i.Availability == False:
+        if int(i.Availability) == 0:
+            print "Availability"
             continue
         
-        if i.Got_DLA_Before == True:
+        if int(i.Got_DLA_Before) == 1:
+            print "DLA_Before"
             continue
         
-        if i.Enrollment == False:
+        if int(i.Enrollment) == 0:
+            print "Enrollment"
             continue
+        
+        if i.First_Preference == project.Id:
+		if (i.P1_Req1 == "0" and project.Requirement1 != "none") or (i.P1_Req2 == "0" and project.Requirement2 != "none") or (i.P1_Req3 == "0" and project.Requirement3 != "none"):
+			continue 
+        elif i.Two_Preference == project.Id:
+		if (i.P2_Req1 == "0" and project.Requirement1 != "none") or (i.P2_Req2 == "0" and project.Requirement2 != "none") or (i.P2_Req3 == "0" and project.Requirement3 != "none"):
+    			continue
+        elif i.Three_Preference == project.Id:
+		if (i.P3_Req1 == "0" and project.Requirement1 != "none") or (i.P3_Req2 == "0" and project.Requirement2 != "none") or (i.P3_Req3 == "0" and project.Requirement3 != "none"):
+    			continue
+        elif i.Four_Preference == project.Id:
+		if (i.P4_Req1 == "0" and project.Requirement1 != "none") or (i.P4_Req2 == "0" and project.Requirement2 != "none") or (i.P4_Req3 == "0" and project.Requirement3 != "none"):
+    			continue
+        elif i.Five_Preference == project.Id:
+		if (i.P5_Req1 == "0" and project.Requirement1 != "none") or (i.P5_Req2 == "0" and project.Requirement2 != "none") or (i.P5_Req3 == "0" and project.Requirement3 != "none"):
+    			continue
         
         newlist.append(i)
-    
+        
+    print projectId, newlist
     return newlist
     
 def project(request, pid):
