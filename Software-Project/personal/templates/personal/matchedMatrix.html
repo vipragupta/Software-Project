@@ -32,14 +32,17 @@
 		$(document).ready(function() {
         $(".edit_button").click(function(){
 			var id = $(this).attr('id');
-			alert(id);
             $.ajax({
                 type : "POST",
                 url : "{% url 'editEligibleStudents' %}",
                 data : {
                     id : id,
                     csrfmiddlewaretoken: getCookie('csrftoken')
-                }
+                },
+				success:function(response)
+				{
+					window.location.href = "editEligibleStudents";
+				},
             });
         });
     });
