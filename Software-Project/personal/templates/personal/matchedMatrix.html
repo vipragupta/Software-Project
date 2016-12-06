@@ -13,7 +13,7 @@
     <script type="text/javascript" src="/static/personal/js/script.js"></script>
 	
 	<script>
-		
+		/*
 		function getCookie(name) {
 			var cookieValue = null;
 			if (document.cookie && document.cookie != '') {
@@ -29,6 +29,8 @@
 			return cookieValue;
 		}
 		
+		context = {};
+		
 		$(document).ready(function() {
         $(".edit_button").click(function(){
 			var id = $(this).attr('id');
@@ -39,14 +41,15 @@
                     id : id,
                     csrfmiddlewaretoken: getCookie('csrftoken')
                 },
-				success:function(response)
+				success:function(context)
 				{
-					window.location.href = "editEligibleStudents";
+					alert("Respone = " + context);
+					printContext(context);
 				},
             });
         });
-    });
-		
+    }); */
+	
 </script>
 </head>
 
@@ -78,16 +81,36 @@
 						<th>Student Name</th>
 						<th>Student GPA</th>
 						<th>Primary Major</th>
-						<th>Choose as which preferance</th>
+						<th>Preferred Project</th>
 	                    <th>Satisfies Requirement 1 </th>
 						<th>Satisfies Requirement 2 </th>
 						<th>Satisfies Requirement 3 </th>
 						<th>Skillset 1 </th>
 						<th>Skillset 2 </th>
 						<th>Skillset 3 </th>
-						<th></th>
+						<th>Override Selection?</th>
 					</tr>
 				</thead>
+				
+				<tbody>
+					{% for each_item in matched.items %}
+						<tr>
+						<td>{{matched.projectId}}</td>
+						<td>{{project.projectName}}</td>
+						<td>{{student.studentName}}</td>
+						<td>{{student.studentGpa}}</td>
+						<td>{{student.major}}</td>
+						<td>{{student.preferance}}</td>
+						<td>{{student.req1}}</td>
+						<td>{{student.req2}}</td>
+						<td>{{student.req3}}</td>
+						<td>{{student.skill1}}</td>
+						<td>{{student.skill2}}</td>
+						<td>{{student.skill3}}</td>
+						</tr>
+						{% endfor %}
+					{% endfor %}
+				</tbody>
 				
 				<tbody>
 						<tr>
@@ -103,11 +126,24 @@
 						<td>Python</td>
 						<td>C</td>
 						<td>C++</td>
-						<td><button class="edit_button" id="14">Edit</button></td>
+						<td><form method="POST" class="addprojects-form">{% csrf_token %}
+							<select id="selectlist" onchange = "ShowHideDiv();">
+							<option value="None">None</option>
+							{% for n,val in student_list.items %}
+							<option value="{{n}}">{{n}}</option>
+							{% endfor %}
+							</select>
+							
+						</td>
 						</tr>
 				</tbody>
 				
 			</table>
+			<section class="pressbutton">
+				<button id="submitbutton">Save Selections</button>
+                <button type="reset" id="clearbutton">Clear</button>
+            </section>
+			</form>
 		</div>
 	</div>
 	
