@@ -264,23 +264,6 @@ def Temporary():
         proj.save()
     return
 
-"""	
-#this is editing for faculties and admins
-def editEligibleStudents(request):
-	print "HELOOOOOOOOOO"
-	context = {}
-	
-	if request.method == 'POST':
-		if request.is_ajax():
-			if 'id' in request.POST:
-				id = request.POST['id']
-				print "Project ID",id
-				# doSomething with ID here...
-				#return HttpResponseRedirect('personal/editEligibleStudents.html')
-				return render(request, 'personal/editEligibleStudents.html', context)
-   
-	
-"""	
 def editEligibleStudents(request):
 	context = {}
 
@@ -296,8 +279,9 @@ def editEligibleStudents(request):
 					arr.append([student.Student_Id, name, student.GPA, student.Primary_Major] )                
                 
 				context["students"] = arr
-				print context
+				return HttpResponse(projectId)    
     
+				#print context
 	return render(request, 'personal/editEligibleStudents.html', context)
 
 
