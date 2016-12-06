@@ -263,29 +263,27 @@ def Temporary():
         proj.Requirement3 = "Python"
         proj.save()
     return
- 
-#this is editing for faculties and admins
+
 def editEligibleStudents(request):
-    context = {}
-    if request.method == "POST":
-        params = request.content_params
-        print params
-        
-        if params.has_key("Id"):
-            projectId = params["Id"]
-            students = getStudentList(projectId)
-            
-            arr = []
-            for student in students:
-                name = student.First_Name + " ".decode("utf-8") + student.Last_Name
-                arr.append([student.Student_Id, name, student.GPA, student.Primary_Major] )                
+	context = {}
+
+	if request.method == 'POST':
+		if request.is_ajax():
+			if 'id' in request.POST:
+				projectId = request.POST['id']
+				print projectId
+				students = getStudentList(projectId)
+				arr = []
+				for student in students:
+					name = student.First_Name + " ".decode("utf-8") + student.Last_Name
+					arr.append([student.Student_Id, name, student.GPA, student.Primary_Major] )                
                 
-            context["students"] = arr
+				context["students"] = arr
+				return HttpResponse(projectId)    
     
-    return render(request, 'personal/editEligibleStudents.html', context)
-        
-    #else:
-    #    return render(request, 'personal/facultyhome.html',context)
+				#print context
+	return render(request, 'personal/editEligibleStudents.html', context)
+
 
 #Use this function to get students that are eligible for a project.
 def getStudentList(projectId):
