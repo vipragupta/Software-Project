@@ -480,11 +480,137 @@ def matchedMatrix(request):
 	 	matchedFlag = removeAssignedStudents(studentListForEachProjectId, projectToStudentMap)
 
  	matchProjectsWithMoreThanOneStudents(studentListForEachProjectId, studentsData, projectToStudentMap)
+ 	updateDataInDb(projectToStudentMap)
 
- 	context = {}
+	context = {}
 	details1 = []
-	context["matched"] = ""#projectList
+	context["matched"] = createContextForMatchedMatrix()
 	return render(request, 'personal/matchedMatrix.html', context)
+
+
+def createContextForMatchedMatrix():
+	print "\n\n\n"
+	projectsData = createProjectDataDictionary(list(ProjectModel.objects.all()))
+ 	studentsData = createStudentDataDictionary(list(Student.objects.all()))
+ 	studentListForEachProjectId = getNewStudentToProjectMaps(projectsData, studentsData)
+ 	print "studentListForEachProjectId:   ", studentListForEachProjectId
+ 	context = {}
+
+ 	for projectId in projectsData:
+ 		rowData = {}
+ 		rowData["project_id"] = projectId
+ 		rowData["project_name"] = projectsData[projectId].Appr_Title
+ 		studentId = projectsData[projectId].Student_Selected
+ 		print "studentId:  ", studentId
+ 		if (studentId != "-1"):
+	 		student = studentsData[studentId]
+	 		rowData["student_name"] = student.First_Name + " " + student.Last_Name
+	 		rowData["student_gpa"] = student.GPA
+	 		rowData["primary_major"] = student.Primary_Major
+	 		rowData["project_preferance"] = getProjectPreferance(student, projectId)
+	 		rowData["req1_satisfied"] = "True"
+	 		rowData["req2_satisfied"] = "True"
+	 		rowData["req3_satisfied"] = "True"
+	 		rowData["skillset_1"] = student.Skills_1
+	 		rowData["skillset_2"] = student.Skills_2
+	 		rowData["skillset_3"] = student.Skills_3
+	 		rowData["studentOption"] = studentListForEachProjectId[projectId]
+			
+			print "\n*****", studentListForEachProjectId[projectId]
+			print "\nRowData: ",rowData
+	 		context.update(rowData)
+	 	else :
+	 		rowData["student_name"] = ""
+	 		rowData["student_gpa"] = ""
+	 		rowData["primary_major"] = ""
+	 		rowData["project_preferance"] = ""
+	 		rowData["req1_satisfied"] = ""
+	 		rowData["req2_satisfied"] = ""
+	 		rowData["req3_satisfied"] = ""
+	 		rowData["skillset_1"] = ""
+	 		rowData["skillset_2"] = ""
+	 		rowData["skillset_3"] = ""
+	 		rowData["studentOption"] = {}
+			
+			print "\n*****", studentListForEachProjectId[projectId]
+			print "\nRowData: ",rowData
+	 		context.update(rowData)	 		
+
+ 	return context
+
+
+def getNewStudentToProjectMaps(projectsData, studentsData):
+	studentListForEachProjectId = {}
+
+	for projectId in projectsData:
+		studentListForEachProjectId[str(projectId)] = []
+
+	for student in studentsData.values():		
+		if student.First_Preference != "0" and str(student.Student_Id) not in studentListForEachProjectId[student.First_Preference] and ifStudentSatisfyBareMinimumReqOfProject(student, projectsData[student.First_Preference]):
+			name = str(student.Student_Id)+":"+student.First_Name + " " + student.Last_Name
+			d = (str(student.Student_Id), name)
+			studentListForEachProjectId[str(student.First_Preference)].append(d)
+		
+		if student.Two_Preference != "0" and  str(student.Student_Id) not in studentListForEachProjectId[student.Two_Preference] and ifStudentSatisfyBareMinimumReqOfProject(student, projectsData[student.Two_Preference]):
+			name = str(student.Student_Id)+":"+student.First_Name + " " + student.Last_Name
+			d = (str(student.Student_Id), name)
+			studentListForEachProjectId[str(student.Two_Preference)].append(d)
+		
+		if student.Three_Preference != "0" and  str(student.Student_Id) not in studentListForEachProjectId[student.Three_Preference] and ifStudentSatisfyBareMinimumReqOfProject(student, projectsData[student.Three_Preference]):
+			name = str(student.Student_Id)+":"+student.First_Name + " " + student.Last_Name
+			d = (str(student.Student_Id), name)
+			studentListForEachProjectId[str(student.Three_Preference)].append(d)
+		
+		if student.Four_Preference != "0" and  str(student.Student_Id) not in studentListForEachProjectId[student.Four_Preference] and ifStudentSatisfyBareMinimumReqOfProject(student, projectsData[student.Four_Preference]):
+			name = str(student.Student_Id)+":"+student.First_Name + " " + student.Last_Name
+			d = (str(student.Student_Id), name)
+			studentListForEachProjectId[str(student.Four_Preference)].append(d)
+		
+		if student.Five_Preference != "0" and str(student.Student_Id) not in studentListForEachProjectId[student.Five_Preference] and ifStudentSatisfyBareMinimumReqOfProject(student, projectsData[student.Five_Preference]):
+			name = str(student.Student_Id)+":"+student.First_Name + " " + student.Last_Name
+			d = (str(student.Student_Id), name)
+			studentListForEachProjectId[str(student.Five_Preference)].append(d)
+
+
+	return studentListForEachProjectId
+
+
+def getProjectPreferance(student, projectId):
+	if student.First_Preference == str(projectId):
+		return "First" 
+	elif student.Two_Preference == str(projectId):
+		return "Second"
+	elif student.Three_Preference == str(projectId):
+		return "Third"
+	elif student.Four_Preference == str(projectId):
+		return "Fourth"
+	elif student.Five_Preference == str(projectId):
+		return "Fifth"
+
+
+def updateDataInDb(projectToStudentMap):
+	reverseMap = reverseprojectToStudentMap(projectToStudentMap)
+	
+	projects = list(ProjectModel.objects.all())
+	
+	students = list(Student.objects.all())
+
+	for project in projects:
+		project.Student_Selected = projectToStudentMap[str(project.Id)]        
+		project.save()
+
+	for student in students:
+		if str(student.Student_Id) in reverseMap:
+			student.Project_selected_for = reverseMap[str(student.Student_Id)]        
+			student.save()
+
+
+def reverseprojectToStudentMap(projectToStudentMap):
+	reverseprojectToStudentMap = {}
+	for projectId in projectToStudentMap:
+		reverseprojectToStudentMap[projectToStudentMap[projectId]] = projectId
+	#print "reverseprojectToStudentMap: ", reverseprojectToStudentMap
+	return reverseprojectToStudentMap
 
 
 def removeStudentsWhoDontSatisfyBareMinimumReq(studentsData):
