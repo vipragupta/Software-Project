@@ -29,28 +29,38 @@
 			return cookieValue;
 		}
 		
-		context = {};
 		
 		$(document).ready(function() {
-		
+		var id = {};
 		$(".selectlist").change(function(){
-			var student_id = $(this).val();
-			alert("Student ID: " + student_id);
-           /* $.ajax({
+			var data1 = $(this).val();
+			data2 = data1.split(":");
+			id[data2[0]]=data2[1];
+			//alert("Student ID: " + data2);
+        });
+		
+		$(function() {
+				$("#submitbutton").click( function(){
+				//alert(id);
+				
+				$.ajax({
                 type : "POST",
-                url : "{% url 'editEligibleStudents' %}",
+                url : "{% url 'matchedMatrix' %}",
                 data : {
                     id : id,
                     csrfmiddlewaretoken: getCookie('csrftoken')
                 },
 				success:function(context)
 				{
-					alert("Respone = " + context);
-					printContext(context);
+					alert("Student data overridden successfully");
 				},
-            });*/
-        });
-    }); 
+				});
+			});
+					
+		});
+		});
+		
+     
 	
 </script>
 </head>
@@ -110,9 +120,9 @@
 						<td>{{item.skillset_2}}</td>
 						<td>{{item.skillset_3}}</td>
 						<td><select class = "selectlist" id="selectlist" onchange = "ShowHideDiv();">
-								<option class = "selectlist" value="None">None</option>
+								<option class = "selectlist" value="{{item.project_id}}:None">None</option>
 								{% for name in item.studentOption %}
-								<option id="{{name.1}}">{{name.1}}</option>
+								<option value="{{name.0}}">{{name.1}}</option>
 								{% endfor %}
 							</select>
 							
@@ -128,7 +138,6 @@
 			</table>
 			<section class="pressbutton">
 				<button id="submitbutton">Save Selections</button>
-                <button type="reset" id="clearbutton">Clear</button>
             </section>
 		</div>
 	</div>
