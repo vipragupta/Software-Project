@@ -717,8 +717,10 @@ def removeSelectedStudents(projectsData, studentsData):
 		i += 1
 
 	for projectId in removeProjectIds:
-		del studentsData[removeProjectIds[projectId]]
-		del projectsData[projectId]
+		if removeProjectIds[projectId] in studentsData:
+			del studentsData[removeProjectIds[projectId]]
+		if projectId in projectsData:
+			del projectsData[projectId]
 		list.append(projectId)
 
 	return list
