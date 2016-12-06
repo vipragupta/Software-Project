@@ -11,14 +11,40 @@
 	<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> 
     <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.9.1/jquery.tablesorter.min.js"></script>
     <script type="text/javascript" src="/static/personal/js/script.js"></script>
+	
 	<script>
-		$(function(){
-			$("tbody tr").click(function(){
-			var row = $(this).find('td:first').text();
-			alert('You clicked ' + row);
-			});
-		});
-	</script>
+		
+		function getCookie(name) {
+			var cookieValue = null;
+			if (document.cookie && document.cookie != '') {
+				var cookies = document.cookie.split(';');
+				for (var i = 0; i < cookies.length; i++) {
+					var cookie = jQuery.trim(cookies[i]);
+					if (cookie.substring(0, name.length + 1) == (name + '=')) {
+						cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+						break;
+					}
+				}
+			}
+			return cookieValue;
+		}
+		
+		$(document).ready(function() {
+        $(".edit_button").click(function(){
+			var id = $(this).attr('id');
+			alert(id);
+            $.ajax({
+                type : "POST",
+                url : "{% url 'editEligibleStudents' %}",
+                data : {
+                    id : id,
+                    csrfmiddlewaretoken: getCookie('csrftoken')
+                }
+            });
+        });
+    });
+		
+</script>
 </head>
 
 <body id="facultyhome">
@@ -62,7 +88,7 @@
 				
 				<tbody>
 						<tr>
-						<td>001</td>
+						<td>14</td>
 						<td>TSP</td>
 						<td>Chai</td>
 						<td>3.5</td>
@@ -74,7 +100,7 @@
 						<td>Python</td>
 						<td>C</td>
 						<td>C++</td>
-						<td><a href={% url "editEligibleStudents" %}><button id="editbutton">Edit</button></a></td>
+						<td><button class="edit_button" id="14">Edit</button></td>
 						</tr>
 				</tbody>
 				
