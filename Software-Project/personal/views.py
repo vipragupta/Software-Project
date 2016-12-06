@@ -264,7 +264,7 @@ def Temporary():
         proj.save()
     return
 
-	
+"""	
 #this is editing for faculties and admins
 def editEligibleStudents(request):
 	print "HELOOOOOOOOOO"
@@ -276,44 +276,30 @@ def editEligibleStudents(request):
 				id = request.POST['id']
 				print "Project ID",id
 				# doSomething with ID here...
-				return HttpResponseRedirect('personal/editEligibleStudents.html')
+				#return HttpResponseRedirect('personal/editEligibleStudents.html')
+				return render(request, 'personal/editEligibleStudents.html', context)
    
 	
 """	
 def editEligibleStudents(request):
 	context = {}
-	print "hello in eligible"
-	
-	if request.is_ajax():
-		object_name = request.POST.get('entryname')
-		print object_name
-		return HttpResponseRedirect('personal/editEligibleStudents.html')
-	else:
-		return render(request, 'personal/facultyhome.html',context)
-	
-	
-	if request.method == "POST":
-		return render(request, 'personal/editEligibleStudents.html', context)
 
-	return render(request, 'personal/facultyhome.html',context)
-	
-        params = request.content_params
-        print params
-        
-        if params.has_key("Id"):
-            projectId = params["Id"]
-            students = getStudentList(projectId)
-
-            context["students"] = students
-			arr = []
-            for student in students:
-                name = student.First_Name + " ".decode("utf-8") + student.Last_Name
-                arr.append([student.Student_Id, name, student.GPA, student.Primary_Major] )                
+	if request.method == 'POST':
+		if request.is_ajax():
+			if 'id' in request.POST:
+				projectId = request.POST['id']
+				print projectId
+				students = getStudentList(projectId)
+				arr = []
+				for student in students:
+					name = student.First_Name + " ".decode("utf-8") + student.Last_Name
+					arr.append([student.Student_Id, name, student.GPA, student.Primary_Major] )                
                 
-            context["students"] = arr
+				context["students"] = arr
+				print context
     
-    return render(request, 'personal/editEligibleStudents.html', context)
-		"""
+	return render(request, 'personal/editEligibleStudents.html', context)
+
 
 #Use this function to get students that are eligible for a project.
 def getStudentList(projectId):
