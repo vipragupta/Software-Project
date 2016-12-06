@@ -93,9 +93,9 @@
 				</thead>
 				
 				<tbody>
-					{% for each_item in matched.items %}
+					{% for key,value in matched.items %}
 						<tr>
-						<td>{{matched.projectId}}</td>
+						<td>{{}}</td>
 						<td>{{project.projectName}}</td>
 						<td>{{student.studentName}}</td>
 						<td>{{student.studentGpa}}</td>
@@ -107,43 +107,27 @@
 						<td>{{student.skill1}}</td>
 						<td>{{student.skill2}}</td>
 						<td>{{student.skill3}}</td>
-						</tr>
-						{% endfor %}
-					{% endfor %}
-				</tbody>
-				
-				<tbody>
-						<tr>
-						<td>14</td>
-						<td>TSP</td>
-						<td>Chai</td>
-						<td>3.5</td>
-						<td>Computer Science</td>
-						<td>Project 1</td>
-						<td>True</td>
-						<td>True</td>
-						<td>True</td>
-						<td>Python</td>
-						<td>C</td>
-						<td>C++</td>
-						<td><form method="POST" class="addprojects-form">{% csrf_token %}
-							<select id="selectlist" onchange = "ShowHideDiv();">
-							<option value="None">None</option>
-							{% for n,val in student_list.items %}
-							<option value="{{n}}">{{n}}</option>
-							{% endfor %}
+						<td><select id="selectlist" onchange = "ShowHideDiv();">
+								<option value="None">None</option>
+								{% for n,val in student_list.items %}
+								<option value="{{n}}">{{n}}</option>
+								{% endfor %}
 							</select>
 							
 						</td>
 						</tr>
+					{% endfor %}
 				</tbody>
+				
+				
+						
+						
 				
 			</table>
 			<section class="pressbutton">
 				<button id="submitbutton">Save Selections</button>
                 <button type="reset" id="clearbutton">Clear</button>
             </section>
-			</form>
 		</div>
 	</div>
 	
