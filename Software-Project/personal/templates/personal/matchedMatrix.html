@@ -36,12 +36,10 @@
 			var data1 = $(this).val();
 			data2 = data1.split(":");
 			id[data2[0]]=data2[1];
-			//alert("Student ID: " + data2);
         });
 		
 		$(function() {
 				$("#submitbutton").click( function(){
-				//alert(id);
 				
 				$.ajax({
                 type : "POST",
@@ -52,7 +50,7 @@
                 },
 				success:function(context)
 				{
-					alert("Student data overridden successfully");
+					location.reload();
 				},
 				});
 			});
@@ -130,11 +128,6 @@
 						</tr>
 					{% endfor %}
 				</tbody>
-				
-				
-						
-						
-				
 			</table>
 			<section class="pressbutton">
 				<button id="submitbutton">Save Selections</button>
