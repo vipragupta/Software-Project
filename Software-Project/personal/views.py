@@ -303,7 +303,16 @@ def editEligibleStudents(request):
         if params.has_key("Id"):
             projectId = params["Id"]
             students = getStudentList(projectId)
+
             context["students"] = students
+			arr = []
+            for student in students:
+                name = student.First_Name + " ".decode("utf-8") + student.Last_Name
+                arr.append([student.Student_Id, name, student.GPA, student.Primary_Major] )                
+                
+            context["students"] = arr
+    
+    return render(request, 'personal/editEligibleStudents.html', context)
 		"""
 
 #Use this function to get students that are eligible for a project.
@@ -496,11 +505,10 @@ def matchedMatrix(request):
  		print "***studentListForEachProjectId: ", studentListForEachProjectId
 	 	discardProjectsWithZeroStudents(studentListForEachProjectId, projectToStudentMap)
 	 	matchProjectsWithOneStudents(studentListForEachProjectId, studentsData, projectToStudentMap, projectsData)
-	 	matchedFlag = removeAssignedStudents(studentListForEachProjectId, studentsData, projectToStudentMap)
+	 	matchedFlag = removeAssignedStudents(studentListForEachProjectId, projectToStudentMap)
 
  	matchProjectsWithMoreThanOneStudents(studentListForEachProjectId, studentsData, projectToStudentMap)
 
-	print "Hello stupid"
  	context = {}
 	details1 = []
 	context["matched"] = ""#projectList
@@ -520,7 +528,9 @@ def removeStudentsWhoDontSatisfyBareMinimumReq(studentsData):
 			removeStudentList.append(studentId)
 		elif student.Level == "FSE":
 			removeStudentList.append(studentId)
-		print studentId, student.Degree_Level, student.Availability, student.Got_DLA_Before, student.Level
+		'''elif student.Enrollment  == "1":
+			removeStudentList.append(studentId)'''
+		#print studentId, student.Degree_Level, student.Availability, student.Got_DLA_Before, student.Level
 	
 	print "Students who don't meet requirements: ", removeStudentList
 
@@ -529,7 +539,7 @@ def removeStudentsWhoDontSatisfyBareMinimumReq(studentsData):
 
 
 
-def removeAssignedStudents(studentListForEachProjectId, studentsData, projectToStudentMap):
+def removeAssignedStudents(studentListForEachProjectId, projectToStudentMap):
 	flag = 0
 
 	for allotedProjectId in projectToStudentMap:
@@ -539,8 +549,15 @@ def removeAssignedStudents(studentListForEachProjectId, studentsData, projectToS
 				studentListForEachProjectId[projectId].remove(studentId)
 				flag = 1
 
-	print "&&&", studentListForEachProjectId
+	#print "&&&", studentListForEachProjectId
 	return flag
+
+def removeAssignedStudents(studentListForEachProjectId, studentId):
+	#print "removing...", studentId
+	for projectId in studentListForEachProjectId:
+		if studentId in studentListForEachProjectId[projectId]:
+			studentListForEachProjectId[projectId].remove(studentId)
+
 
 
 def removeSelectedStudents(projectsData, studentsData):
@@ -577,27 +594,29 @@ def getStudentToProjectMaps(projectsData, studentsData):
 		studentListForEachProjectId[str(projectId)] = []
 
 	for student in studentsData.values():		
-		print "StudentPreferance: ", str(student.Student_Id), student.First_Preference, student.Two_Preference, student.Three_Preference, student.Four_Preference , student.Five_Preference 
-		getStudentListForEachProjectId(student, studentListForEachProjectId)
+		#print "StudentPreferance: ", str(student.Student_Id), student.First_Preference, student.Two_Preference, student.Three_Preference, student.Four_Preference , student.Five_Preference 
+		getStudentListForEachProjectId(student,  projectsData, studentListForEachProjectId)
 
 	return studentListForEachProjectId
 
 
-def getStudentListForEachProjectId(student, studentListForEachProjectId):
+def getStudentListForEachProjectId(student, projectsData, studentListForEachProjectId):
 
-	if student.First_Preference != "0" and  str(student.Student_Id) not in studentListForEachProjectId[student.First_Preference]:
+	#print student.Student_Id, student.First_Preference, (str(student.Student_Id) not in studentListForEachProjectId[student.First_Preference]), (ifStudentSatisfyBareMinimumReqOfProject(student, projectsData[student.First_Preference]))
+
+	if student.First_Preference != "0" and str(student.Student_Id) not in studentListForEachProjectId[student.First_Preference] and ifStudentSatisfyBareMinimumReqOfProject(student, projectsData[student.First_Preference]):
 		studentListForEachProjectId[str(student.First_Preference)].append(str(student.Student_Id))
 		
-	if student.Two_Preference != "0" and  str(student.Student_Id) not in studentListForEachProjectId[student.Two_Preference]:
+	if student.Two_Preference != "0" and  str(student.Student_Id) not in studentListForEachProjectId[student.Two_Preference] and ifStudentSatisfyBareMinimumReqOfProject(student, projectsData[student.Two_Preference]):
 		studentListForEachProjectId[str(student.Two_Preference)].append(str(student.Student_Id))
 	
-	if student.Three_Preference != "0" and  str(student.Student_Id) not in studentListForEachProjectId[student.Three_Preference]:
+	if student.Three_Preference != "0" and  str(student.Student_Id) not in studentListForEachProjectId[student.Three_Preference] and ifStudentSatisfyBareMinimumReqOfProject(student, projectsData[student.Three_Preference]):
 		studentListForEachProjectId[str(student.Three_Preference)].append(str(student.Student_Id))
 	
-	if student.Four_Preference != "0" and  str(student.Student_Id) not in studentListForEachProjectId[student.Four_Preference]:
+	if student.Four_Preference != "0" and  str(student.Student_Id) not in studentListForEachProjectId[student.Four_Preference] and ifStudentSatisfyBareMinimumReqOfProject(student, projectsData[student.Four_Preference]):
 		studentListForEachProjectId[str(student.Four_Preference)].append(str(student.Student_Id))
 	
-	if student.Five_Preference != "0" and str(student.Student_Id) not in studentListForEachProjectId[student.Five_Preference]:
+	if student.Five_Preference != "0" and str(student.Student_Id) not in studentListForEachProjectId[student.Five_Preference] and ifStudentSatisfyBareMinimumReqOfProject(student, projectsData[student.Five_Preference]):
 		studentListForEachProjectId[str(student.Five_Preference)].append(str(student.Student_Id))
 
 
@@ -611,27 +630,29 @@ def discardProjectsWithZeroStudents(studentListForEachProjectId, projectToStuden
 
 def ifStudentSatisfyBareMinimumReqOfProject(student, project):
 	flag = True
-	if student.First_Preference == project.Id:
+	#print "$$$",student.Student_Id, student.First_Preference, student.P1_Req1, student.P1_Req2, student.P1_Req3
+	#print (project.Requirement1 != "None"), (student.P1_Req1 == "0"), (project.Requirement2 != "None"), (student.P1_Req2 == "0"), (project.Requirement1 != "None"),(student.P1_Req3 == "0")
+	if student.First_Preference == str(project.Id):
 		if (project.Requirement1 != "None" and student.P1_Req1 == "0") and (project.Requirement2 != "None" and student.P1_Req2 == "0") and (project.Requirement1 != "None" and student.P1_Req3 == "0"):
 			return False 
-	elif student.Two_Preference == project.Id:
-		if student.P2_Req1 == "0" and student.P2_Req2 == "0" and student.P2_Req3 == "0":
+	elif student.Two_Preference == str(project.Id):
+		if (project.Requirement1 != "None" and student.P2_Req1 == "0") and (project.Requirement2 != "None" and student.P2_Req2 == "0") and (project.Requirement1 != "None" and student.P2_Req3 == "0"):
 			return False
-	elif student.Three_Preference == project.Id:
-		if student.P3_Req1 == "0" and student.P3_Req2 == "0" and student.P3_Req3 == "0":
+	elif student.Three_Preference == str(project.Id):
+		if (project.Requirement1 != "None" and student.P3_Req1 == "0") and (project.Requirement2 != "None" and student.P3_Req2 == "0") and (project.Requirement1 != "None" and student.P3_Req3 == "0"):
 			return False
-	elif student.Four_Preference == project.Id:
-		if student.P4_Req1 == "0" and student.P4_Req2 == "0" and student.P4_Req3 == "0":
+	elif student.Four_Preference == str(project.Id):
+		if (project.Requirement1 != "None" and student.P4_Req1 == "0") and (project.Requirement2 != "None" and student.P4_Req2 == "0") and (project.Requirement1 != "None" and student.P4_Req3 == "0"):
 			return False
-	elif student.Five_Preference == project.Id:
-		if student.P5_Req1 == "0" and student.P5_Req2 == "0" and student.P5_Req3 == "0":
+	elif student.Five_Preference == str(project.Id):
+		if (project.Requirement1 != "None" and student.P5_Req1 == "0") and (project.Requirement2 != "None" and student.P5_Req2 == "0") and (project.Requirement1 != "None" and student.P5_Req3 == "0"):
 			return False
 
 	if student.GPA < project.Min_GPA:
-		print "GPA is less"
+		#print "GPA is less"
 		return False
 
-	print student.Student_Id, project.Id, "Student satisfies Project Requirements: ", flag
+	#print student.Student_Id, project.Id, "Student satisfies Project Requirements: ", flag
 	return flag
 
 
@@ -664,7 +685,7 @@ def getStudentsPreferenceNumber(studentId, ProjectIds, studentData, projectToStu
 
 	for projectId in ProjectIds:
 		student = studentData[studentId]
-		print student.First_Preference, student.Two_Preference, student.Three_Preference, student.Four_Preference, student.Five_Preference
+		#print student.First_Preference, student.Two_Preference, student.Three_Preference, student.Four_Preference, student.Five_Preference
 		if student.First_Preference == projectId:
 			projectPreferance[projectId] = 1
 		elif student.Two_Preference == projectId:
@@ -701,8 +722,114 @@ def getBestPreferanceProject(projectPreferance):
 
 
 def matchProjectsWithMoreThanOneStudents(studentListForEachProjectId, studentsData, projectToStudentMap):
-	print ""
-	'''
+	studentIdToScore = {}
+
 	for projectId in studentListForEachProjectId:
 		if projectId not in projectToStudentMap:
-	'''
+			studentIdToScore = {}
+			print "\n\nstarting for project Id: ", projectId
+			print "studentListForEachProjectId:  ", studentListForEachProjectId[projectId]
+			
+			for studentId in studentListForEachProjectId[projectId]:
+				studentIdToScore[studentId] = getStudentScore(studentsData[studentId], projectId)
+
+			projectToStudentMap[projectId] = getBestScoreStudentId(studentIdToScore, studentsData)
+			removeAssignedStudents(studentListForEachProjectId, projectToStudentMap[projectId])
+			discardProjectsWithZeroStudents(studentListForEachProjectId, projectToStudentMap)
+			print "projectToStudentMap:  ", projectToStudentMap
+
+
+def getBestScoreStudentId(studentIdToScore, studentsData):
+	
+	bestScore = 0
+	studentIds = []
+	print "StudentScores: ", studentIdToScore
+	for studentId in studentIdToScore:
+	#	print studentIdToScore[studentId], bestScore, (studentIdToScore[studentId] > bestScore)
+		if studentIdToScore[studentId] > bestScore:
+			bestScore = studentIdToScore[studentId]
+			studentIds = [studentId]
+		elif studentIdToScore[studentId] == bestScore:
+			studentIds.append(studentId)
+	#print "bestScore: ", bestScore, studentIds
+	if len(studentIds) == 1:
+		return studentIds[0]
+	else:
+		return tieBreaker(studentIds, studentsData)
+
+
+
+def getStudentScore(student, projectId):	
+	#print "Student Data: ", student.Student_Id, student.Previous_Research, student.Applied_Before, student.Level, student.Gender, student.Race, student.GPA
+	score = 0
+	if student.Previous_Research == "1":
+		score +=1
+
+	if student.Applied_Before == "1":
+		score +=1
+
+	if student.Level == "F":
+		score +=1
+	elif student.Level == "SO":
+		score +=2
+	elif student.Level == "J":
+		score +=3
+	elif student.Level == "SE":
+		score +=4
+	
+	if student.First_Preference == projectId:
+		score += 5
+	elif student.Two_Preference == projectId:
+		score += 4
+	elif student.Three_Preference == projectId:
+		score += 3
+	elif student.Four_Preference == projectId:
+		score += 2
+	elif student.Five_Preference == projectId:
+		score += 1
+	return score
+
+
+def tieBreaker(studentIds, studentData):
+	#print "IN tieBreaker..."
+	studentTieBreakerScore = {}
+	
+	for studentId in studentIds:
+		student = studentData[studentId]
+		score = 0
+		if student.Gender == "F":
+			score +=2
+		elif student.Gender == "M":
+			score +=1
+
+		if student.Race == "AI_AN":
+			score +=1
+		elif student.Race == "B_AA":
+			score +=1
+		elif student.Race =="NH_OPI":
+			score +=1
+		studentTieBreakerScore[studentId] = score
+
+	bestScore = 0
+	studentTieIds = []
+
+	#print "studentTieBreakerScore:  ", studentTieBreakerScore
+
+	for studentId in studentTieBreakerScore:
+		if studentTieBreakerScore[studentId] > bestScore:
+			studentTieIds = [studentId]
+		elif studentTieBreakerScore[studentId] == bestScore:
+			studentTieIds.append(studentId)
+	
+	#print "studentTieIds:   ", studentTieIds
+
+	if len(studentTieIds) == 1:
+		return studentTieIds[0]
+	else:
+		bestGpa = 0
+		bestStudent = 0
+		for studentId in studentTieIds:
+			if studentData[studentId].GPA > bestGpa:
+				bestGpa = studentData[studentId].GPA
+				bestStudent = studentId
+		return bestStudent
