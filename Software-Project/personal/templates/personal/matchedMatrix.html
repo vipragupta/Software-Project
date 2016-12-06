@@ -13,7 +13,7 @@
     <script type="text/javascript" src="/static/personal/js/script.js"></script>
 	
 	<script>
-		/*
+		
 		function getCookie(name) {
 			var cookieValue = null;
 			if (document.cookie && document.cookie != '') {
@@ -32,9 +32,11 @@
 		context = {};
 		
 		$(document).ready(function() {
-        $(".edit_button").click(function(){
-			var id = $(this).attr('id');
-            $.ajax({
+		
+		$(".selectlist").change(function(){
+			var student_id = $(this).val();
+			alert("Student ID: " + student_id);
+           /* $.ajax({
                 type : "POST",
                 url : "{% url 'editEligibleStudents' %}",
                 data : {
@@ -46,9 +48,9 @@
 					alert("Respone = " + context);
 					printContext(context);
 				},
-            });
+            });*/
         });
-    }); */
+    }); 
 	
 </script>
 </head>
@@ -93,24 +95,24 @@
 				</thead>
 				
 				<tbody>
-					{% for key,value in matched.items %}
+					{% for item in matched %}
 						<tr>
-						<td>{{}}</td>
-						<td>{{project.projectName}}</td>
-						<td>{{student.studentName}}</td>
-						<td>{{student.studentGpa}}</td>
-						<td>{{student.major}}</td>
-						<td>{{student.preferance}}</td>
-						<td>{{student.req1}}</td>
-						<td>{{student.req2}}</td>
-						<td>{{student.req3}}</td>
-						<td>{{student.skill1}}</td>
-						<td>{{student.skill2}}</td>
-						<td>{{student.skill3}}</td>
-						<td><select id="selectlist" onchange = "ShowHideDiv();">
-								<option value="None">None</option>
-								{% for n,val in student_list.items %}
-								<option value="{{n}}">{{n}}</option>
+						<td>{{item.project_id}}</td>
+						<td>{{item.project_name}}</td>
+						<td>{{item.student_name}}</td>
+						<td>{{item.student_gpa}}</td>
+						<td>{{item.primary_major}}</td>
+						<td>{{item.project_preferance}}</td>
+						<td>{{item.req1_satisfied}}</td>
+						<td>{{item.req2_satisfied}}</td>
+						<td>{{item.req3_satisfied}}</td>
+						<td>{{item.skillset_1}}</td>
+						<td>{{item.skillset_2}}</td>
+						<td>{{item.skillset_3}}</td>
+						<td><select class = "selectlist" id="selectlist" onchange = "ShowHideDiv();">
+								<option class = "selectlist" value="None">None</option>
+								{% for name in item.studentOption %}
+								<option id="{{name.1}}">{{name.1}}</option>
 								{% endfor %}
 							</select>
 							

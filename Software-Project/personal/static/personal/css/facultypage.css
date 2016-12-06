@@ -160,6 +160,17 @@ a.addprojectsbutton {
   text-align: left; 
 }
 
+.selectlist {
+	width: 200px;
+	padding:5px;
+	font-family:Lato;
+	
+	color:black;
+}
+
+
+
+
 /*----------------------Body of Add Projects Form Page---------------------------*/
 .form form{
 	margin: 0 auto;
