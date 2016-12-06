@@ -460,9 +460,18 @@ def logout(request):
 
 
 
-def matchedMatrix(request):
 
- 	projectsData = createProjectDataDictionary(list(ProjectModel.objects.all()))
+
+def matchedMatrix(request):
+	matchedMatrixAlgorithm()
+	context = {}
+	details1 = []
+	context["matched"] = createContextForMatchedMatrix()
+	return render(request, 'personal/matchedMatrix.html', context)
+
+
+def matchedMatrixAlgorithm():
+	projectsData = createProjectDataDictionary(list(ProjectModel.objects.all()))
  	studentsData = createStudentDataDictionary(list(Student.objects.all()))
  	projectToStudentMap = {}					#value as -1 means that no student applied for that projectremoveStudentsWhoDontSatisfyBareMinimumReq
  	removeStudentsWhoDontSatisfyBareMinimumReq(studentsData)
@@ -480,26 +489,21 @@ def matchedMatrix(request):
  	matchProjectsWithMoreThanOneStudents(studentListForEachProjectId, studentsData, projectToStudentMap)
  	updateDataInDb(projectToStudentMap)
 
-	context = {}
-	details1 = []
-	context["matched"] = createContextForMatchedMatrix()
-	return render(request, 'personal/matchedMatrix.html', context)
-
 
 def createContextForMatchedMatrix():
 	print "\n\n\n"
 	projectsData = createProjectDataDictionary(list(ProjectModel.objects.all()))
  	studentsData = createStudentDataDictionary(list(Student.objects.all()))
  	studentListForEachProjectId = getNewStudentToProjectMaps(projectsData, studentsData)
- 	print "studentListForEachProjectId:   ", studentListForEachProjectId
- 	context = {}
+ 	#print "studentListForEachProjectId:   ", studentListForEachProjectId
+ 	context = []
 
  	for projectId in projectsData:
  		rowData = {}
  		rowData["project_id"] = projectId
  		rowData["project_name"] = projectsData[projectId].Appr_Title
  		studentId = projectsData[projectId].Student_Selected
- 		print "studentId:  ", studentId
+ 		#print "studentId:  ", studentId
  		if (studentId != "-1"):
 	 		student = studentsData[studentId]
 	 		rowData["student_name"] = student.First_Name + " " + student.Last_Name
@@ -516,8 +520,8 @@ def createContextForMatchedMatrix():
 			
 			print "\n*****", studentListForEachProjectId[projectId]
 			print "\nRowData: ",rowData
-	 		context.update(rowData)
-	 	else :
+	 		context.append(rowData)
+	 	else:
 	 		rowData["student_name"] = ""
 	 		rowData["student_gpa"] = ""
 	 		rowData["primary_major"] = ""
@@ -530,10 +534,12 @@ def createContextForMatchedMatrix():
 	 		rowData["skillset_3"] = ""
 	 		rowData["studentOption"] = {}
 			
-			print "\n*****", studentListForEachProjectId[projectId]
-			print "\nRowData: ",rowData
-	 		context.update(rowData)	 		
+			#print "\n*****", studentListForEachProjectId[projectId]
+			#print "\nRowData: ",rowData
+	 		context.append(rowData)	 		
 
+	print "\n\nContext: ", len(context)
+	print "Context: ", context
  	return context
 
 
