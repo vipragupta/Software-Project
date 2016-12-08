@@ -1060,7 +1060,7 @@ def matrixtoxcel():
         ct = ct + 1
     
     df = pd.DataFrame(nac)
-    #print df    
-    df.to_excel('test.xlsx', sheet_name='sheet1', index=False)
+    #print df
+    df.to_excel('personal/static/personal/test.xlsx', sheet_name='sheet1', index=False)
     #print values
     
