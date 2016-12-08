@@ -252,6 +252,7 @@ def rawmatrix(request):
 	#Temporary()
       
 	context["projectData"] = projectList
+	matrixtoxcel()
 	return render(request, 'personal/raw_data_matrix.html', context)
  
 #This is temporary database modification, not part of logic
@@ -987,3 +988,77 @@ def tieBreaker(studentIds, studentData):
 				bestGpa = studentData[studentId].GPA
 				bestStudent = studentId
 		return bestStudent
+  
+def matrixtoxcel():
+
+    projects = list(ProjectModel.objects.all())
+    students = list(Student.objects.all())
+    projlen = len(projects)
+    studlen = len(students)
+    labels = ["Student Name", "Primary Major", "Level in school", "GPA", "Gender", "Ethinicity", "Prev Exp", "Applied Before"]
+    extras = len(labels)
+    for i in projects:
+        labels.append(i.Appr_Title)
+    print labels
+    
+    values = [ ["" for j in range(len(students))] for j in range(len(labels))]
+    
+    print "rows =", len(values)
+    print "cols =", len(values[0])
+        
+    
+    rowct = 0
+
+    for stud in students:            
+        colct = extras
+                
+        for proj in projects:
+
+            projectId = proj.Id
+            cell = []
+            if (stud.First_Preference == str(projectId)):
+			cell.append("1")
+            if (stud.Two_Preference == str(projectId)):
+			cell.append("2")
+            if (stud.Three_Preference == str(projectId)):
+			cell.append("3")
+            if (stud.Four_Preference == str(projectId)):
+			cell.append("4")
+            if (stud.Five_Preference == str(projectId)):
+			cell.append("5")
+            #print rowct, colct, "\n"
+
+            if cell != []:                
+                values[colct][rowct] = ', '.join(cell)               
+            
+            colct = colct + 1
+            
+        rowct = rowct + 1  
+    
+    
+    for i in range(studlen):
+        stud = students[i]
+        values[0][i] = stud.First_Name + " ".decode("utf-8") + stud.Last_Name
+        values[1][i] = stud.Primary_Major
+        values[2][i] = stud.Level
+        values[3][i] = stud.GPA
+        values[4][i] = stud.Gender
+        values[5][i] = stud.Race
+        values[6][i] = stud.Previous_Research
+        values[7][i] = stud.Applied_Before
+    #print labels
+    #print values
+    
+    nac = {}
+    
+    ct = 0
+    for i in labels:
+        nac[i] = values[ct]
+        print i
+        print values[ct]
+        ct = ct + 1
+    
+    df = pd.DataFrame(nac)
+    #print df    
+    df.to_excel('../test.xlsx', sheet_name='sheet1', index=False)
+    #print values
