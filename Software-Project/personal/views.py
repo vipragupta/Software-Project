@@ -17,6 +17,7 @@ from .forms import *
 from .models import DEPARTMENT as DEP
 from django.db.models import Q
 import copy
+import pandas as pd
 
 #-------------Create your views here-------------------------
 def home(request):
@@ -1060,5 +1061,6 @@ def matrixtoxcel():
     
     df = pd.DataFrame(nac)
     #print df    
-    df.to_excel('../test.xlsx', sheet_name='sheet1', index=False)
+    df.to_excel('test.xlsx', sheet_name='sheet1', index=False)
     #print values
+    
